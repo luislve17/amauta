@@ -16,8 +16,8 @@ type LintResult struct {
 }
 
 type Node struct {
-	Info     map[string]interface{}
-	Children []*Node
+	Info  map[string]interface{}
+	Links []*Node
 }
 
 type StructureGraph struct {

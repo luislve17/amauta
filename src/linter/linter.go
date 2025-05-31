@@ -27,22 +27,77 @@ func generateGraph(content ManifestContent) (*StructureGraph, error) {
 	root := &Node{
 		Info: map[string]interface{}{
 			"type": "root",
-			"name": "root",
+			"id":   "root",
 		},
-		Children: []*Node{},
+		Links: []*Node{},
 	}
 
 	rawBlocks := extractRawBlocks(content)
-	modules := getModuleNodes(rawBlocks)
-	root.Children = append(root.Children, modules...)
+	tags, tagsErr := getTags(rawBlocks)
+	if tagsErr != nil {
+		return nil, tagsErr
+	}
+	linkNodeOneToMany(root, tags)
+
+	// modules := getModuleNodes(rawBlocks)
+	// root.Children = append(root.Children, modules...)
 
 	graph := StructureGraph{
 		Root: root,
 	}
 
-	graph.printStructure()
-
 	return &graph, nil
+}
+
+func linkNodeOneToMany(mainNode *Node, nodes []*Node) {
+	for _, n := range nodes {
+		n.Links = append(n.Links, mainNode)
+	}
+	mainNode.Links = append(mainNode.Links, nodes...)
+}
+
+func getTags(rawBlocks []string) ([]*Node, error) {
+	headerPattern := regexp.MustCompile(`^\[\[tags\]\]`)
+	tagPatter := regexp.MustCompile(`^([-_\w]+)@(#[A-F|\d]{6}):\s*(.*)`)
+
+	var nodes []*Node
+
+	for _, module := range rawBlocks {
+		lines := strings.Split(module, "\n")
+		if len(lines) == 0 {
+			continue
+		}
+
+		header := strings.TrimSpace(lines[0])
+		foundTagSection := headerPattern.MatchString(header)
+		if !foundTagSection {
+			return nodes, nil
+		}
+
+		for _, tag := range lines[1:] {
+			if tag == "" {
+				break
+			}
+
+			tagMatch := tagPatter.FindStringSubmatch(tag)
+			if len(tagMatch) == 0 {
+				return nil, fmt.Errorf("Invalid tag format: %q", tag)
+			}
+
+			node := &Node{
+				Info: map[string]interface{}{
+					"type":        "tag",
+					"id":          tagMatch[1],
+					"color":       tagMatch[2],
+					"description": tagMatch[3],
+				},
+				Links: []*Node{},
+			}
+			nodes = append(nodes, node)
+		}
+	}
+
+	return nodes, nil
 }
 
 func getModuleNodes(rawBlocks []string) []*Node {
@@ -64,7 +119,7 @@ func getModuleNodes(rawBlocks []string) []*Node {
 				"type": "module",
 				"name": matches[1],
 			},
-			Children: []*Node{},
+			Links: []*Node{},
 		}
 		nodes = append(nodes, node)
 	}
@@ -105,31 +160,4 @@ func extractRawBlocks(content ManifestContent) []string {
 	}
 
 	return blocks
-}
-
-func (g *StructureGraph) printStructure() {
-	fmt.Println(": : : : : : : : : : : : : : : : ")
-	g.Root.printTree("", true)
-	fmt.Println(": : : : : : : : : : : : : : : : ")
-}
-
-func (n *Node) printTree(prefix string, isLast bool) {
-	connector := "├── "
-	if isLast {
-		connector = "└── "
-	}
-
-	fmt.Printf("%s%s'%s'(%s)\n", prefix, connector, n.Info["name"], n.Info["type"])
-
-	newPrefix := prefix
-	if isLast {
-		newPrefix += "    "
-	} else {
-		newPrefix += "│   "
-	}
-
-	for i, child := range n.Children {
-		last := i == len(n.Children)-1
-		child.printTree(newPrefix, last)
-	}
 }

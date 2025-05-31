@@ -1,14 +1,14 @@
 package linter
 
 var validManifest string = `
-[[Users#public,internal]]
-description: Endpoints related to user operations
-
-[tags]
+[[tags]]
 public@#00FF00: Public API
 internal@#AAAAAA: Internal use only
 deprecated@#FF6F61: Will be removed soon
 under-dev@#FFD966: Still under development
+
+[[Users#public,internal]]
+description: Endpoints related to user operations
 
 [request@POST:/v1/users]
 description: Create a new user
@@ -47,4 +47,25 @@ profile:
 metadata:
   source: newsletter
   tags: [beta, test]
+`
+
+var manifestWithValidTags string = `
+[[tags]]
+public@#00FF00: Public API
+internal@#AAAAAA: Internal use only
+deprecated@#FF6F61: Will be removed soon
+under-dev@#FFD966: Still under development
+
+[[AnotherModule]]
+`
+
+var manifestWithInvalidTags string = `
+[[tags]]
+public@#00FF00: Public API
+internal@#AAAAAA: Internal use only
+deprecated@#FF6F61: Will be removed soon
+under-dev@#FFD966: Still under development
+
+[section]
+foo@int: Bar description
 `

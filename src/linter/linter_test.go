@@ -36,13 +36,13 @@ func TestRunsLinterFindingTagSection(t *testing.T) {
 	result, err := LintFromRoot(manifestWithValidTags, true)
 
 	assert.Nil(err)
-	assert.Equal(result.Status, LintStatusOK)
-	assert.Equal(result.Msg, "success")
+	assert.Equal(LintStatusOK, result.Status)
+	assert.Equal("success", result.Msg)
 
 	// Root
-	assert.Equal(result.Structure.Root.Info["type"], "root")
-	assert.Equal(result.Structure.Root.Info["id"], "root")
-	assert.Equal(len(result.Structure.Root.Links), 4)
+	assert.Equal("root", result.Structure.Root.Info["type"])
+	assert.Equal("root", result.Structure.Root.Info["id"])
+	assert.Equal(4, len(result.Structure.Root.Links))
 
 	// Tags
 	expectedTagData := []map[string]interface{}{
@@ -60,4 +60,17 @@ func TestRunsLinterFindingTagSection(t *testing.T) {
 		assert.Equal(1, len(tagNode.Links))
 		assert.Equal("root", tagNode.Links[0].Info["type"])
 	}
+}
+
+func TestFailsLinterWhenTagsFailExpectedFormat(t *testing.T) {
+	assert := assert.New(t)
+
+	var manifestWithInvalidTags ManifestContent = ManifestContent(manifestWithInvalidTags)
+	result, err := LintFromRoot(manifestWithInvalidTags, true)
+
+	expectedErrMsg := "Error@line:8\n->Invalid tag format: \"internal@AAAAAA: Invalid tag format\""
+	assert.Equal(expectedErrMsg, err.Error())
+	assert.Equal(result.Status, LintStatusError)
+	assert.Equal("error", result.Msg)
+
 }

@@ -23,3 +23,8 @@ type Node struct {
 type StructureGraph struct {
 	Root *Node
 }
+
+type RawBlock struct {
+	Content   string
+	StartLine int
+}

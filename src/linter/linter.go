@@ -15,12 +15,13 @@ func LintFromRoot(content ManifestContent, createStructure bool) (LintResult, er
 	if createStructure {
 		graph, contentGraphErr = generateGraph(content)
 	}
-	if err := errors.Join(contentGraphErr); err != nil {
+	err := errors.Join(contentGraphErr)
+	if err != nil {
 		lintStatus = LintStatusError
 		resultMsg = "error"
 	}
 
-	return LintResult{Status: lintStatus, Msg: resultMsg, Structure: graph}, nil
+	return LintResult{Status: lintStatus, Msg: resultMsg, Structure: graph}, err
 }
 
 func generateGraph(content ManifestContent) (*StructureGraph, error) {
@@ -40,7 +41,7 @@ func generateGraph(content ManifestContent) (*StructureGraph, error) {
 	linkNodeOneToMany(root, tags)
 
 	// modules := getModuleNodes(rawBlocks)
-	// root.Children = append(root.Children, modules...)
+	// linkNodeOneToMany(root, modules)
 
 	graph := StructureGraph{
 		Root: root,
@@ -56,14 +57,14 @@ func linkNodeOneToMany(mainNode *Node, nodes []*Node) {
 	mainNode.Links = append(mainNode.Links, nodes...)
 }
 
-func getTags(rawBlocks []string) ([]*Node, error) {
+func getTags(rawBlocks []RawBlock) ([]*Node, error) {
 	headerPattern := regexp.MustCompile(`^\[\[tags\]\]`)
-	tagPatter := regexp.MustCompile(`^([-_\w]+)@(#[A-F|\d]{6}):\s*(.*)`)
+	tagPatter := regexp.MustCompile(`^([-_\w]+)(#[A-F|\d]{6}):\s*(.*)`)
 
 	var nodes []*Node
 
 	for _, module := range rawBlocks {
-		lines := strings.Split(module, "\n")
+		lines := strings.Split(module.Content, "\n")
 		if len(lines) == 0 {
 			continue
 		}
@@ -74,14 +75,14 @@ func getTags(rawBlocks []string) ([]*Node, error) {
 			return nodes, nil
 		}
 
-		for _, tag := range lines[1:] {
+		for lineNumber, tag := range lines[1:] {
 			if tag == "" {
 				break
 			}
 
 			tagMatch := tagPatter.FindStringSubmatch(tag)
 			if len(tagMatch) == 0 {
-				return nil, fmt.Errorf("Invalid tag format: %q", tag)
+				return nil, fmt.Errorf("Error@line:%d\n->Invalid tag format: %q", module.StartLine+lineNumber+1, tag)
 			}
 
 			node := &Node{
@@ -127,13 +128,14 @@ func getModuleNodes(rawBlocks []string) []*Node {
 	return nodes
 }
 
-func extractRawBlocks(content ManifestContent) []string {
+func extractRawBlocks(content ManifestContent) []RawBlock {
 	lines := strings.Split(string(content), "\n")
-	var blocks []string
+	var blocks []RawBlock
 	var current []string
+	var startLine int
 	inBlock := false
 
-	for _, line := range lines {
+	for i, line := range lines {
 		trimmed := strings.TrimSpace(line)
 
 		isNewModuleStart := strings.HasPrefix(trimmed, "[[")
@@ -142,12 +144,13 @@ func extractRawBlocks(content ManifestContent) []string {
 
 		if isNewModuleStart {
 			if inBlock && hasCurrentBlock {
-				blocks = append(blocks, strings.Join(current, "\n"))
+				blocks = append(blocks, RawBlock{Content: strings.Join(current, "\n"), StartLine: startLine})
 			}
 			current = []string{line}
+			startLine = i + 1
 			inBlock = true
 		} else if inBlock && isNewSectionStart {
-			blocks = append(blocks, strings.Join(current, "\n"))
+			blocks = append(blocks, RawBlock{Content: strings.Join(current, "\n"), StartLine: startLine})
 			current = nil
 			inBlock = false
 		} else if inBlock {
@@ -156,7 +159,7 @@ func extractRawBlocks(content ManifestContent) []string {
 	}
 
 	if inBlock && len(current) > 0 {
-		blocks = append(blocks, strings.Join(current, "\n"))
+		blocks = append(blocks, RawBlock{Content: strings.Join(current, "\n"), StartLine: startLine})
 	}
 
 	return blocks

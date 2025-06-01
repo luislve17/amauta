@@ -2,10 +2,10 @@ package linter
 
 var validManifest string = `
 [[tags]]
-public@#00FF00: Public API
-internal@#AAAAAA: Internal use only
-deprecated@#FF6F61: Will be removed soon
-under-dev@#FFD966: Still under development
+public#00FF00: Public API
+internal#AAAAAA: Internal use only
+deprecated#FF6F61: Will be removed soon
+under-dev#FFD966: Still under development
 
 [[Users#public,internal]]
 description: Endpoints related to user operations
@@ -51,21 +51,21 @@ metadata:
 
 var manifestWithValidTags string = `
 [[tags]]
-public@#00FF00: Public API
-internal@#AAAAAA: Internal use only
-deprecated@#FF6F61: Will be removed soon
-under-dev@#FFD966: Still under development
+public#00FF00: Public API
+internal#AAAAAA: Internal use only
+deprecated#FF6F61: Will be removed soon
+under-dev#FFD966: Still under development
 
 [[AnotherModule]]
 `
 
 var manifestWithInvalidTags string = `
-[[tags]]
-public@#00FF00: Public API
-internal@#AAAAAA: Internal use only
-deprecated@#FF6F61: Will be removed soon
-under-dev@#FFD966: Still under development
 
-[section]
-foo@int: Bar description
+
+
+[[tags]]
+public#00FF00: Valid tag format
+public2#00FF00: Valid tag format 2
+internal@AAAAAA: Invalid tag format
+#AAAAAA: Missing name data
 `

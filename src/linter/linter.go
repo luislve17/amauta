@@ -57,45 +57,52 @@ func linkNodeOneToMany(mainNode *Node, nodes []*Node) {
 	mainNode.Links = append(mainNode.Links, nodes...)
 }
 
-func getTags(rawBlocks []RawBlock) ([]*Node, error) {
+func findTagsSection(rawBlocks []RawBlock) *RawBlock {
 	headerPattern := regexp.MustCompile(`^\[\[tags\]\]`)
-	tagPatter := regexp.MustCompile(`^([-_\w]+)(#[A-F|\d]{6}):\s*(.*)`)
 
-	var nodes []*Node
-
-	for _, module := range rawBlocks {
-		lines := strings.Split(module.Content, "\n")
+	for _, section := range rawBlocks {
+		lines := strings.Split(section.Content, "\n")
 		if len(lines) == 0 {
 			continue
 		}
-
 		header := strings.TrimSpace(lines[0])
-		foundTagSection := headerPattern.MatchString(header)
-		if !foundTagSection {
-			return nodes, nil
+		if headerPattern.MatchString(header) {
+			return &section
+		}
+	}
+	return nil
+}
+
+func getTags(rawBlocks []RawBlock) ([]*Node, error) {
+	tagPattern := regexp.MustCompile(`^([-_\w]+)(#[A-F|\d]{6}):\s*(.*)`)
+
+	tagSection := findTagsSection(rawBlocks)
+	if tagSection == nil {
+		return nil, nil
+	}
+
+	lines := strings.Split(tagSection.Content, "\n")
+	var nodes []*Node
+
+	for i, tag := range lines[1:] {
+		if tag == "" {
+			continue
+		}
+		match := tagPattern.FindStringSubmatch(tag)
+		if len(match) == 0 {
+			return nil, fmt.Errorf("Error@line:%d\n->Invalid tag format: %q", tagSection.StartLine+i+1, tag)
 		}
 
-		for lineNumber, tag := range lines[1:] {
-			if tag == "" {
-				break
-			}
-
-			tagMatch := tagPatter.FindStringSubmatch(tag)
-			if len(tagMatch) == 0 {
-				return nil, fmt.Errorf("Error@line:%d\n->Invalid tag format: %q", module.StartLine+lineNumber+1, tag)
-			}
-
-			node := &Node{
-				Info: map[string]interface{}{
-					"type":        "tag",
-					"id":          tagMatch[1],
-					"color":       tagMatch[2],
-					"description": tagMatch[3],
-				},
-				Links: []*Node{},
-			}
-			nodes = append(nodes, node)
+		node := &Node{
+			Info: map[string]interface{}{
+				"type":        "tag",
+				"id":          match[1],
+				"color":       match[2],
+				"description": match[3],
+			},
+			Links: []*Node{},
 		}
+		nodes = append(nodes, node)
 	}
 
 	return nodes, nil
@@ -106,8 +113,8 @@ func getModuleNodes(rawBlocks []string) []*Node {
 
 	var nodes []*Node
 
-	for _, module := range rawBlocks {
-		lines := strings.Split(module, "\n")
+	for _, section := range rawBlocks {
+		lines := strings.Split(section, "\n")
 		if len(lines) == 0 {
 			continue
 		}
@@ -139,7 +146,7 @@ func extractRawBlocks(content ManifestContent) []RawBlock {
 		trimmed := strings.TrimSpace(line)
 
 		isNewModuleStart := strings.HasPrefix(trimmed, "[[")
-		isNewSectionStart := strings.HasPrefix(trimmed, "[") && !strings.HasPrefix(trimmed, "[[")
+		isNewInnerSectionStart := strings.HasPrefix(trimmed, "[") && !strings.HasPrefix(trimmed, "[[")
 		hasCurrentBlock := len(current) > 0
 
 		if isNewModuleStart {
@@ -149,7 +156,7 @@ func extractRawBlocks(content ManifestContent) []RawBlock {
 			current = []string{line}
 			startLine = i + 1
 			inBlock = true
-		} else if inBlock && isNewSectionStart {
+		} else if inBlock && isNewInnerSectionStart {
 			blocks = append(blocks, RawBlock{Content: strings.Join(current, "\n"), StartLine: startLine})
 			current = nil
 			inBlock = false

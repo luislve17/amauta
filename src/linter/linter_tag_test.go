@@ -6,29 +6,6 @@ import (
 	"testing"
 )
 
-func TestRunsLinterWithoutCreatingStructure(t *testing.T) {
-	assert := assert.New(t)
-
-	var manifest ManifestContent = ManifestContent(validManifest)
-	result, err := LintFromRoot(manifest, false)
-
-	assert.Nil(err)
-	assert.Equal(LintStatusOK, result.Status)
-	assert.Equal("success", result.Msg)
-	assert.Nil(result.Structure)
-}
-
-func TestRunsLinterCreatingStructureGraph(t *testing.T) {
-	assert := assert.New(t)
-
-	var manifest ManifestContent = ManifestContent(validManifest)
-	result, err := LintFromRoot(manifest, true)
-
-	assert.Nil(err)
-	assert.Equal(LintStatusOK, result.Status)
-	assert.Equal("success", result.Msg)
-}
-
 func TestRunsLinterFindingTagSection(t *testing.T) {
 	assert := assert.New(t)
 
@@ -62,13 +39,29 @@ func TestRunsLinterFindingTagSection(t *testing.T) {
 	}
 }
 
+func TestRunsLinterFindingEmptyTagSection(t *testing.T) {
+	assert := assert.New(t)
+
+	var manifestWithEmptyTags ManifestContent = ManifestContent(manifestWithEmptyTags)
+	result, err := LintFromRoot(manifestWithEmptyTags, true)
+
+	assert.Nil(err)
+	assert.Equal(LintStatusOK, result.Status)
+	assert.Equal("success", result.Msg)
+
+	// Root
+	assert.Equal("root", result.Structure.Root.Info["type"])
+	assert.Equal("root", result.Structure.Root.Info["id"])
+	assert.Equal(0, len(result.Structure.Root.Links))
+}
+
 func TestFailsLinterWhenTagsFailExpectedFormat(t *testing.T) {
 	assert := assert.New(t)
 
 	var manifestWithInvalidTags ManifestContent = ManifestContent(manifestWithInvalidTags)
 	result, err := LintFromRoot(manifestWithInvalidTags, true)
 
-	expectedErrMsg := "Error@line:8\n->Invalid tag format: \"internal@AAAAAA: Invalid tag format\""
+	expectedErrMsg := "Error@line:11\n->Invalid tag format: \"internal@AAAAAA: Invalid tag format\""
 	assert.Equal(expectedErrMsg, err.Error())
 	assert.Equal(result.Status, LintStatusError)
 	assert.Equal("error", result.Msg)

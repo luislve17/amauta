@@ -65,7 +65,15 @@ var manifestWithInvalidTags string = `
 
 [[tags]]
 public#00FF00: Valid tag format
+
+
+
 public2#00FF00: Valid tag format 2
 internal@AAAAAA: Invalid tag format
 #AAAAAA: Missing name data
+`
+
+var manifestWithEmptyTags string = `
+[[tags]]
+
 `

@@ -40,8 +40,11 @@ func generateGraph(content ManifestContent) (*StructureGraph, error) {
 	}
 	linkNodeOneToMany(root, tags)
 
-	// modules := getModuleNodes(rawBlocks)
-	// linkNodeOneToMany(root, modules)
+	modules, modulesErr := getModules(rawBlocks)
+	if modulesErr != nil {
+		return nil, modulesErr
+	}
+	linkNodeOneToMany(root, modules)
 
 	graph := StructureGraph{
 		Root: root,
@@ -57,8 +60,8 @@ func linkNodeOneToMany(mainNode *Node, nodes []*Node) {
 	mainNode.Links = append(mainNode.Links, nodes...)
 }
 
-func findTagsSection(rawBlocks []RawBlock) *RawBlock {
-	headerPattern := regexp.MustCompile(`^\[\[tags\]\]`)
+func findSection(rawBlocks []RawBlock, rawRegex string) *RawBlock {
+	headerPattern := regexp.MustCompile(rawRegex)
 
 	for _, section := range rawBlocks {
 		lines := strings.Split(section.Content, "\n")
@@ -74,9 +77,9 @@ func findTagsSection(rawBlocks []RawBlock) *RawBlock {
 }
 
 func getTags(rawBlocks []RawBlock) ([]*Node, error) {
-	tagPattern := regexp.MustCompile(`^([-_\w]+)(#[A-F|\d]{6}):\s*(.*)`)
+	tagPattern := regexp.MustCompile(tagRegex)
 
-	tagSection := findTagsSection(rawBlocks)
+	tagSection := findSection(rawBlocks, tagSectionRegex)
 	if tagSection == nil {
 		return nil, nil
 	}
@@ -95,7 +98,7 @@ func getTags(rawBlocks []RawBlock) ([]*Node, error) {
 
 		node := &Node{
 			Info: map[string]interface{}{
-				"type":        "tag",
+				"type":        "Tag",
 				"id":          match[1],
 				"color":       match[2],
 				"description": match[3],
@@ -108,31 +111,25 @@ func getTags(rawBlocks []RawBlock) ([]*Node, error) {
 	return nodes, nil
 }
 
-func getModuleNodes(rawBlocks []string) []*Node {
-	headerPattern := regexp.MustCompile(`^\[\[(.+?)#(.*?)\]\]`)
+func getModules(rawBlocks []RawBlock) ([]*Node, error) {
+	moduleSection := findSection(rawBlocks, moduleSectionRegex)
+	if moduleSection == nil {
+		return nil, nil
+	}
 
 	var nodes []*Node
 
-	for _, section := range rawBlocks {
-		lines := strings.Split(section, "\n")
-		if len(lines) == 0 {
-			continue
-		}
-
-		header := strings.TrimSpace(lines[0])
-		matches := headerPattern.FindStringSubmatch(header)
-
-		node := &Node{
-			Info: map[string]interface{}{
-				"type": "module",
-				"name": matches[1],
-			},
-			Links: []*Node{},
-		}
-		nodes = append(nodes, node)
+	node := &Node{
+		Info: map[string]interface{}{
+			"type": "Module",
+			// "id":          match[1],
+			// "description": match[3],
+		},
+		Links: []*Node{},
 	}
+	nodes = append(nodes, node)
 
-	return nodes
+	return nodes, nil
 }
 
 func extractRawBlocks(content ManifestContent) []RawBlock {

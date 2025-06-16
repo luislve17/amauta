@@ -55,8 +55,6 @@ public#00FF00: Public API
 internal#AAAAAA: Internal use only
 deprecated#FF6F61: Will be removed soon
 under-dev#FFD966: Still under development
-
-[[AnotherModule]]
 `
 
 var manifestWithInvalidTags string = `
@@ -76,4 +74,38 @@ internal@AAAAAA: Invalid tag format
 var manifestWithEmptyTags string = `
 [[tags]]
 
+`
+
+var manifestWithValidModule string = `
+[[Users]]
+description: Endpoints related to user operations
+
+[[Items]]
+description: Endpoints related to items owned by users
+
+[[invalidModule]]
+description: This should never be loaded due syntax error
+`
+
+var manifestWithValidTaggedModules string = `
+[[tags]]
+public#00FF00: Public API
+internal#AAAAAA: Internal use only
+deprecated#FF6F61: Will be removed soon
+under-dev#FFD966: Still under development
+
+[[Users#public,under-dev]]
+description: Endpoints related to user operations
+
+[[Items#internal]]
+description: Endpoints related to items owned by users
+`
+
+var manifestWithUnexistentTaggedModules string = `
+[[tags]]
+public#00FF00: Public API
+internal#AAAAAA: Internal use only
+
+[[Users#public,under-dev]]
+description: Endpoints related to user operations
 `

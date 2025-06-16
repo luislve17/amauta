@@ -30,7 +30,7 @@ func TestRunsLinterFindingTagSection(t *testing.T) {
 	}
 	for idx := 0; idx < len(result.Structure.Root.Links); idx++ {
 		tagNode := result.Structure.Root.Links[idx]
-		assert.Equal("tag", tagNode.Info["type"])
+		assert.Equal("Tag", tagNode.Info["type"])
 		assert.Equal(expectedTagData[idx]["id"], tagNode.Info["id"])
 		assert.Equal(expectedTagData[idx]["color"], tagNode.Info["color"])
 		assert.Equal(expectedTagData[idx]["description"], tagNode.Info["description"])

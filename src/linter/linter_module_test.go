@@ -70,7 +70,30 @@ func TestRunsLinterLinkingModuleToTags(t *testing.T) {
 			}
 		}
 	}
-
 }
 
-func TestRunsLinterSkippingLinkingModuleToUnexistentTags(t *testing.T) {}
+func TestRunsLinterSkippingLinkingModuleToUnexistentTags(t *testing.T) {
+	assert := assert.New(t)
+
+	var manifestWithUnexistentTaggedModules ManifestContent = ManifestContent(manifestWithUnexistentTaggedModules)
+	result, err := LintFromRoot(manifestWithUnexistentTaggedModules, true)
+
+	assert.Nil(err)
+	assert.Equal(LintStatusOK, result.Status)
+	assert.Equal("success", result.Msg)
+
+	// Root
+	assert.Equal("root", result.Structure.Root.Info["type"])
+	assert.Equal("root", result.Structure.Root.Info["id"])
+	assert.Equal(3, len(result.Structure.Root.Links)) // 2 tags & 1 module
+
+	// Modules
+	expectedModuleData := map[string]interface{}{"id": "Users", "_tagIds": []string{"public", "under-dev"}}
+
+	for _, sectionNode := range result.Structure.Root.Links {
+		if sectionNode.Info["type"] == "Module" && sectionNode.Info["id"] == expectedModuleData["id"] {
+			assert.Equal(expectedModuleData["_tagIds"], sectionNode.Info["_tagIds"])
+			assert.Equal("public", sectionNode.Links[1].Info["id"])
+		}
+	}
+}

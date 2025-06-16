@@ -100,3 +100,12 @@ description: Endpoints related to user operations
 [[Items#internal]]
 description: Endpoints related to items owned by users
 `
+
+var manifestWithUnexistentTaggedModules string = `
+[[tags]]
+public#00FF00: Public API
+internal#AAAAAA: Internal use only
+
+[[Users#public,under-dev]]
+description: Endpoints related to user operations
+`

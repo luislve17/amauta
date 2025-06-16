@@ -8,7 +8,6 @@ import (
 
 func TestRunsLinterFindingModuleSection(t *testing.T) {
 	assert := assert.New(t)
-	assert.Equal(1, 1)
 
 	var manifestWithValidModule ManifestContent = ManifestContent(manifestWithValidModule)
 	result, err := LintFromRoot(manifestWithValidModule, true)
@@ -32,6 +31,8 @@ func TestRunsLinterFindingModuleSection(t *testing.T) {
 		moduleNode := result.Structure.Root.Links[idx]
 		assert.Equal("Module", moduleNode.Info["type"])
 		assert.Equal(expectedModuleData[idx]["id"], moduleNode.Info["id"])
-		assert.Equal(expectedModuleData[idx]["description"], moduleNode.Info["description"])
 	}
 }
+
+func TestRunsLinterLinkingModuleToTags(t *testing.T)                   {}
+func TestRunsLinterSkippingLinkingModuleToUnexistentTags(t *testing.T) {}

@@ -60,31 +60,35 @@ func linkNodeOneToMany(mainNode *Node, nodes []*Node) {
 	mainNode.Links = append(mainNode.Links, nodes...)
 }
 
-func findSection(rawBlocks []RawBlock, rawRegex string) *RawBlock {
+func findSection(rawBlocks []RawBlock, rawRegex string, onlyFirst bool) []*RawBlock {
 	headerPattern := regexp.MustCompile(rawRegex)
+	var matches []*RawBlock
 
-	for _, section := range rawBlocks {
-		lines := strings.Split(section.Content, "\n")
+	for i := range rawBlocks {
+		lines := strings.Split(rawBlocks[i].Content, "\n")
 		if len(lines) == 0 {
 			continue
 		}
 		header := strings.TrimSpace(lines[0])
 		if headerPattern.MatchString(header) {
-			return &section
+			if onlyFirst {
+				return []*RawBlock{&rawBlocks[i]}
+			}
+			matches = append(matches, &rawBlocks[i])
 		}
 	}
-	return nil
+	return matches
 }
 
 func getTags(rawBlocks []RawBlock) ([]*Node, error) {
 	tagPattern := regexp.MustCompile(tagRegex)
 
-	tagSection := findSection(rawBlocks, tagSectionRegex)
-	if tagSection == nil {
+	tagSection := findSection(rawBlocks, tagSectionRegex, true)
+	if len(tagSection) == 0 {
 		return nil, nil
 	}
 
-	lines := strings.Split(tagSection.Content, "\n")
+	lines := strings.Split(tagSection[0].Content, "\n")
 	var nodes []*Node
 
 	for i, tag := range lines[1:] {
@@ -93,7 +97,7 @@ func getTags(rawBlocks []RawBlock) ([]*Node, error) {
 		}
 		match := tagPattern.FindStringSubmatch(tag)
 		if len(match) == 0 {
-			return nil, fmt.Errorf("Error@line:%d\n->Invalid tag format: %q", tagSection.StartLine+i+1, tag)
+			return nil, fmt.Errorf("Error@line:%d\n->Invalid tag format: %q", tagSection[0].StartLine+i+1, tag)
 		}
 
 		node := &Node{
@@ -112,22 +116,29 @@ func getTags(rawBlocks []RawBlock) ([]*Node, error) {
 }
 
 func getModules(rawBlocks []RawBlock) ([]*Node, error) {
-	moduleSection := findSection(rawBlocks, moduleSectionRegex)
-	if moduleSection == nil {
+	moduleHeaderPatter := regexp.MustCompile(moduleSectionRegex)
+	moduleSections := findSection(rawBlocks, moduleSectionRegex, false)
+	if len(moduleSections) == 0 {
 		return nil, nil
 	}
 
 	var nodes []*Node
 
-	node := &Node{
-		Info: map[string]interface{}{
-			"type": "Module",
-			// "id":          match[1],
-			// "description": match[3],
-		},
-		Links: []*Node{},
+	for i, moduleSection := range moduleSections {
+		rawHeader := strings.Split(moduleSection.Content, "\n")[0]
+		headerMatch := moduleHeaderPatter.FindStringSubmatch(rawHeader)
+		if len(headerMatch) == 0 {
+			return nil, fmt.Errorf("Error@line:%d\n->Invalid tag format: %q", moduleSection.StartLine+i+1, rawHeader)
+		}
+		node := &Node{
+			Info: map[string]interface{}{
+				"type": "Module",
+				"id":   headerMatch[1],
+			},
+			Links: []*Node{},
+		}
+		nodes = append(nodes, node)
 	}
-	nodes = append(nodes, node)
 
 	return nodes, nil
 }

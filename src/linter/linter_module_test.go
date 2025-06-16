@@ -49,7 +49,7 @@ func TestRunsLinterLinkingModuleToTags(t *testing.T) {
 	assert.Equal("root", result.Structure.Root.Info["id"])
 	assert.Equal(6, len(result.Structure.Root.Links)) // 4 tags & 2 modules
 
-	// Module
+	// Modules
 	expectedModuleData := []map[string]interface{}{
 		{"id": "Users", "_tagIds": []string{"public", "under-dev"}},
 		{"id": "Items", "_tagIds": []string{"internal"}},
@@ -59,6 +59,14 @@ func TestRunsLinterLinkingModuleToTags(t *testing.T) {
 		for _, sectionNode := range result.Structure.Root.Links {
 			if sectionNode.Info["type"] == "Module" && sectionNode.Info["id"] == expectedModule["id"] {
 				assert.Equal(expectedModule["_tagIds"], sectionNode.Info["_tagIds"])
+				// Modules -> Tags link
+				var linkedIDs []string
+				for _, linkedNode := range sectionNode.Links {
+					if sectionNode.Info["type"] == "Tag" {
+						linkedIDs = append(linkedIDs, linkedNode.Info["id"].(string))
+						assert.ElementsMatch(sectionNode.Info["_tagIds"], linkedIDs)
+					}
+				}
 			}
 		}
 	}

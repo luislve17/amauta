@@ -39,7 +39,7 @@ func generateGraph(content ManifestContent) (*StructureGraph, error) {
 		return nil, modulesErr
 	}
 	linkNodeOneToMany(root, modules)
-	// linkNodesManyToMany(modules, "_tagIds", tags, "ids")
+	linkNodesManyToManyById("_tagIds", modules, tags)
 
 	graph := StructureGraph{
 		Root: root,
@@ -58,11 +58,29 @@ func initRoot() *Node {
 	}
 }
 
+func linkNodeOneToOne(nodeA *Node, nodeB *Node) {
+	nodeA.Links = append(nodeA.Links, nodeB)
+	nodeB.Links = append(nodeB.Links, nodeA)
+}
+
 func linkNodeOneToMany(mainNode *Node, nodes []*Node) {
 	for _, n := range nodes {
 		n.Links = append(n.Links, mainNode)
 	}
 	mainNode.Links = append(mainNode.Links, nodes...)
+}
+
+func linkNodesManyToManyById(linkingKey string, nodesA []*Node, nodesB []*Node) {
+	for _, nodeA := range nodesA {
+		linkingIds := nodeA.Info[linkingKey].([]string)
+		for _, nodeB := range nodesB {
+			for _, linkId := range linkingIds {
+				if nodeB.Info["id"] == linkId {
+					linkNodeOneToOne(nodeA, nodeB)
+				}
+			}
+		}
+	}
 }
 
 func findSection(rawBlocks []RawBlock, rawRegex string, onlyFirst bool) []*RawBlock {

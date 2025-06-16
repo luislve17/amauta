@@ -1,5 +1,5 @@
 test:
-	go test -v -cover ./...
+	cd core && go test -v -cover ./...
 
 dlv-test:
-	dlv test $(PKG) -- -test.run ^$(TEST)$$
+	cd core && dlv test $(PKG) -- -test.run ^$(TEST)$$

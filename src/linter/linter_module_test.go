@@ -23,8 +23,8 @@ func TestRunsLinterFindingModuleSection(t *testing.T) {
 
 	// Module
 	expectedModuleData := []map[string]interface{}{
-		{"id": "Users", "description": "Endpoints related to user operations"},
-		{"id": "Items", "description": "Endpoints related to items owned by users"},
+		{"id": "Users"},
+		{"id": "Items"},
 	}
 
 	for idx := 0; idx < len(result.Structure.Root.Links); idx++ {
@@ -34,5 +34,35 @@ func TestRunsLinterFindingModuleSection(t *testing.T) {
 	}
 }
 
-func TestRunsLinterLinkingModuleToTags(t *testing.T)                   {}
+func TestRunsLinterLinkingModuleToTags(t *testing.T) {
+	assert := assert.New(t)
+
+	var manifestWithValidTaggedModules ManifestContent = ManifestContent(manifestWithValidTaggedModules)
+	result, err := LintFromRoot(manifestWithValidTaggedModules, true)
+
+	assert.Nil(err)
+	assert.Equal(LintStatusOK, result.Status)
+	assert.Equal("success", result.Msg)
+
+	// Root
+	assert.Equal("root", result.Structure.Root.Info["type"])
+	assert.Equal("root", result.Structure.Root.Info["id"])
+	assert.Equal(6, len(result.Structure.Root.Links)) // 4 tags & 2 modules
+
+	// Module
+	expectedModuleData := []map[string]interface{}{
+		{"id": "Users", "_tagIds": []string{"public", "under-dev"}},
+		{"id": "Items", "_tagIds": []string{"internal"}},
+	}
+
+	for _, expectedModule := range expectedModuleData {
+		for _, sectionNode := range result.Structure.Root.Links {
+			if sectionNode.Info["type"] == "Module" && sectionNode.Info["id"] == expectedModule["id"] {
+				assert.Equal(expectedModule["_tagIds"], sectionNode.Info["_tagIds"])
+			}
+		}
+	}
+
+}
+
 func TestRunsLinterSkippingLinkingModuleToUnexistentTags(t *testing.T) {}

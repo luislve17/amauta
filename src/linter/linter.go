@@ -25,15 +25,9 @@ func LintFromRoot(content ManifestContent, createStructure bool) (LintResult, er
 }
 
 func generateGraph(content ManifestContent) (*StructureGraph, error) {
-	root := &Node{
-		Info: map[string]interface{}{
-			"type": "root",
-			"id":   "root",
-		},
-		Links: []*Node{},
-	}
-
+	root := initRoot()
 	rawBlocks := extractRawBlocks(content)
+
 	tags, tagsErr := getTags(rawBlocks)
 	if tagsErr != nil {
 		return nil, tagsErr
@@ -45,12 +39,23 @@ func generateGraph(content ManifestContent) (*StructureGraph, error) {
 		return nil, modulesErr
 	}
 	linkNodeOneToMany(root, modules)
+	// linkNodesManyToMany(modules, "_tagIds", tags, "ids")
 
 	graph := StructureGraph{
 		Root: root,
 	}
 
 	return &graph, nil
+}
+
+func initRoot() *Node {
+	return &Node{
+		Info: map[string]interface{}{
+			"type": "root",
+			"id":   "root",
+		},
+		Links: []*Node{},
+	}
 }
 
 func linkNodeOneToMany(mainNode *Node, nodes []*Node) {
@@ -116,8 +121,8 @@ func getTags(rawBlocks []RawBlock) ([]*Node, error) {
 }
 
 func getModules(rawBlocks []RawBlock) ([]*Node, error) {
-	moduleHeaderPatter := regexp.MustCompile(moduleSectionRegex)
-	moduleSections := findSection(rawBlocks, moduleSectionRegex, false)
+	moduleHeaderPatter := regexp.MustCompile(moduleSectionHeaderRegex)
+	moduleSections := findSection(rawBlocks, moduleSectionHeaderRegex, false)
 	if len(moduleSections) == 0 {
 		return nil, nil
 	}
@@ -132,8 +137,9 @@ func getModules(rawBlocks []RawBlock) ([]*Node, error) {
 		}
 		node := &Node{
 			Info: map[string]interface{}{
-				"type": "Module",
-				"id":   headerMatch[1],
+				"type":    "Module",
+				"id":      headerMatch[1],
+				"_tagIds": strings.Split(headerMatch[2], ","),
 			},
 			Links: []*Node{},
 		}

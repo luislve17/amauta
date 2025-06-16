@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: Suggest a new idea
-title: "[Feature] "
+title: "[Feat] "
 labels: enhancement
 assignees: ''
 
@@ -10,10 +10,6 @@ assignees: ''
 ## Description
 
 <!-- A clear and concise description of the problem or request. -->
-
-## Proposed solution
-
-<!-- How you plan to solve it, or what would be ideal. -->
 
 ## Additional context
 

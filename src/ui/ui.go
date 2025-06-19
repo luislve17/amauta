@@ -2,33 +2,34 @@ package ui
 
 import (
 	"bytes"
+	"embed"
 	"html/template"
 	"os"
 	"path/filepath"
 )
 
+//go:embed templates/*.html
+var templateFS embed.FS
 var templates *template.Template
 
 func init() {
 	var err error
-	templates, err = template.ParseFiles(
-		filepath.Join("templates", "main.html"),
-		filepath.Join("templates", "header.html"),
-		filepath.Join("templates", "body.html"),
-	)
+	templates = template.Must(template.ParseFS(templateFS,
+		"templates/main.html",
+		"templates/header.html",
+		"templates/body.html",
+	))
 	if err != nil {
 		panic("failed to parse templates: " + err.Error())
 	}
 }
 
-// Render renders the template to a string (testable)
 func Render(data any) (string, error) {
 	var buf bytes.Buffer
 	err := templates.ExecuteTemplate(&buf, "main", data)
 	return buf.String(), err
 }
 
-// RenderToFile renders and writes to file
 func RenderToFile(outputPath string, data any) error {
 	content, err := Render(data)
 	if err != nil {

@@ -10,21 +10,24 @@ import (
 	"github.com/luislve17/amauta/ui"
 )
 
-func Run() {
-	// CLI flags
-	inputPath := flag.String("i", ".", "input path (currently unused)")
+func RunCLI() {
+	inputPath := flag.String("i", "", "input path (currently unused)")
 	outputPath := flag.String("o", "./dist/doc.html", "output HTML file")
-	lintOnly := flag.Bool("l", false, "only run linter")
-	lintOnlyAlias := flag.Bool("lint", false, "only run linter (alias)")
-	renderHTML := flag.Bool("r", false, "render HTML")
-	renderAlias := flag.Bool("render", false, "render HTML (alias)")
+	lintOnly := flag.Bool("lint", false, "only run linter (alias)")
+	render := flag.Bool("render", false, "render HTML (alias)")
 	flag.Parse()
 
-	runLint := *lintOnly || *lintOnlyAlias
-	runRender := *renderHTML || *renderAlias
+	runLint := *lintOnly
+	runRender := *render
 
 	if !runLint && !runRender {
-		fmt.Fprintln(os.Stderr, "Error: You must specify either --lint or --render")
+		fmt.Fprintf(os.Stderr, "%sError:%s %sYou must specify either --lint or --render%s\n", red, reset, bold, reset)
+		flag.Usage()
+		os.Exit(1)
+	}
+
+	if *inputPath == "" {
+		fmt.Fprintf(os.Stderr, "%sError:%s %sYou must specify a non-empty input file path%s\n", red, reset, bold, reset)
 		flag.Usage()
 		os.Exit(1)
 	}
@@ -32,7 +35,7 @@ func Run() {
 	docManifestContent := loadFromFile(*inputPath)
 	data, err := linter.LintFromRoot(docManifestContent, true)
 	if err != nil {
-		log.Fatalf("linting failed: %v", err)
+		log.Fatalf("Linting failed: %v", err)
 	}
 
 	if runLint && !runRender {

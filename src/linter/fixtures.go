@@ -1,6 +1,6 @@
 package linter
 
-var validManifest string = `
+var ValidManifest string = `
 [[tags]]
 public#00FF00: Public API
 internal#AAAAAA: Internal use only

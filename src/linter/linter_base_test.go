@@ -9,7 +9,7 @@ import (
 func TestRunsLinterWithoutCreatingStructure(t *testing.T) {
 	assert := assert.New(t)
 
-	var manifest ManifestContent = ManifestContent(validManifest)
+	var manifest ManifestContent = ManifestContent(ValidManifest)
 	result, err := LintFromRoot(manifest, false)
 
 	assert.Nil(err)
@@ -21,7 +21,7 @@ func TestRunsLinterWithoutCreatingStructure(t *testing.T) {
 func TestRunsLinterCreatingStructureGraph(t *testing.T) {
 	assert := assert.New(t)
 
-	var manifest ManifestContent = ManifestContent(validManifest)
+	var manifest ManifestContent = ManifestContent(ValidManifest)
 	result, err := LintFromRoot(manifest, true)
 
 	assert.Nil(err)

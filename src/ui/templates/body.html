@@ -1,4 +1,13 @@
 {{ define "body" }}
-<h1>Hello, user</h1>
-<p>This is the body content.</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-1 col-md-3">
+        {{ template "menu" . }}
+    </div>
+
+    <div class="col-sm-11 col-md-9">
+      <h3>Content</h3>
+    </div>
+  </div>
+</div>
 {{ end }}

@@ -37,13 +37,16 @@ func RunCLI() {
 	if err != nil {
 		log.Fatalf("Linting failed: %v", err)
 	}
+	if data.Status != linter.LintStatusOK {
+		log.Fatalf("Linting failed: %v", data.Msg)
+	}
 
 	if runLint && !runRender {
 		fmt.Println("Linting successful.")
 		return
 	}
 
-	err = ui.RenderToFile(*outputPath, data)
+	err = ui.RenderToFile(*outputPath, data.Structure.Root)
 	if err != nil {
 		log.Fatalf("failed to render HTML: %v", err)
 	}

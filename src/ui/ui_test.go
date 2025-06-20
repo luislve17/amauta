@@ -11,6 +11,6 @@ func TestRendersContentGraph(t *testing.T) {
 	validManifest := linter.ManifestContent(linter.ValidManifest)
 	data, err := linter.LintFromRoot(validManifest, true)
 
-	_, err = Render(data)
+	_, err = Render(data.Structure.Root)
 	assert.NoError(t, err)
 }

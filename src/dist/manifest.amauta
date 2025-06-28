@@ -1,0 +1,77 @@
+<--
+This is a multiline comment block
+Starts with --> and ends with <--
+but both must be on a new line with nothing
+else but that characters sequence.
+-->
+
+<--
+Basic types to identify are:
+.int
+.float
+.str
+.object
+.list
+-->
+
+-- Inline comment block.
+
+-- tags: Special section  
+-- items follow: '<name>#<color>: <description>' syntax
+[[tags]]
+public#00FF00: Public API  
+internal#AAAAAA: Internal use only  
+deprecated#FF6F61: Will be removed soon  
+under-dev#FFD966: Still under development  
+beta#87CEEB: Beta feature  
+admin#FF1493: Admin only
+
+<--
+module: Special section  
+header follows: '[[<name>#<tag1,tag2,...>]]'  
+fields follow: '<name>(@|?)<type>#<tag1,tag2,...>: <description>'
+-->
+[[Users#public,internal]]
+summary: Endpoints related to user operations
+
+-- section  
+-- header follows: '[<section>@<type>:<description>]'  
+-- fields follow: '<name>(@|?)<type>#<tag1,tag2,...>: <description>'
+[request@POST:/v1/users]
+summary: Create a new user  
+contentType: application/json  
+
+-- Inline object declaration  
+-- Only allowed for 1-depth object
+header@object: This is the object root description  
+header.Authorization@str#internal: Bearer token. This is only the field's description
+
+-- Explicit field paths for nested objects
+body@object: This is the object root description  
+body.profile@user_profile: Main user information  
+body.metadata@object: Tracking info  
+body.metadata.source?str#internal: Origin of signup  
+body.metadata.labels?str[]#internal: Internal labels  
+body.metadata.status@enum[active,inactive,archived]|null#deprecated: User status
+
+-- To import an example, expect to be declared as 'ref@example'  
+-- 'example' field will not be validated to follow the specified  
+-- schema. Works as wildcard
+example: <ref@example:create_user>
+
+[ref@schema:user_profile]
+name@str: User's name  
+email@str: User's email  
+-- For special types like 'datetime' declared here  
+-- the parser will completely ignore its validation, since  
+-- it is not supported by the expected basic type  
+-- Works as a wildcard for types
+timezone@custom:datetime: User's timezone
+
+[ref@example:create_user]
+profile.name: Jane Doe  
+profile.email: jane@example.com  
+profile.gender: female  
+metadata.source: newsletter  
+metadata.tags: [beta, test]
+

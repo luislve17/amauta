@@ -1,0 +1,28 @@
+{{ define "menu-tree-css" }}
+.menu-tree {
+  width: clamp(300px, 20vw, 900px);
+  padding-top: 2px;
+}
+
+.menu-item {
+  cursor: pointer;
+  padding-top: 2px;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.menu-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.menu-item-content {
+  width: 100%;
+  text-decoration: none;
+}
+
+.module-icon {
+  padding-right: 1px;
+}
+{{ end }}
+

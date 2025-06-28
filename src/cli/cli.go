@@ -15,6 +15,7 @@ func RunCLI() {
 	outputPath := flag.String("o", "./dist/doc.html", "output HTML file")
 	lintOnly := flag.Bool("lint", false, "only run linter (alias)")
 	render := flag.Bool("render", false, "render HTML (alias)")
+	theme := flag.String("theme", "default", "select theme set as css")
 	flag.Parse()
 
 	runLint := *lintOnly
@@ -32,7 +33,7 @@ func RunCLI() {
 		os.Exit(1)
 	}
 
-	docManifestContent := loadFromFile(*inputPath)
+	docManifestContent := loadManifestFromFile(*inputPath)
 	data, err := linter.LintFromRoot(docManifestContent, true)
 	if err != nil {
 		log.Fatalf("Linting failed: %v", err)
@@ -46,6 +47,10 @@ func RunCLI() {
 		return
 	}
 
+	data.Structure.Root.Info["themeStyle"], err = loadThemeFromFile(fmt.Sprintf("./ui/themes/%s.css", *theme))
+	if err != nil {
+		fmt.Printf("Theme not found: %s. %s. Using default\n", *theme, err)
+	}
 	err = ui.RenderToFile(*outputPath, data.Structure.Root)
 	if err != nil {
 		log.Fatalf("failed to render HTML: %v", err)

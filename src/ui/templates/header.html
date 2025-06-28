@@ -9,4 +9,12 @@
 <!-- Remixicon -->
 <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 
+<!-- Injected css -->
+<style>
+{{.Info.themeStyle}}
+
+{{template "menu-tree-css" .}}
+{{template "content-css" .}}
+</style>
+
 {{ end }}

@@ -15,11 +15,7 @@ var templateFS embed.FS
 var templates *template.Template
 
 func init() {
-	var err error
 	templates = template.Must(template.ParseFS(templateFS, "templates/*.html"))
-	if err != nil {
-		panic("Failed to parse templates: " + err.Error())
-	}
 }
 
 func Render(data any) (string, error) {

@@ -172,16 +172,28 @@ func extractRawBlocks(content ManifestContent) []RawBlock {
 	var blocks []RawBlock
 	var current []string
 	var startLine int
+	var inComment bool
 	inBlock := false
 
 	for i, line := range lines {
 		trimmed := strings.TrimSpace(line)
 
+		isInlineCommentStart := strings.HasPrefix(trimmed, "--")
+		isMultiLineCommentStart := strings.HasPrefix(trimmed, "<--")
+		isMultiLineCommentEnd := strings.HasPrefix(trimmed, "-->")
 		isNewModuleStart := strings.HasPrefix(trimmed, "[[")
 		isNewInnerSectionStart := strings.HasPrefix(trimmed, "[") && !strings.HasPrefix(trimmed, "[[")
 		hasCurrentBlock := len(current) > 0
 
-		if isNewModuleStart {
+		if isMultiLineCommentEnd {
+			inComment = false
+			continue
+		} else if isInlineCommentStart || inComment {
+			continue
+		} else if isMultiLineCommentStart {
+			inComment = true
+			continue
+		} else if isNewModuleStart {
 			if inBlock && hasCurrentBlock {
 				blocks = append(blocks, RawBlock{Content: strings.Join(current, "\n"), StartLine: startLine})
 			}

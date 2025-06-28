@@ -4,3 +4,12 @@ html, body, h1, h2, h3, h4, h5, h6, p, div, span, a, ul, li, button, input, text
   font-family: 'Inter', sans-serif !important;
 }
 
+
+body {
+  background: #dce3e6;
+  background: linear-gradient(90deg, rgba(220, 227, 230, 1) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+.menu-tree {
+  background: rgba(247, 247, 247, 0.65)
+}

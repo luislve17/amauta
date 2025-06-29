@@ -21,14 +21,35 @@ html, body, h1, h2, h3, h4, h5, h6, p, div, span, a, ul, li, button, input, text
   font-family: 'Inter', sans-serif !important;
 }
 
+html, body {
+  height: 100%;
+}
 
 body {
-  background: #f5f7fa;
-  background: linear-gradient(90deg, rgba(245, 247, 250, 1) 0%, rgba(255, 255, 255, 1) 100%);
+  background: #1a1b1f;
 }
 
 .menu-tree {
-  background: rgba(247, 247, 247, 0.65)
+  background: rgba(26, 26, 26, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.menu-item {
+  transition: background-color 0.2s ease;
+}
+
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.menu-item-content {
+  color: #bbb;
+}
+
+.menu-item:hover .menu-item-content {
+  color: #fff;
 }
 
 
@@ -49,21 +70,11 @@ body {
   cursor: pointer;
   padding: 0;
   border-radius: 6px;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.menu-item:hover {
-  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .menu-item-content {
-  color: #777;
   transition: color 0.2s ease;
   padding: 4px 16px 4px 16px
-}
-
-.menu-item:hover .menu-item-content {
-  color: #000;
 }
 
 .module-icon {

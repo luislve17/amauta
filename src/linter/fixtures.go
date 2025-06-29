@@ -141,3 +141,39 @@ internal#AAAAAA: Internal use only
 [[Users#public,under-dev]]
 description: Endpoints related to user operations
 `
+
+var ValidManifestWithInlineComments string = `
+-- tags: Special section
+-- items follows: '<name>#<color>: <description>' syntax
+[[tags]]
+public#00FF00: Public API  
+internal#AAAAAA: Internal use only  
+deprecated#FF6F61: Will be removed soon  
+under-dev#FFD966: Still under development  
+beta#87CEEB: Beta feature  
+admin#FF1493: Admin only
+
+-- module: Special section
+-- header follows: '[[<name>#<tag1,tag2,...>]]'
+-- fields follow: '<name>(@|?)<type>#<tag1,tag2,...>: <description>'
+`
+
+var ValidManifestWithMultilineComments string = `
+<--
+tags: Special section
+items follows: '<name>#<color>: <description>' syntax
+-->
+[[tags]]
+public#00FF00: Public API  
+internal#AAAAAA: Internal use only  
+deprecated#FF6F61: Will be removed soon  
+under-dev#FFD966: Still under development  
+beta#87CEEB: Beta feature  
+admin#FF1493: Admin only
+
+<--
+module: Special section
+header follows: '[[<name>#<tag1,tag2,...>]]'
+fields follow: '<name>(@|?)<type>#<tag1,tag2,...>: <description>'
+-->
+`

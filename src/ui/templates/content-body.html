@@ -1,0 +1,7 @@
+{{define "content-body"}}
+  {{ range .Links }}
+    {{ if eq .Info.type "Content" }}
+      {{ .Info.htmlContent }}
+    {{ end }}
+  {{ end }}
+{{end}}

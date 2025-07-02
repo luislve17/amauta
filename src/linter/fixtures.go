@@ -21,7 +21,7 @@ Basic types to identify are:
 
 -- tags: Special section
 -- items follows: '<name>#<color>: <description>' syntax
-[[tags]]
+[[@tags]]
 public#00FF00: Public API  
 internal#AAAAAA: Internal use only  
 deprecated#FF6F61: Will be removed soon  
@@ -32,7 +32,7 @@ admin#FF1493: Admin only
 -- module: Special section
 -- header follows: '[[<name>#<tag1,tag2,...>]]'
 -- fields follow: '<name>(@|?)<type>#<tag1,tag2,...>: <description>'
-[[Users#public,internal]]
+[[Users@api#public,internal]]
 summary: Endpoints related to user operations
 
 -- section
@@ -82,7 +82,7 @@ metadata:
 `
 
 var manifestWithValidTags string = `
-[[tags]]
+[[@tags]]
 public#00FF00: Public API
 internal#AAAAAA: Internal use only
 deprecated#FF6F61: Will be removed soon
@@ -93,7 +93,7 @@ var manifestWithInvalidTags string = `
 
 
 
-[[tags]]
+[[@tags]]
 public#00FF00: Valid tag format
 
 
@@ -104,48 +104,48 @@ internal@AAAAAA: Invalid tag format
 `
 
 var manifestWithEmptyTags string = `
-[[tags]]
+[[@tags]]
 
 `
 
 var manifestWithValidModule string = `
-[[Users]]
+[[Users@api]]
 description: Endpoints related to user operations
 
-[[Items]]
+[[Items@api]]
 description: Endpoints related to items owned by users
 
-[[invalidModule]]
+[[invalidModule@api]]
 description: This should never be loaded due syntax error
 `
 
 var manifestWithValidTaggedModules string = `
-[[tags]]
+[[@tags]]
 public#00FF00: Public API
 internal#AAAAAA: Internal use only
 deprecated#FF6F61: Will be removed soon
 under-dev#FFD966: Still under development
 
-[[Users#public,under-dev]]
+[[Users@api#public,under-dev]]
 description: Endpoints related to user operations
 
-[[Items#internal]]
+[[Items@api#internal]]
 description: Endpoints related to items owned by users
 `
 
 var manifestWithUnexistentTaggedModules string = `
-[[tags]]
+[[@tags]]
 public#00FF00: Public API
 internal#AAAAAA: Internal use only
 
-[[Users#public,under-dev]]
+[[Users@api#public,under-dev]]
 description: Endpoints related to user operations
 `
 
 var ValidManifestWithInlineComments string = `
 -- tags: Special section
 -- items follows: '<name>#<color>: <description>' syntax
-[[tags]]
+[[@tags]]
 public#00FF00: Public API  
 internal#AAAAAA: Internal use only  
 deprecated#FF6F61: Will be removed soon  
@@ -163,7 +163,7 @@ var ValidManifestWithMultilineComments string = `
 tags: Special section
 items follows: '<name>#<color>: <description>' syntax
 -->
-[[tags]]
+[[@tags]]
 public#00FF00: Public API  
 internal#AAAAAA: Internal use only  
 deprecated#FF6F61: Will be removed soon  
@@ -176,4 +176,14 @@ module: Special section
 header follows: '[[<name>#<tag1,tag2,...>]]'
 fields follow: '<name>(@|?)<type>#<tag1,tag2,...>: <description>'
 -->
+`
+
+var ValidManifestWithContentSection string = `
+[[About amauta@content#public]]
+group: Getting started
+summary: |
+Welcome to Amauta. The right tool to write documentation. This line is excesively long just to verify how line breaks render once that they load on templates
+
+## What is Amauta?
+Amauta is a non-standardized documentation tool.
 `

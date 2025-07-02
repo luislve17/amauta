@@ -26,3 +26,7 @@ body {
 .menu-item:hover .menu-item-content {
   color: #000;
 }
+
+.content {
+  color: #777;
+}

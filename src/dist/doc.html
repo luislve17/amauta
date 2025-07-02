@@ -14,6 +14,11 @@
 <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -52,13 +57,18 @@ body {
   color: #fff;
 }
 
+.content-body {
+  color: #bbb;
+}
+
 
 
 
 .menu-tree {
   position: fixed;
   top: 50px;
-  height: calc(100vh - 80px);  
+  left: 8.33%;
+  height: calc(100vh - 80px);
   overflow-y: auto;
   width: clamp(300px, 15vw, 800px);
   padding: 8px;
@@ -83,6 +93,28 @@ body {
 
 
 
+.amauta-content {
+  padding-top: 1rem;
+  padding-left: 2rem;
+}
+
+@media (min-width: 1280px) {
+  .amauta-content {
+    padding-top: 3rem;
+    padding-left: 5rem;
+    margin-left: calc(8.33% + clamp(300px, 15vw, 800px));
+    margin-right: 5rem;
+    width: calc(100% - (8.33% + clamp(300px, 15vw, 800px)) - 5rem);
+  }
+}
+
+.content-body.row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+
 </style>
 
 
@@ -91,17 +123,19 @@ body {
     
 <div class="container">
   <div class="row">
-  </div>
-
-  <div class="row">
-    <div class="hidden-sm hidden-md col-lg-1">
-    </div>
-
-    <div class="hidden-sm hidden-md col-lg-3">
+    <div class="amauta-menu hidden-sm hidden-md">
         
 <div class="row">
   
 <nav class="menu-tree">
+  
+    
+    <div class="row menu-item">
+      <span class="menu-item-content">
+        About amauta
+      </span>
+    </div>
+    
   
     
   
@@ -129,19 +163,45 @@ body {
 
     </div>
 
-    <div class="content container col-sm-12 col-md-12 col-lg-7">
+    <div class="amauta-content col-sm-12 col-md-12">
       
-<div class="row">
-  <div class="hidden-sm col-md-1 col-lg-2">
-  </div>
-  <div class="col-sm-12 col-md-11 col-lg-10">
-    <h3>Content</h3>
-  </div>
+<div class="content-body row">
+  
+  
+    
+      <p>Welcome to Amauta. The right tool to write documentation. This line is excesively long just to verify how line breaks render once that they load on templates</p>
+<h2>What is Amauta?</h2>
+<p>Amauta is a non-standardized documentation tool.</p>
+<ul>
+<li>item 1</li>
+<li>item 2</li>
+<li>item 3</li>
+</ul>
+<pre><code class="language-python">import numpy as np
+
+foo = &quot;Hello World!&quot;
+print(foo)
+</code></pre>
+
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
 </div>
 
-    </div>
-
-    <div class="hidden-sm hidden-md col-lg-1">
     </div>
   </div>
 </div>

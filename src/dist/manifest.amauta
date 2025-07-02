@@ -18,7 +18,7 @@ Basic types to identify are:
 
 -- tags: Special section  
 -- items follow: '<name>#<color>: <description>' syntax
-[[tags]]
+[[@tags]]
 public#00FF00: Public API  
 internal#AAAAAA: Internal use only  
 deprecated#FF6F61: Will be removed soon  
@@ -31,7 +31,29 @@ module: Special section
 header follows: '[[<name>#<tag1,tag2,...>]]'  
 fields follow: '<name>(@|?)<type>#<tag1,tag2,...>: <description>'
 -->
-[[Users#public,internal]]
+[[About amauta@content#public]]
+group: Getting started
+summary: |
+Welcome to Amauta. The right tool to write documentation. This line is excesively long just to verify how line breaks render once that they load on templates
+
+## What is Amauta?
+Amauta is a non-standardized documentation tool.
+
+* item 1
+* item 2
+* item 3
+
+```python
+import numpy as np
+
+foo = "Hello World!"
+print(foo)
+```
+|
+
+meta: foo
+
+[[Users@api#public,internal]]
 summary: Endpoints related to user operations
 
 -- section  

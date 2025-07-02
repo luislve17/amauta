@@ -1,21 +1,12 @@
 {{ define "body" }}
 <div class="container">
   <div class="row">
-  </div>
-
-  <div class="row">
-    <div class="hidden-sm hidden-md col-lg-1">
-    </div>
-
-    <div class="hidden-sm hidden-md col-lg-3">
+    <div class="amauta-menu hidden-sm hidden-md">
         {{ template "menu" . }}
     </div>
 
-    <div class="content container col-sm-12 col-md-12 col-lg-7">
+    <div class="amauta-content col-sm-12 col-md-12">
       {{ template "content" . }}
-    </div>
-
-    <div class="hidden-sm hidden-md col-lg-1">
     </div>
   </div>
 </div>

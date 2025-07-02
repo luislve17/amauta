@@ -34,3 +34,7 @@ body {
 .menu-item:hover .menu-item-content {
   color: #fff;
 }
+
+.content-body {
+  color: #bbb;
+}

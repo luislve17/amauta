@@ -1,11 +1,17 @@
 package linter
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
+	"html/template"
 	"regexp"
 	"strings"
+
+	"github.com/yuin/goldmark"
 )
+
+var md = goldmark.New()
 
 func LintFromRoot(content ManifestContent, createStructure bool) (LintResult, error) {
 	var contentGraphErr error = nil
@@ -24,9 +30,15 @@ func LintFromRoot(content ManifestContent, createStructure bool) (LintResult, er
 	return LintResult{Status: lintStatus, Msg: resultMsg, Structure: graph}, err
 }
 
-func generateGraph(content ManifestContent) (*StructureGraph, error) {
+func generateGraph(manifestContent ManifestContent) (*StructureGraph, error) {
 	root := initRoot()
-	rawBlocks := extractRawBlocks(content)
+	rawBlocks := extractRawBlocks(manifestContent)
+
+	content, contentErr := getContent(rawBlocks)
+	if contentErr != nil {
+		return nil, contentErr
+	}
+	linkNodeOneToMany(root, content)
 
 	tags, tagsErr := getTags(rawBlocks)
 	if tagsErr != nil {
@@ -139,7 +151,7 @@ func getTags(rawBlocks []RawBlock) ([]*Node, error) {
 }
 
 func getModules(rawBlocks []RawBlock) ([]*Node, error) {
-	moduleHeaderPatter := regexp.MustCompile(moduleSectionHeaderRegex)
+	moduleHeaderPattern := regexp.MustCompile(moduleSectionHeaderRegex)
 	moduleSections := findSection(rawBlocks, moduleSectionHeaderRegex, false)
 	if len(moduleSections) == 0 {
 		return nil, nil
@@ -149,7 +161,7 @@ func getModules(rawBlocks []RawBlock) ([]*Node, error) {
 
 	for i, moduleSection := range moduleSections {
 		rawHeader := strings.Split(moduleSection.Content, "\n")[0]
-		headerMatch := moduleHeaderPatter.FindStringSubmatch(rawHeader)
+		headerMatch := moduleHeaderPattern.FindStringSubmatch(rawHeader)
 		if len(headerMatch) == 0 {
 			return nil, fmt.Errorf("Error@line:%d\n->Invalid tag format: %q", moduleSection.StartLine+i+1, rawHeader)
 		}
@@ -165,6 +177,74 @@ func getModules(rawBlocks []RawBlock) ([]*Node, error) {
 	}
 
 	return nodes, nil
+}
+
+func getContent(rawBlocks []RawBlock) ([]*Node, error) {
+	contentHeaderPattern := regexp.MustCompile(contentSectionHeaderRegex)
+	contentSections := findSection(rawBlocks, contentSectionHeaderRegex, false)
+	if len(contentSections) == 0 {
+		return nil, nil
+	}
+
+	var nodes []*Node
+
+	for i, contentSection := range contentSections {
+		rawHeader := strings.Split(contentSection.Content, "\n")[0]
+		headerMatch := contentHeaderPattern.FindStringSubmatch(rawHeader)
+		if len(headerMatch) == 0 {
+			return nil, fmt.Errorf("Error@line:%d\n->Invalid content format: %q", contentSection.StartLine+i+1, rawHeader)
+		}
+		node := &Node{
+			Info: map[string]interface{}{
+				"id":          headerMatch[1],
+				"type":        "Content",
+				"htmlContent": getHTMLContent(contentSection.Content),
+			},
+			Links: []*Node{},
+		}
+		nodes = append(nodes, node)
+	}
+
+	return nodes, nil
+}
+
+func getHTMLContent(raw string) template.HTML {
+	lines := strings.Split(raw, "\n")
+	var insideBlock bool
+	var mdLines []string
+
+	for _, line := range lines {
+		trimmed := strings.TrimSpace(line)
+
+		if trimmed == "summary:" || trimmed == "|" {
+			insideBlock = false
+			continue
+		}
+
+		if trimmed == "summary: |" {
+			insideBlock = true
+			continue
+		}
+
+		if insideBlock {
+			mdLines = append(mdLines, line)
+		}
+
+		if strings.HasPrefix(trimmed, "summary:") && !strings.HasSuffix(trimmed, ":") {
+			summary := strings.TrimPrefix(trimmed, "summary:")
+			return renderMarkdown(strings.TrimSpace(summary))
+		}
+	}
+
+	return renderMarkdown(strings.Join(mdLines, "\n"))
+}
+
+func renderMarkdown(content string) template.HTML {
+	var buf bytes.Buffer
+	if err := md.Convert([]byte(content), &buf); err != nil {
+		return template.HTML(content) // fallback to raw
+	}
+	return template.HTML(buf.String())
 }
 
 func extractRawBlocks(content ManifestContent) []RawBlock {

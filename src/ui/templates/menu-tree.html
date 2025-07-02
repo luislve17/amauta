@@ -1,7 +1,7 @@
 {{ define "menu-tree" }}
 <nav class="menu-tree">
   {{ range .Links }}
-    {{ if eq .Info.type "Module" }}
+    {{ if or (eq .Info.type "Module") (eq .Info.type "Content") }}
     <div class="row menu-item">
       <span class="menu-item-content">
         {{ .Info.id }}

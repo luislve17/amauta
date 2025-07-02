@@ -1,9 +1,5 @@
 {{ define "content"}}
-<div class="row">
-  <div class="hidden-sm col-md-1 col-lg-2">
-  </div>
-  <div class="col-sm-12 col-md-11 col-lg-10">
-    <h3>Content</h3>
-  </div>
+<div class="content-body row">
+  {{template "content-body" .}}
 </div>
 {{end}}

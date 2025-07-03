@@ -33,15 +33,23 @@ fields follow: '<name>(@|?)<type>#<tag1,tag2,...>: <description>'
 -->
 [[About amauta@content#public]]
 group: Getting started
-summary: |
+summary: <md>
+# Amauta
 Welcome to Amauta. The right tool to write documentation. This line is excesively long just to verify how line breaks render once that they load on templates
 
 ## What is Amauta?
-Amauta is a non-standardized documentation tool.
+Amauta is a non-standardized documentation tool. Improves readability and maintanibility for small and big developer teams.
+
+## List of things
 
 * item 1
 * item 2
 * item 3
+
+
+### Sub topic
+
+> "This is a quote" ~ The quoter
 
 ```python
 import numpy as np
@@ -52,7 +60,28 @@ def handleMethodThatDoesTheThingButItsNameIsQuiteLong(my_id: int, my_callable: .
 foo = "Hello World!"
 print(foo)
 ```
-|
+Or in Go
+```go
+package main
+
+func handleMethodThatDoesTheThingButItsNameIsQuiteLong(my_id int, my_callable: interface, my_model: []map[string]Foo) int{
+	return 1
+}
+
+foo := "Hello World!"
+fmt.Printf("%s\n", foo)
+```
+
+Here is a table:
+
+| Item              | In Stock | Price |
+| :---------------- | :------: | ----: |
+| Python Hat        |   True   | 23.99 |
+| SQL Hat           |   True   | 23.99 |
+| Codecademy Tee    |  False   | 19.99 |
+| Codecademy Hoodie |  False   | 42.99 |
+
+</md>
 
 meta: foo
 

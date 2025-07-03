@@ -32,18 +32,44 @@ html, body {
 }
 
 body {
-  background: #1a1b1f;
+  background: #f5f7fa;
+  background: linear-gradient(90deg, rgba(245, 247, 250, 1) 0%, rgba(255, 255, 255, 1) 100%);
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+  color: rgb(23, 23, 23, 0.85);
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(27, 27, 27, 0.3);
+  padding-bottom: 0.5rem;
+}
+
+p {
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+
 
 pre {
   font-family: 'Fira Code', monospace !important;
-  font-size: 15px !important;
-  background: #282c34 !important;
-  border-color: #282c38;
-  border-left: 0.25rem solid #434f73 !important;
+  font-size: 14px !important;
+  background: #f7f7f7 !important;
+  border-left: 0.25rem solid #a3a3a3 !important;
+
+  border-radius: 6px !important;
+  padding: 1rem !important;
+  margin: 1.5rem 0 !important;
 
   line-height: 1.6 !important;
-  color: #e3e3e3 !important;
+  color: #2a2a2a !important;
+  overflow-x: auto;
 }
 
 pre code {
@@ -56,30 +82,25 @@ pre code {
 
 
 .menu-tree {
-  background: rgba(26, 26, 26, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 6px;
+  background: rgba(247, 247, 247, 0.65);
+
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.menu-item {
-  transition: background-color 0.2s ease;
-}
-
 .menu-item:hover {
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .menu-item-content {
-  color: #bbb;
+  color: #777;
 }
 
 .menu-item:hover .menu-item-content {
-  color: #fff;
+  color: #000;
 }
 
-.content-body {
-  color: #bbb;
+.content {
+  color: #777;
 }
 
 
@@ -216,14 +237,20 @@ pre code {
   
   
     
-      <p>Welcome to Amauta. The right tool to write documentation. This line is excesively long just to verify how line breaks render once that they load on templates</p>
+      <h1>Amauta</h1>
+<p>Welcome to Amauta. The right tool to write documentation. This line is excesively long just to verify how line breaks render once that they load on templates</p>
 <h2>What is Amauta?</h2>
-<p>Amauta is a non-standardized documentation tool.</p>
+<p>Amauta is a non-standardized documentation tool. Improves readability and maintanibility for small and big developer teams.</p>
+<h2>List of things</h2>
 <ul>
 <li>item 1</li>
 <li>item 2</li>
 <li>item 3</li>
 </ul>
+<h3>Sub topic</h3>
+<blockquote>
+<p>&quot;This is a quote&quot; ~ The quoter</p>
+</blockquote>
 <pre><code class="language-python">import numpy as np
 
 def handleMethodThatDoesTheThingButItsNameIsQuiteLong(my_id: int, my_callable: ..., my_model: List[Tuple[Foo]]):
@@ -232,6 +259,48 @@ def handleMethodThatDoesTheThingButItsNameIsQuiteLong(my_id: int, my_callable: .
 foo = &quot;Hello World!&quot;
 print(foo)
 </code></pre>
+<p>Or in Go</p>
+<pre><code class="language-go">package main
+
+func handleMethodThatDoesTheThingButItsNameIsQuiteLong(my_id int, my_callable: interface, my_model: []map[string]Foo) int{
+	return 1
+}
+
+foo := &quot;Hello World!&quot;
+fmt.Printf(&quot;%s\n&quot;, foo)
+</code></pre>
+<p>Here is a table:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Item</th>
+<th style="text-align:center">In Stock</th>
+<th style="text-align:right">Price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Python Hat</td>
+<td style="text-align:center">True</td>
+<td style="text-align:right">23.99</td>
+</tr>
+<tr>
+<td style="text-align:left">SQL Hat</td>
+<td style="text-align:center">True</td>
+<td style="text-align:right">23.99</td>
+</tr>
+<tr>
+<td style="text-align:left">Codecademy Tee</td>
+<td style="text-align:center">False</td>
+<td style="text-align:right">19.99</td>
+</tr>
+<tr>
+<td style="text-align:left">Codecademy Hoodie</td>
+<td style="text-align:center">False</td>
+<td style="text-align:right">42.99</td>
+</tr>
+</tbody>
+</table>
 
     
   

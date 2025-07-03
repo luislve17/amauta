@@ -9,9 +9,18 @@ import (
 	"strings"
 
 	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/extension"
+	"github.com/yuin/goldmark/renderer/html"
 )
 
-var md = goldmark.New()
+var md = goldmark.New(
+	goldmark.WithExtensions(
+		extension.GFM, // Enables GitHub-flavored Markdown: tables, strikethrough, task lists, autolinks
+	),
+	goldmark.WithRendererOptions(
+		html.WithUnsafe(), // Allow raw HTML (needed for e.g., <span>, or if markdown outputs HTML)
+	),
+)
 
 func LintFromRoot(content ManifestContent, createStructure bool) (LintResult, error) {
 	var contentGraphErr error = nil
@@ -210,29 +219,29 @@ func getContent(rawBlocks []RawBlock) ([]*Node, error) {
 
 func getHTMLContent(raw string) template.HTML {
 	lines := strings.Split(raw, "\n")
-	var insideBlock bool
+	var inMarkdown bool
 	var mdLines []string
 
 	for _, line := range lines {
 		trimmed := strings.TrimSpace(line)
 
-		if trimmed == "summary:" || trimmed == "|" {
-			insideBlock = false
+		if trimmed == "summary: <md>" {
+			inMarkdown = true
 			continue
 		}
 
-		if trimmed == "summary: |" {
-			insideBlock = true
-			continue
+		if trimmed == "</md>" {
+			inMarkdown = false
+			break
 		}
 
-		if insideBlock {
-			mdLines = append(mdLines, line)
-		}
-
-		if strings.HasPrefix(trimmed, "summary:") && !strings.HasSuffix(trimmed, ":") {
+		if strings.HasPrefix(trimmed, "summary:") && !strings.Contains(trimmed, "<md>") {
 			summary := strings.TrimPrefix(trimmed, "summary:")
 			return renderMarkdown(strings.TrimSpace(summary))
+		}
+
+		if inMarkdown {
+			mdLines = append(mdLines, line)
 		}
 	}
 

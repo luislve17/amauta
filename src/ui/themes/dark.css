@@ -13,15 +13,38 @@ body {
   background: #1a1b1f;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+  color: #f7fafc;
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
 pre {
   font-family: 'Fira Code', monospace !important;
-  font-size: 15px !important;
+  font-size: 14px !important;
   background: #282c34 !important;
-  border-color: #282c38;
+  border: 1px solid #3a3f4b !important;
   border-left: 0.25rem solid #434f73 !important;
-
+  border-radius: 6px !important;
+  padding: 1rem !important;
+  margin: 1.5rem 0 !important;
   line-height: 1.6 !important;
   color: #e3e3e3 !important;
+  overflow-x: auto;
 }
 
 pre code {
@@ -32,7 +55,6 @@ pre code {
   background: none !important;
 }
 
-
 .menu-tree {
   background: rgba(26, 26, 26, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -42,6 +64,8 @@ pre code {
 
 .menu-item {
   transition: background-color 0.2s ease;
+  border-radius: 4px;
+  margin-bottom: 2px;
 }
 
 .menu-item:hover {
@@ -50,6 +74,8 @@ pre code {
 
 .menu-item-content {
   color: #bbb;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .menu-item:hover .menu-item-content {

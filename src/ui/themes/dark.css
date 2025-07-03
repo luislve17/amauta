@@ -113,11 +113,10 @@ li::marker {
 
 blockquote {
   background: rgba(255, 255, 255, 0.05);
-  border-left: 4px solid #ff9800;
   margin: 1.5rem 0;
   padding: 1rem 1.5rem;
   border-radius: 0 6px 6px 0;
-  box-shadow: 0 0 0.5rem rgba(255, 255, 255, 0.05);
+  border: 1px solid #3a3f4b !important;
   position: relative;
   font-style: italic;
   color: #f5f5f5;

@@ -14,13 +14,14 @@
 <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
 
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
 
 html, body, h1, h2, h3, h4, h5, h6, p, div, span, a, ul, li, button, input, textarea, select {
   font-family: 'Inter', sans-serif !important;
@@ -33,6 +34,26 @@ html, body {
 body {
   background: #1a1b1f;
 }
+
+pre {
+  font-family: 'Fira Code', monospace !important;
+  font-size: 15px !important;
+  background: #282c34 !important;
+  border-color: #282c38;
+  border-left: 0.25rem solid #434f73 !important;
+
+  line-height: 1.6 !important;
+  color: #e3e3e3 !important;
+}
+
+pre code {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  color: inherit !important;
+  background: none !important;
+}
+
 
 .menu-tree {
   background: rgba(26, 26, 26, 0.3);
@@ -92,10 +113,36 @@ body {
 }
 
 
+.container, .row, .amauta-content, .content-body {
+  max-width: 100%;
+  box-sizing: border-box;
+}
 
 .amauta-content {
   padding-top: 1rem;
   padding-left: 2rem;
+  padding-right: 2.5rem;
+}
+
+.amauta-content pre {
+  padding: 10px !important;
+  border-radius: 4px !important;
+
+  overflow-x: auto;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: block;
+  white-space: pre;
+}
+
+.amauta-content pre code {
+  padding: 0 !important;
+  margin: 0 !important;
+
+  display: inline-block !important;
+  white-space: pre !important;
+  min-width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 @media (min-width: 1280px) {
@@ -178,6 +225,9 @@ body {
 <li>item 3</li>
 </ul>
 <pre><code class="language-python">import numpy as np
+
+def handleMethodThatDoesTheThingButItsNameIsQuiteLong(my_id: int, my_callable: ..., my_model: List[Tuple[Foo]]):
+	pass
 
 foo = &quot;Hello World!&quot;
 print(foo)

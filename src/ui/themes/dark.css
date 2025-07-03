@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
 
 html, body, h1, h2, h3, h4, h5, h6, p, div, span, a, ul, li, button, input, textarea, select {
   font-family: 'Inter', sans-serif !important;
@@ -11,6 +12,26 @@ html, body {
 body {
   background: #1a1b1f;
 }
+
+pre {
+  font-family: 'Fira Code', monospace !important;
+  font-size: 15px !important;
+  background: #282c34 !important;
+  border-color: #282c38;
+  border-left: 0.25rem solid #434f73 !important;
+
+  line-height: 1.6 !important;
+  color: #e3e3e3 !important;
+}
+
+pre code {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  color: inherit !important;
+  background: none !important;
+}
+
 
 .menu-tree {
   background: rgba(26, 26, 26, 0.3);

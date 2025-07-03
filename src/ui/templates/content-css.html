@@ -1,8 +1,34 @@
 {{define "content-css"}}
+.container, .row, .amauta-content, .content-body {
+  max-width: 100%;
+  box-sizing: border-box;
+}
 
 .amauta-content {
   padding-top: 1rem;
   padding-left: 2rem;
+  padding-right: 2.5rem;
+}
+
+.amauta-content pre {
+  padding: 10px !important;
+  border-radius: 4px !important;
+
+  overflow-x: auto;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: block;
+  white-space: pre;
+}
+
+.amauta-content pre code {
+  padding: 0 !important;
+  margin: 0 !important;
+
+  display: inline-block !important;
+  white-space: pre !important;
+  min-width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 @media (min-width: 1280px) {

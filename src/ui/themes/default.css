@@ -1,13 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
 
 html, body, h1, h2, h3, h4, h5, h6, p, div, span, a, ul, li, button, input, textarea, select {
   font-family: 'Inter', sans-serif !important;
+}
+
+html, body {
+  height: 100%;
 }
 
 body {
   background: #f5f7fa;
   background: linear-gradient(90deg, rgba(245, 247, 250, 1) 0%, rgba(255, 255, 255, 1) 100%);
 }
+
+pre {
+  font-family: 'Fira Code', monospace !important;
+  font-size: 15px !important;
+  background: #f7f7f7 !important;
+  border-left: 0.25rem solid #a3a3a3 !important;
+
+  line-height: 1.6 !important;
+  color: #2a2a2a !important;
+}
+
+pre code {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  color: inherit !important;
+  background: none !important;
+}
+
 
 .menu-tree {
   background: rgba(247, 247, 247, 0.65);

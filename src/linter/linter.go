@@ -242,7 +242,7 @@ func getHTMLContent(raw string) template.HTML {
 func renderMarkdown(content string) template.HTML {
 	var buf bytes.Buffer
 	if err := md.Convert([]byte(content), &buf); err != nil {
-		return template.HTML(content) // fallback to raw
+		return template.HTML(content)
 	}
 	return template.HTML(buf.String())
 }

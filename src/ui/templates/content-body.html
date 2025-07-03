@@ -1,7 +1,9 @@
 {{define "content-body"}}
   {{ range .Links }}
-    {{ if eq .Info.type "Content" }}
+    {{ if or (eq .Info.type "Content") (eq .Info.type "Module") }}
+    <div class="content-section" id="section-{{ .Info.id }}">
       {{ .Info.htmlContent }}
+    </div>
     {{ end }}
   {{ end }}
 {{end}}

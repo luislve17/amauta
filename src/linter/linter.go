@@ -176,9 +176,10 @@ func getModules(rawBlocks []RawBlock) ([]*Node, error) {
 		}
 		node := &Node{
 			Info: map[string]interface{}{
-				"type":    "Module",
-				"id":      headerMatch[1],
-				"_tagIds": strings.Split(headerMatch[2], ","),
+				"type":        "Module",
+				"id":          headerMatch[1],
+				"htmlContent": getHTMLContent(moduleSection.Content),
+				"_tagIds":     strings.Split(headerMatch[2], ","),
 			},
 			Links: []*Node{},
 		}
@@ -205,8 +206,8 @@ func getContent(rawBlocks []RawBlock) ([]*Node, error) {
 		}
 		node := &Node{
 			Info: map[string]interface{}{
-				"id":          headerMatch[1],
 				"type":        "Content",
+				"id":          headerMatch[1],
 				"htmlContent": getHTMLContent(contentSection.Content),
 			},
 			Links: []*Node{},

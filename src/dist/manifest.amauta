@@ -131,3 +131,17 @@ profile.gender: female
 metadata.source: newsletter  
 metadata.tags: [beta, test]
 
+[[Final section@content#public]]
+group: Getting started
+summary: <md>
+# Final section I guess
+This is a separate content section
+
+## Foo
+Foo indeed
+
+## List of things
+
+* Item 1
+* Item 2
+* Item 3

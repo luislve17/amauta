@@ -2,7 +2,7 @@
 <nav class="menu-tree">
   {{ range .Links }}
     {{ if or (eq .Info.type "Module") (eq .Info.type "Content") }}
-    <div class="row menu-item">
+    <div class="row menu-item" onclick="showSection('section-{{ .Info.id }}')">
       <span class="menu-item-content">
         {{ .Info.id }}
       </span>

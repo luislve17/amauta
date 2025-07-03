@@ -31,44 +31,51 @@ html, body {
   height: 100%;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
-  background: #f5f7fa;
-  background: linear-gradient(90deg, rgba(245, 247, 250, 1) 0%, rgba(255, 255, 255, 1) 100%);
+  min-height: 100vh;
+  background-blend-mode: multiply;
+  background: #27282f;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: 1.3;
   margin-bottom: 1rem;
-  color: rgb(23, 23, 23, 0.85);
+  color: #f7fafc;
 }
 
 h2 {
   font-size: 1.75rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  border-bottom: 1px solid rgba(27, 27, 27, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 0.5rem;
 }
 
 p {
-  line-height: 1.4;
+  line-height: 1.6;
   margin-bottom: 1rem;
 }
-
 
 pre {
   font-family: 'Fira Code', monospace !important;
   font-size: 14px !important;
-  background: #f7f7f7 !important;
-  border-left: 0.25rem solid #a3a3a3 !important;
+  background: #282c34 !important;
+  border: 1px solid #3a3f4b !important;
+  border-left: 0.25rem solid #434f73 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
   border-radius: 6px !important;
   padding: 1rem !important;
   margin: 1.5rem 0 !important;
 
   line-height: 1.6 !important;
-  color: #2a2a2a !important;
+  color: #e3e3e3 !important;
   overflow-x: auto;
 }
 
@@ -78,30 +85,157 @@ pre code {
   line-height: inherit !important;
   color: inherit !important;
   background: none !important;
+  tab-size: 4;
 }
 
+code {
+  background: #282c34 !important;
+  
+}
 
 .menu-tree {
-  background: rgba(247, 247, 247, 0.65);
-
+  background: rgba(26, 26, 26, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+.menu-item {
+  transition: background-color 0.2s ease;
+  border-radius: 4px;
+  margin-bottom: 2px;
+}
+
 .menu-item:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .menu-item-content {
-  color: #777;
+  color: #bbb;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .menu-item:hover .menu-item-content {
-  color: #000;
+  color: #fff;
 }
 
-.content {
-  color: #777;
+.content-body {
+  color: #bbb;
 }
+
+ul, ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+li::marker {
+  color: #888;
+}
+
+blockquote {
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 4px solid #ff9800;
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-radius: 0 6px 6px 0;
+  box-shadow: 0 0 0.5rem rgba(255, 255, 255, 0.05);
+  position: relative;
+  font-style: italic;
+  color: #f5f5f5;
+}
+
+blockquote::before {
+  content: '"';
+  font-size: 4rem;
+  color: #ff9800;
+  position: absolute;
+  left: 0.5rem;
+  top: -0.5rem;
+  line-height: 1;
+  font-family: serif;
+  opacity: 0.2;
+}
+
+blockquote p {
+  margin: 0;
+  padding-left: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: inherit;
+}
+
+blockquote cite {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #ffa726; /* lighter orange for contrast */
+  font-style: normal;
+  font-weight: 500;
+  text-align: right;
+}
+
+blockquote cite::before {
+  content: '~ ';
+}
+
+/* Hard reset for table elements */
+table,
+thead,
+tbody,
+tr,
+th,
+td {
+  all: unset !important;
+  display: revert !important;
+  border: none !important;
+  background: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  border-spacing: 0 !important;
+  border-collapse: collapse !important;
+}
+
+table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  border: none !important;
+  margin: 1.5rem 0 !important;
+}
+
+thead th {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: #e2e8f0 !important; /* light gray text for contrast */
+  padding: 0.75rem 1rem !important;
+  font-weight: 600 !important;
+  text-align: left !important;
+}
+
+thead th:first-child {
+  border-top-left-radius: 12px !important;
+  border-bottom-left-radius: 12px !important;
+}
+
+thead th:last-child {
+  border-top-right-radius: 12px !important;
+  border-bottom-right-radius: 12px !important;
+}
+
+tbody td {
+  border: none !important;
+  background-color: transparent !important;
+  color: #cbd5e0 !important; /* soft light gray */
+  padding: 0.75rem 1rem !important;
+  transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+
+tbody tr:hover td {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  color: #ffffff !important;
+}
+
 
 
 
@@ -143,6 +277,7 @@ pre code {
   padding-top: 1rem;
   padding-left: 2rem;
   padding-right: 2.5rem;
+  padding-bottom: 5rem;
 }
 
 .amauta-content pre {
@@ -243,14 +378,15 @@ pre code {
 <p>Amauta is a non-standardized documentation tool. Improves readability and maintanibility for small and big developer teams.</p>
 <h2>List of things</h2>
 <ul>
-<li>item 1</li>
-<li>item 2</li>
-<li>item 3</li>
+<li>Item 1</li>
+<li>Item 2</li>
+<li>Item 3</li>
 </ul>
 <h3>Sub topic</h3>
 <blockquote>
 <p>&quot;This is a quote&quot; ~ The quoter</p>
 </blockquote>
+<p>This is inline code <code>lambda x: x+1</code></p>
 <pre><code class="language-python">import numpy as np
 
 def handleMethodThatDoesTheThingButItsNameIsQuiteLong(my_id: int, my_callable: ..., my_model: List[Tuple[Foo]]):

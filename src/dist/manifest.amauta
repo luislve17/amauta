@@ -42,14 +42,16 @@ Amauta is a non-standardized documentation tool. Improves readability and mainta
 
 ## List of things
 
-* item 1
-* item 2
-* item 3
+* Item 1
+* Item 2
+* Item 3
 
 
 ### Sub topic
 
 > "This is a quote" ~ The quoter
+
+This is inline code `lambda x: x+1`
 
 ```python
 import numpy as np

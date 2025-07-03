@@ -7,11 +7,15 @@ html, body, h1, h2, h3, h4, h5, h6, p, div, span, a, ul, li, button, input, text
 
 html, body {
   height: 100%;
+  margin: 0;
 }
 
 body {
-  background: #f5f7fa;
-  background: linear-gradient(90deg, rgba(245, 247, 250, 1) 0%, rgba(255, 255, 255, 1) 100%);
+  min-height: 100vh;
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -34,12 +38,12 @@ p {
   margin-bottom: 1rem;
 }
 
-
-pre {
+re {
   font-family: 'Fira Code', monospace !important;
   font-size: 14px !important;
   background: #f7f7f7 !important;
   border-left: 0.25rem solid #a3a3a3 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
   border-radius: 6px !important;
   padding: 1rem !important;
@@ -56,11 +60,12 @@ pre code {
   line-height: inherit !important;
   color: inherit !important;
   background: none !important;
+  tab-size: 4;
 }
 
 
 .menu-tree {
-  background: rgba(247, 247, 247, 0.65);
+  background: rgba(245, 245, 245, 0.85);
 
   transition: background-color 0.2s ease, color 0.2s ease;
 }
@@ -80,3 +85,108 @@ pre code {
 .content {
   color: #777;
 }
+
+ul, ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+li::marker {
+  color: #888;
+}
+
+blockquote {
+  background: #fff8e1;
+  border-left: 4px solid #ff9800;
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-radius: 0 6px 6px 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: relative;
+  font-style: italic;
+  color: #5d4037;
+}
+
+blockquote::before {
+  content: '"';
+  font-size: 4rem;
+  color: #ff9800;
+  position: absolute;
+  left: 0.5rem;
+  top: -0.5rem;
+  line-height: 1;
+  font-family: serif;
+  opacity: 0.3;
+}
+
+blockquote p {
+  margin: 0;
+  padding-left: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+blockquote cite {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #8d6e63;
+  font-style: normal;
+  font-weight: 500;
+  text-align: right;
+}
+
+blockquote cite::before {
+  content: '~ ';
+}
+
+table,
+thead,
+tbody,
+tr,
+th,
+td {
+  all: unset !important;
+  display: revert !important;
+  border: none !important;
+  background: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  border-spacing: 0 !important;
+  border-collapse: collapse !important;
+}
+
+table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  border: none !important;
+}
+
+thead th {
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  background-color: #f9f9f9 !important;
+  padding: 8px !important;
+}
+
+thead th:first-child {
+  border-top-left-radius: 12px !important;
+  border-bottom-left-radius: 12px !important;
+}
+
+thead th:last-child {
+  border-top-right-radius: 12px !important;
+  border-bottom-right-radius: 12px !important;
+}
+
+tbody td {
+  border: none !important;
+  background-color: transparent !important;
+  padding: 8px !important;
+  transition: background-color 0.2s ease !important;
+}
+
+tbody td:hover {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+

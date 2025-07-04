@@ -26,13 +26,17 @@ under-dev#FFD966: Still under development
 beta#87CEEB: Beta feature  
 admin#FF1493: Admin only
 
+[[@groups]]
+getting-started#public: Getting started
+
+
 <--
 module: Special section  
 header follows: '[[<name>#<tag1,tag2,...>]]'  
 fields follow: '<name>(@|?)<type>#<tag1,tag2,...>: <description>'
 -->
 [[About amauta@content#public]]
-group: Getting started
+group: getting-started, foo
 summary: <md>
 # Amauta
 Welcome to Amauta. The right tool to write documentation. This line is excesively long just to verify how line breaks render once that they load on templates

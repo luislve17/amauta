@@ -179,11 +179,22 @@ fields follow: '<name>(@|?)<type>#<tag1,tag2,...>: <description>'
 `
 
 var ValidManifestWithContentSection string = `
+[[@groups]]
+getting-started#public: getting started
+
 [[About amauta@content#public]]
-group: Getting started
-summary: |
+group: getting-started
+summary: <md>
+# Amauta
 Welcome to Amauta. The right tool to write documentation. This line is excesively long just to verify how line breaks render once that they load on templates
 
 ## What is Amauta?
 Amauta is a non-standardized documentation tool.
+</md>
+`
+
+var manifestWithValidGroup string = `
+[[@groups]]
+getting-started#public: getting started
+api#public: client api
 `

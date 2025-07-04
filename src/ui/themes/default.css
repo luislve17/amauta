@@ -76,6 +76,8 @@ pre code {
 
 .menu-item-content {
   color: #777;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .menu-item:hover .menu-item-content {

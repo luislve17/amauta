@@ -1,13 +1,13 @@
 {{define "script-js"}}
 function showSection(id) {
   document.querySelectorAll('.content-section').forEach(el => {
-    el.style.display = 'none';
+    el.classList.remove('active');
   });
 
   const target = document.getElementById(id);
   if (target) {
-    target.style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // Optional
+    target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
 {{end}}

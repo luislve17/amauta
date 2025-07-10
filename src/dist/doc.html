@@ -22,6 +22,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
 
 html, body, h1, h2, h3, h4, h5, h6, p, div, span, a, ul, li, button, input, textarea, select {
   font-family: 'Inter', sans-serif !important;
@@ -34,37 +35,36 @@ html, body {
 
 body {
   min-height: 100vh;
-  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+  background-blend-mode: multiply;
+  background: #27282f;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: 1.3;
   margin-bottom: 1rem;
-  color: rgb(23, 23, 23, 0.85);
+  color: #f7fafc;
 }
 
 h2 {
   font-size: 1.75rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  border-bottom: 1px solid rgba(27, 27, 27, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 0.5rem;
 }
 
 p {
-  line-height: 1.4;
+  line-height: 1.6;
   margin-bottom: 1rem;
 }
 
 pre {
   font-family: 'Fira Code', monospace !important;
   font-size: 14px !important;
-  background: #f7f7f7 !important;
-  border-left: 0.25rem solid #a3a3a3 !important;
+  background: #282c34 !important;
+  border: 1px solid #3a3f4b !important;
+  border-left: 0.25rem solid #434f73 !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
   border-radius: 6px !important;
@@ -72,7 +72,7 @@ pre {
   margin: 1.5rem 0 !important;
 
   line-height: 1.6 !important;
-  color: #2a2a2a !important;
+  color: #e3e3e3 !important;
   overflow-x: auto;
 }
 
@@ -85,29 +85,49 @@ pre code {
   tab-size: 4;
 }
 
+code {
+  background: #282c34 !important;
+  
+}
 
 .menu-tree {
-  background: rgba(245, 245, 245, 0.85);
-
+  background: rgba(26, 26, 26, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+.group-item {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: #EEE;
+}
+
+.menu-item {
+  transition: background-color 0.2s ease;
+  border-radius: 4px;
+  margin-bottom: 2px;
+}
+
 .menu-item:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .menu-item-content {
-  color: #777;
+  color: #bbb;
   font-size: 0.9rem;
   font-weight: 500;
 }
 
 .menu-item:hover .menu-item-content {
-  color: #000;
+  color: #fff;
 }
 
-.content {
-  color: #777;
+.content-body {
+  color: #bbb;
 }
 
 ul, ol {
@@ -120,15 +140,14 @@ li::marker {
 }
 
 blockquote {
-  background: #fff8e1;
+  background: rgba(255, 255, 255, 0.05);
   margin: 1.5rem 0;
-  border: 1px solid #3a3f4b !important;
   padding: 1rem 1.5rem;
   border-radius: 0 6px 6px 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #3a3f4b !important;
   position: relative;
   font-style: italic;
-  color: #5d4037;
+  color: #f5f5f5;
 }
 
 blockquote::before {
@@ -140,7 +159,7 @@ blockquote::before {
   top: -0.5rem;
   line-height: 1;
   font-family: serif;
-  opacity: 0.3;
+  opacity: 0.2;
 }
 
 blockquote p {
@@ -148,13 +167,14 @@ blockquote p {
   padding-left: 1.5rem;
   font-size: 1rem;
   line-height: 1.6;
+  color: inherit;
 }
 
 blockquote cite {
   display: block;
   margin-top: 0.5rem;
   font-size: 0.875rem;
-  color: #8d6e63;
+  color: #ffa726; /* lighter orange for contrast */
   font-style: normal;
   font-weight: 500;
   text-align: right;
@@ -164,6 +184,7 @@ blockquote cite::before {
   content: '~ ';
 }
 
+/* Hard reset for table elements */
 table,
 thead,
 tbody,
@@ -185,12 +206,16 @@ table {
   border-collapse: collapse !important;
   width: 100% !important;
   border: none !important;
+  margin: 1.5rem 0 !important;
 }
 
 thead th {
-  border: 1px solid rgba(0, 0, 0, 0.1) !important;
-  background-color: #f9f9f9 !important;
-  padding: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: #e2e8f0 !important; /* light gray text for contrast */
+  padding: 0.75rem 1rem !important;
+  font-weight: 600 !important;
+  text-align: left !important;
 }
 
 thead th:first-child {
@@ -206,12 +231,14 @@ thead th:last-child {
 tbody td {
   border: none !important;
   background-color: transparent !important;
-  padding: 8px !important;
-  transition: background-color 0.2s ease !important;
+  color: #cbd5e0 !important; /* soft light gray */
+  padding: 0.75rem 1rem !important;
+  transition: background-color 0.2s ease, color 0.2s ease !important;
 }
 
-tbody td:hover {
-  background-color: rgba(0, 0, 0, 0.03) !important;
+tbody tr:hover td {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  color: #ffffff !important;
 }
 
 
@@ -228,6 +255,10 @@ tbody td:hover {
   padding: 8px;
   box-sizing: border-box;
   border-radius: 10px;
+}
+
+.group-item {
+  padding: 0;
 }
 
 .menu-item {
@@ -346,40 +377,90 @@ function showSection(id) {
   
 <nav class="menu-tree">
   
+
     
-    <div class="row menu-item" onclick="showSection('section-About amauta')">
-      <span class="menu-item-content">
-        About amauta
-      </span>
-    </div>
+      <div class="row group-item">
+        <span>
+          Getting started
+        </span>
+      </div>
+
+      
+
+        
+
+      
+
+        
+
+      
+
+        
+        <div class="row menu-item" onclick="showSection('section-About amauta')">
+          <span class="menu-item-content">
+            About amauta
+          </span>
+        </div>
+        
+
+      
+
+        
+        <div class="row menu-item" onclick="showSection('section-Final section')">
+          <span class="menu-item-content">
+            Final section
+          </span>
+        </div>
+        
+
+      
     
   
+
     
-    <div class="row menu-item" onclick="showSection('section-Final section')">
-      <span class="menu-item-content">
-        Final section
-      </span>
-    </div>
+      <div class="row group-item">
+        <span>
+          API
+        </span>
+      </div>
+
+      
+
+        
+
+      
+
+        
+
+      
+
+        
+        <div class="row menu-item" onclick="showSection('section-Users')">
+          <span class="menu-item-content">
+            Users
+          </span>
+        </div>
+        
+
+      
     
   
+
     
   
+
     
   
+
     
   
+
     
   
+
     
   
-    
-  
-    
-    <div class="row menu-item" onclick="showSection('section-Users')">
-      <span class="menu-item-content">
-        Users
-      </span>
-    </div>
+
     
   
 </nav>
@@ -394,8 +475,14 @@ function showSection(id) {
   
   
     
-    <div class="content-section" id="section-About amauta">
-      <h1>Amauta</h1>
+      
+        
+      
+        
+      
+        
+        <div class="content-section" id="section-About amauta">
+          <h1>Amauta</h1>
 <p>Welcome to Amauta. The right tool to write documentation. This line is excesively long just to verify how line breaks render once that they load on templates</p>
 <h2>What is Amauta?</h2>
 <p>Amauta is a non-standardized documentation tool. Improves readability and maintanibility for small and big developer teams.</p>
@@ -461,12 +548,12 @@ fmt.Printf(&quot;%s\n&quot;, foo)
 </tbody>
 </table>
 
-    </div>
-    
-  
-    
-    <div class="content-section" id="section-Final section">
-      <h1>Final section I guess</h1>
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          <h1>Final section I guess</h1>
 <p>This is a separate content section</p>
 <h2>Foo</h2>
 <p>Foo indeed</p>
@@ -477,26 +564,36 @@ fmt.Printf(&quot;%s\n&quot;, foo)
 <li>Item 3</li>
 </ul>
 
-    </div>
+        </div>
+        
+      
     
   
     
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-    <div class="content-section" id="section-Users">
-      <p>Endpoints related to user operations</p>
+      
+        
+      
+        
+      
+        
+        <div class="content-section" id="section-Users">
+          <p>Endpoints related to user operations</p>
 
-    </div>
+        </div>
+        
+      
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
     
   
 

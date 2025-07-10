@@ -14,12 +14,8 @@ import (
 )
 
 var md = goldmark.New(
-	goldmark.WithExtensions(
-		extension.GFM, // Enables GitHub-flavored Markdown: tables, strikethrough, task lists, autolinks
-	),
-	goldmark.WithRendererOptions(
-		html.WithUnsafe(), // Allow raw HTML (needed for e.g., <span>, or if markdown outputs HTML)
-	),
+	goldmark.WithExtensions(extension.GFM),
+	goldmark.WithRendererOptions(html.WithUnsafe()),
 )
 
 func LintFromRoot(content ManifestContent, createStructure bool) (LintResult, error) {
@@ -43,11 +39,16 @@ func generateGraph(manifestContent ManifestContent) (*StructureGraph, error) {
 	root := initRoot()
 	rawBlocks := extractRawBlocks(manifestContent)
 
-	content, contentErr := getContent(rawBlocks)
+	groups, groupsErr := getGroups(rawBlocks)
+	if groupsErr != nil {
+		return nil, groupsErr
+	}
+	linkNodeOneToMany(root, groups)
+
+	contents, contentErr := getContent(rawBlocks)
 	if contentErr != nil {
 		return nil, contentErr
 	}
-	linkNodeOneToMany(root, content)
 
 	tags, tagsErr := getTags(rawBlocks)
 	if tagsErr != nil {
@@ -59,8 +60,12 @@ func generateGraph(manifestContent ManifestContent) (*StructureGraph, error) {
 	if modulesErr != nil {
 		return nil, modulesErr
 	}
-	linkNodeOneToMany(root, modules)
+
 	linkNodesManyToManyById("_tagIds", modules, tags)
+	linkNodesManyToManyById("_tagIds", groups, tags)
+
+	linkNodesManyToManyById("_groupIds", modules, groups)
+	linkNodesManyToManyById("_groupIds", contents, groups)
 
 	graph := StructureGraph{
 		Root: root,
@@ -124,6 +129,41 @@ func findSection(rawBlocks []RawBlock, rawRegex string, onlyFirst bool) []*RawBl
 	return matches
 }
 
+func getGroups(rawBlocks []RawBlock) ([]*Node, error) {
+	groupPattern := regexp.MustCompile(groupRegex)
+
+	groupSection := findSection(rawBlocks, groupSectionRegex, true)
+	if len(groupSection) == 0 {
+		return nil, nil
+	}
+
+	lines := strings.Split(groupSection[0].Content, "\n")
+	var nodes []*Node
+
+	for i, group := range lines[1:] {
+		if group == "" {
+			continue
+		}
+		match := groupPattern.FindStringSubmatch(group)
+		if len(match) == 0 {
+			return nil, fmt.Errorf("Error@line:%d\n->Invalid group format: %q", groupSection[0].StartLine+i+1, group)
+		}
+
+		node := &Node{
+			Info: map[string]interface{}{
+				"type":        "Group",
+				"id":          match[1],
+				"description": match[3],
+				"_tagIds":     strings.Split(match[2], ","),
+			},
+			Links: []*Node{},
+		}
+		nodes = append(nodes, node)
+	}
+
+	return nodes, nil
+}
+
 func getTags(rawBlocks []RawBlock) ([]*Node, error) {
 	tagPattern := regexp.MustCompile(tagRegex)
 
@@ -180,6 +220,7 @@ func getModules(rawBlocks []RawBlock) ([]*Node, error) {
 				"id":          headerMatch[1],
 				"htmlContent": getHTMLContent(moduleSection.Content),
 				"_tagIds":     strings.Split(headerMatch[2], ","),
+				"_groupIds":   strings.Split(getGroupsInSection(moduleSection.Content), ","),
 			},
 			Links: []*Node{},
 		}
@@ -209,6 +250,8 @@ func getContent(rawBlocks []RawBlock) ([]*Node, error) {
 				"type":        "Content",
 				"id":          headerMatch[1],
 				"htmlContent": getHTMLContent(contentSection.Content),
+				"_tagIds":     strings.Split(headerMatch[2], ","),
+				"_groupIds":   strings.Split(getGroupsInSection(contentSection.Content), ","),
 			},
 			Links: []*Node{},
 		}
@@ -216,6 +259,19 @@ func getContent(rawBlocks []RawBlock) ([]*Node, error) {
 	}
 
 	return nodes, nil
+}
+
+func getGroupsInSection(raw string) string {
+	lines := strings.Split(raw, "\n")
+
+	for _, line := range lines {
+		prefix := "group:"
+		trimmed := strings.ReplaceAll(line, " ", "")
+		if strings.HasPrefix(trimmed, prefix) {
+			return trimmed[len(prefix):]
+		}
+	}
+	return ""
 }
 
 func getHTMLContent(raw string) template.HTML {

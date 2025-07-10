@@ -109,17 +109,26 @@ var manifestWithEmptyTags string = `
 `
 
 var manifestWithValidModule string = `
+[[@groups]]
+api: API
+
 [[Users@api]]
+group: api
 description: Endpoints related to user operations
 
 [[Items@api]]
+group: api
 description: Endpoints related to items owned by users
 
 [[invalidModule@api]]
+group: api
 description: This should never be loaded due syntax error
 `
 
 var manifestWithValidTaggedModules string = `
+[[@groups]]
+api: API
+
 [[@tags]]
 public#00FF00: Public API
 internal#AAAAAA: Internal use only
@@ -127,9 +136,11 @@ deprecated#FF6F61: Will be removed soon
 under-dev#FFD966: Still under development
 
 [[Users@api#public,under-dev]]
+group: api
 description: Endpoints related to user operations
 
 [[Items@api#internal]]
+group: api
 description: Endpoints related to items owned by users
 `
 
@@ -138,7 +149,11 @@ var manifestWithUnexistentTaggedModules string = `
 public#00FF00: Public API
 internal#AAAAAA: Internal use only
 
+[[@groups]]
+api: API
+
 [[Users@api#public,under-dev]]
+group: api
 description: Endpoints related to user operations
 `
 
@@ -179,11 +194,22 @@ fields follow: '<name>(@|?)<type>#<tag1,tag2,...>: <description>'
 `
 
 var ValidManifestWithContentSection string = `
+[[@groups]]
+getting-started#public: getting started
+
 [[About amauta@content#public]]
-group: Getting started
-summary: |
+group: getting-started
+summary: <md>
+# Amauta
 Welcome to Amauta. The right tool to write documentation. This line is excesively long just to verify how line breaks render once that they load on templates
 
 ## What is Amauta?
 Amauta is a non-standardized documentation tool.
+</md>
+`
+
+var manifestWithValidGroup string = `
+[[@groups]]
+getting-started#public: getting started
+api#public: client api
 `

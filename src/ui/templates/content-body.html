@@ -1,9 +1,13 @@
 {{define "content-body"}}
   {{ range .Links }}
-    {{ if or (eq .Info.type "Content") (eq .Info.type "Module") }}
-    <div class="content-section" id="section-{{ .Info.id }}">
-      {{ .Info.htmlContent }}
-    </div>
+    {{ if eq .Info.type "Group"}}
+      {{ range .Links}}
+        {{ if or (eq .Info.type "Content") (eq .Info.type "Module") }}
+        <div class="content-section" id="section-{{ .Info.id }}">
+          {{ .Info.htmlContent }}
+        </div>
+        {{ end }}
+      {{ end }}
     {{ end }}
   {{ end }}
 {{end}}

@@ -28,6 +28,7 @@ admin#FF1493: Admin only
 
 [[@groups]]
 getting-started#public: Getting started
+api#public: API
 
 
 <--
@@ -36,7 +37,7 @@ header follows: '[[<name>#<tag1,tag2,...>]]'
 fields follow: '<name>(@|?)<type>#<tag1,tag2,...>: <description>'
 -->
 [[About amauta@content#public]]
-group: getting-started, foo
+group: getting-started
 summary: <md>
 # Amauta
 Welcome to Amauta. The right tool to write documentation. This line is excesively long just to verify how line breaks render once that they load on templates
@@ -92,6 +93,7 @@ Here is a table:
 meta: foo
 
 [[Users@api#public,internal]]
+group: api
 summary: Endpoints related to user operations
 
 -- section  
@@ -136,7 +138,7 @@ metadata.source: newsletter
 metadata.tags: [beta, test]
 
 [[Final section@content#public]]
-group: Getting started
+group: getting-started
 summary: <md>
 # Final section I guess
 This is a separate content section

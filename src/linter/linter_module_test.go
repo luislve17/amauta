@@ -19,19 +19,28 @@ func TestRunsLinterFindingModuleSection(t *testing.T) {
 	// Root
 	assert.Equal("root", result.Structure.Root.Info["type"])
 	assert.Equal("root", result.Structure.Root.Info["id"])
-	assert.Equal(2, len(result.Structure.Root.Links))
+	assert.Equal(1, len(result.Structure.Root.Links))
+
+	// Group
+	groupNode := result.Structure.Root.Links[0]
+	assert.Equal("Group", groupNode.Info["type"])
+	assert.Equal(3, len(groupNode.Links))
 
 	// Module
-	expectedModuleData := []map[string]interface{}{
-		{"id": "Users"},
-		{"id": "Items"},
+	expectedModuleIds := []string{"Users", "Items"}
+	foundModuleIds := []string{}
+
+	for idx := 0; idx < len(groupNode.Links); idx++ {
+		node := groupNode.Links[idx]
+		if node.Info["type"] == "root" {
+			continue
+		}
+
+		assert.Equal("Module", node.Info["type"])
+		foundModuleIds = append(foundModuleIds, node.Info["id"].(string))
 	}
 
-	for idx := 0; idx < len(result.Structure.Root.Links); idx++ {
-		moduleNode := result.Structure.Root.Links[idx]
-		assert.Equal("Module", moduleNode.Info["type"])
-		assert.Equal(expectedModuleData[idx]["id"], moduleNode.Info["id"])
-	}
+	assert.ElementsMatch(expectedModuleIds, foundModuleIds)
 }
 
 func TestRunsLinterLinkingModuleToTags(t *testing.T) {
@@ -47,7 +56,12 @@ func TestRunsLinterLinkingModuleToTags(t *testing.T) {
 	// Root
 	assert.Equal("root", result.Structure.Root.Info["type"])
 	assert.Equal("root", result.Structure.Root.Info["id"])
-	assert.Equal(6, len(result.Structure.Root.Links)) // 4 tags & 2 modules
+	assert.Equal(5, len(result.Structure.Root.Links)) // 4 tags & 1 group
+
+	// Group
+	groupNode := result.Structure.Root.Links[0]
+	assert.Equal("Group", groupNode.Info["type"])
+	assert.Equal(3, len(groupNode.Links)) // 3 modules & root
 
 	// Modules
 	expectedModuleData := []map[string]interface{}{
@@ -56,7 +70,7 @@ func TestRunsLinterLinkingModuleToTags(t *testing.T) {
 	}
 
 	for _, expectedModule := range expectedModuleData {
-		for _, sectionNode := range result.Structure.Root.Links {
+		for _, sectionNode := range groupNode.Links {
 			if sectionNode.Info["type"] == "Module" && sectionNode.Info["id"] == expectedModule["id"] {
 				assert.Equal(expectedModule["_tagIds"], sectionNode.Info["_tagIds"])
 				// Modules -> Tags link
@@ -85,7 +99,12 @@ func TestRunsLinterSkippingLinkingModuleToUnexistentTags(t *testing.T) {
 	// Root
 	assert.Equal("root", result.Structure.Root.Info["type"])
 	assert.Equal("root", result.Structure.Root.Info["id"])
-	assert.Equal(3, len(result.Structure.Root.Links)) // 2 tags & 1 module
+	assert.Equal(3, len(result.Structure.Root.Links)) // 2 tags & 1 group
+
+	// Group
+	groupNode := result.Structure.Root.Links[0]
+	assert.Equal("Group", groupNode.Info["type"])
+	assert.Equal(2, len(groupNode.Links)) // 1 module & root
 
 	// Modules
 	expectedModuleData := map[string]interface{}{"id": "Users", "_tagIds": []string{"public", "under-dev"}}

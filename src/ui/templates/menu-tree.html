@@ -3,6 +3,11 @@
   {{ range .Links }}
 
     {{ if eq .Info.type "Group"}}
+      <div class="row group-item">
+        <span>
+          {{ .Info.description }}
+        </span>
+      </div>
 
       {{ range .Links}}
 

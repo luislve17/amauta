@@ -22,6 +22,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
 
 html, body, h1, h2, h3, h4, h5, h6, p, div, span, a, ul, li, button, input, textarea, select {
   font-family: 'Inter', sans-serif !important;
@@ -94,6 +95,15 @@ code {
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 6px;
   transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.group-item {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: #EEE;
 }
 
 .menu-item {
@@ -247,6 +257,10 @@ tbody tr:hover td {
   border-radius: 10px;
 }
 
+.group-item {
+  padding: 0;
+}
+
 .menu-item {
   cursor: pointer;
   padding: 0;
@@ -365,6 +379,11 @@ function showSection(id) {
   
 
     
+      <div class="row group-item">
+        <span>
+          Getting started
+        </span>
+      </div>
 
       
 
@@ -399,6 +418,11 @@ function showSection(id) {
   
 
     
+      <div class="row group-item">
+        <span>
+          API
+        </span>
+      </div>
 
       
 

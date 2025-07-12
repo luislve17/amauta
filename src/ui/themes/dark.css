@@ -219,3 +219,9 @@ tbody tr:hover td {
   color: #ffffff !important;
 }
 
+.amauta-head-banner {
+  background: #27282f;
+  background-blend-mode: multiply;
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}

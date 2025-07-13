@@ -1,5 +1,9 @@
 {{ define "head-banner"}}
-<div class="banner-content">
-  <h1> Hola mundo </h1>
+<div class="row banner-content">
+  <div class="col-sm-4 banner-logo">
+    <svg width="90" height="90">
+      <image xlink:href="{{.Info.logoUrl}}" width="90" height="90"/>
+    </svg>
+  </div>
 </div>
 {{ end }}

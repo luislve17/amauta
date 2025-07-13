@@ -309,7 +309,7 @@ tbody td:hover {
 
 @media (min-width: 1280px) {
   .amauta-content {
-    padding: 110px 7rem 5rem 11rem;
+    padding: 110px 7rem 5rem 5rem;
     margin-left: calc(8.33% + clamp(300px, 15vw, 800px));
     margin-right: 5rem;
     width: calc(100% - (8.33% + clamp(300px, 15vw, 800px)) - 5rem);
@@ -350,6 +350,10 @@ tbody td:hover {
   z-index: 1000;
 }
 
+.banner-logo{
+  padding-left: 8.33%;
+}
+
 
 </style>
 
@@ -375,8 +379,12 @@ function showSection(id) {
     
 <div class="amauta-head-banner">
     
-<div class="banner-content">
-  <h1> Hola mundo </h1>
+<div class="row banner-content">
+  <div class="col-sm-4 banner-logo">
+    <svg width="90" height="90">
+      <image xlink:href="https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-logo.svg" width="90" height="90"/>
+    </svg>
+  </div>
 </div>
 
 </div>

@@ -200,3 +200,11 @@ tbody td:hover {
   background-color: rgba(0, 0, 0, 0.03) !important;
 }
 
+.amauta-head-banner {
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+}

@@ -222,15 +222,23 @@ tbody td:hover {
   background-color: rgba(0, 0, 0, 0.03) !important;
 }
 
+.amauta-head-banner {
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+}
 
 
 
 
 .menu-tree {
   position: fixed;
-  top: 50px;
+  top: 100px;
   left: 8.33%;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 150px);
   overflow-y: auto;
   width: clamp(300px, 15vw, 800px);
   padding: 8px;
@@ -246,6 +254,7 @@ tbody td:hover {
   cursor: pointer;
   padding: 0;
   border-radius: 6px;
+  user-select: none;
 }
 
 .menu-item-content {
@@ -261,10 +270,11 @@ tbody td:hover {
 .container, .row, .amauta-content, .content-body {
   max-width: 100%;
   box-sizing: border-box;
+  padding: 0;
 }
 
 .amauta-content {
-  padding: 1rem 2.5rem 5rem 2rem;
+  padding: 110px 2.5rem 5rem 2rem;
 
   min-width: 0;
   flex: 1 1 auto;
@@ -299,7 +309,7 @@ tbody td:hover {
 
 @media (min-width: 1280px) {
   .amauta-content {
-    padding: 1rem 2rem 5rem 2rem;
+    padding: 110px 7rem 5rem 5rem;
     margin-left: calc(8.33% + clamp(300px, 15vw, 800px));
     margin-right: 5rem;
     width: calc(100% - (8.33% + clamp(300px, 15vw, 800px)) - 5rem);
@@ -328,6 +338,23 @@ tbody td:hover {
 }
 
 
+
+.amauta-head-banner {
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  position: fixed;
+  z-index: 1000;
+}
+
+.banner-logo{
+  padding-left: 8.33%;
+}
+
+
 </style>
 
 
@@ -350,6 +377,17 @@ function showSection(id) {
 </head>
 <body>
     
+<div class="amauta-head-banner">
+    
+<div class="row banner-content">
+  <div class="col-sm-4 banner-logo">
+    <svg width="90" height="90">
+      <image xlink:href="https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-logo.svg" width="90" height="90"/>
+    </svg>
+  </div>
+</div>
+
+</div>
 <div class="container">
   <div class="row">
     <div class="amauta-menu hidden-sm hidden-md">

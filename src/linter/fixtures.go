@@ -213,3 +213,9 @@ var manifestWithValidGroup string = `
 getting-started#public: getting started
 api#public: client api
 `
+
+var manifestWithRootDetails string = `
+[[@root]]
+logoUrl: https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-logo.svg
+githubUrl: https://github.com/luislve17/amauta
+`

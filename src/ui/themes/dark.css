@@ -219,3 +219,13 @@ tbody tr:hover td {
   color: #ffffff !important;
 }
 
+.amauta-head-banner {
+  background: #27282f;
+  background-blend-mode: multiply;
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.banner-logo > svg {
+  filter: brightness(0) saturate(100%) invert(88%) sepia(7%) saturate(92%) hue-rotate(7deg) brightness(90%) contrast(82%);
+}

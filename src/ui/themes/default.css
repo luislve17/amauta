@@ -1,9 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap');
 
 html, body, h1, h2, h3, h4, h5, h6, p, div, span, a, ul, li, button, input, textarea, select {
-  font-family: 'Inter', sans-serif !important;
+  font-family: 'Inter', sans-serif;
 }
 
 html, body {
@@ -40,8 +39,6 @@ p {
 }
 
 pre {
-  font-family: 'Fira Code', monospace !important;
-  font-size: 14px !important;
   background: #f7f7f7 !important;
   border-left: 0.25rem solid #a3a3a3 !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -49,20 +46,20 @@ pre {
   border-radius: 6px !important;
   padding: 1rem !important;
   margin: 1.5rem 0 !important;
-
-  line-height: 1.6 !important;
-  color: #2a2a2a !important;
-  overflow-x: auto;
 }
 
-pre code {
-  font-family: inherit !important;
-  font-size: inherit !important;
-  line-height: inherit !important;
-  color: inherit !important;
+pre > code {
+  font-family: 'Fira Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: .875rem !important;
+  line-height: 1.25rem;
   background: none !important;
   tab-size: 4;
 }
+
+span[class^="hljs-"] {
+  font-family: 'Fira Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
 
 .menu-tree {
   background: rgba(245, 245, 245, 0.85);
@@ -207,4 +204,50 @@ tbody td:hover {
   background-attachment: fixed;
 
   box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+}
+
+/* Code syntax theme */
+.hljs{
+    background:#f3f3f3;
+    color:#444
+}
+.hljs-comment{
+    color:#697070
+}
+.hljs-punctuation,.hljs-tag{
+    color:#444a
+}
+.hljs-tag .hljs-attr,.hljs-tag .hljs-name{
+    color:#444
+}
+.hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-name,.hljs-selector-tag{
+    font-weight:700
+}
+.hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-string,.hljs-template-tag,.hljs-type{
+    color:#800
+}
+.hljs-section,.hljs-title{
+    color:#800;
+    font-weight:700
+}
+.hljs-link,.hljs-operator,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable,.hljs-variable{
+    color:#ab5656
+}
+.hljs-literal{
+    color:#695
+}
+.hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code{
+    color:#397300
+}
+.hljs-meta{
+    color:#1f7199
+}
+.hljs-meta .hljs-string{
+    color:#38a
+}
+.hljs-emphasis{
+    font-style:italic
+}
+.hljs-strong{
+    font-weight:700
 }

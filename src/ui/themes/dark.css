@@ -1,9 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap');
 
 html, body, h1, h2, h3, h4, h5, h6, p, div, span, a, ul, li, button, input, textarea, select {
-  font-family: 'Inter', sans-serif !important;
+  font-family: 'Inter', sans-serif;
 }
 
 html, body {
@@ -38,35 +37,32 @@ p {
 }
 
 pre {
-  font-family: 'Fira Code', monospace !important;
-  font-size: 14px !important;
   background: #282c34 !important;
-  border: 1px solid #3a3f4b !important;
   border-left: 0.25rem solid #434f73 !important;
+  border: 1px solid #3a3f4b !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
   border-radius: 6px !important;
   padding: 1rem !important;
   margin: 1.5rem 0 !important;
-
-  line-height: 1.6 !important;
-  color: #e3e3e3 !important;
-  overflow-x: auto;
 }
 
-pre code {
-  font-family: inherit !important;
-  font-size: inherit !important;
-  line-height: inherit !important;
-  color: inherit !important;
+pre > code {
+  font-family: 'Fira Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: .875rem !important;
+  line-height: 1.25rem;
   background: none !important;
   tab-size: 4;
 }
 
 code {
   background: #282c34 !important;
-  
 }
+
+span[class^="hljs-"] {
+  font-family: 'Fira Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
 
 .menu-tree {
   background: rgba(26, 26, 26, 0.3);
@@ -228,4 +224,26 @@ tbody tr:hover td {
 
 .banner-logo > svg {
   filter: brightness(0) saturate(100%) invert(88%) sepia(7%) saturate(92%) hue-rotate(7deg) brightness(90%) contrast(82%);
+}
+
+
+/* Code syntax theme */
+.hljs{
+    color:#ddd;
+    background:#303030
+}
+.hljs-keyword,.hljs-link,.hljs-literal,.hljs-section,.hljs-selector-tag{
+    color:#fff
+}
+.hljs-addition,.hljs-attribute,.hljs-built_in,.hljs-bullet,.hljs-name,.hljs-string,.hljs-symbol,.hljs-template-tag,.hljs-template-variable,.hljs-title,.hljs-type,.hljs-variable{
+    color:#d88
+}
+.hljs-comment,.hljs-deletion,.hljs-meta,.hljs-quote{
+    color:#979797
+}
+.hljs-doctag,.hljs-keyword,.hljs-literal,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-strong,.hljs-title,.hljs-type{
+    font-weight:700
+}
+.hljs-emphasis{
+    font-style:italic
 }

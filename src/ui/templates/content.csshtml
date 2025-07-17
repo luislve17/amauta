@@ -1,4 +1,4 @@
-{{define "content-css"}}
+{{define "content.css"}}
 .container, .row, .amauta-content, .content-body {
   max-width: 100%;
   box-sizing: border-box;

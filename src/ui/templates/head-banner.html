@@ -1,5 +1,9 @@
 {{ define "head-banner"}}
 <div class="row banner-content">
+  <div class="col-sm-2 col-md-1 hidden-lg menu-toggle-button">
+    <i class="ri-menu-fill"></i>
+  </div>
+  {{ template "drawer-menu" .}}
   <div class="col-sm-4 banner-logo">
     <svg height="90">
       <image xlink:href="{{.Info.logoUrl}}" height="90" style="width: auto;"/>

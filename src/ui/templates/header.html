@@ -1,30 +1,25 @@
 {{ define "header" }}
 <meta charset="UTF-8">
 <title>Amauta docs</title>
-
 <!-- MiniCSS -->
 <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <!-- Remixicon -->
 <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
-
 <!-- Highlight.min.js -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
-
 <!-- Injected css -->
 <style>
-{{.Info.themeStyle}}
+  {{.Info.themeStyle}}
 
-{{template "menu-tree-css" .}}
-{{template "content-css" .}}
-{{template "head-banner-css" .}}
+{{template "menu-tree.css" .}}
+{{template "content.css" .}}
+{{template "head-banner.css" .}}
 </style>
-
 <!-- Injected js -->
 <script>
-{{template "script-js"}}
+  {{template "script-js"}}
 </script>
 {{ end }}

@@ -10,4 +10,13 @@ function showSection(id) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const toggleBtn = document.querySelector(".menu-toggle-button");
+  const drawerMenu = document.querySelector(".drawer-menu");
+
+  toggleBtn?.addEventListener("click", function () {
+    drawerMenu?.classList.toggle("show");
+  });
+});
 {{end}}

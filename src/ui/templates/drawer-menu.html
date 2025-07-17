@@ -1,0 +1,27 @@
+{{ define "drawer-menu" }}
+<div class="drawer-menu hidden-lg">
+  <nav class="drawer-menu-tree">
+    {{ range .Links }}
+
+    {{ if eq .Info.type "Group"}}
+    <div class="row group-item">
+      <span>
+        {{ .Info.description }}
+      </span>
+    </div>
+    {{ range .Links}}
+
+        {{ if or (eq .Info.type "Module") (eq .Info.type "Content") }}
+    <div class="row menu-item" onclick="showSection('section-{{ .Info.id }}')">
+      <span class="menu-item-content">
+        {{ .Info.id }}
+      </span>
+    </div>
+    {{ end }}
+
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  </nav>
+</div>
+{{ end }}

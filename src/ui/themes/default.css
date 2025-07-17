@@ -26,6 +26,11 @@ h1, h2, h3, h4, h5, h6 {
   color: rgb(23, 23, 23, 0.85);
 }
 
+h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+}
+
 h2 {
   font-size: 1.75rem;
   margin-top: 2rem;
@@ -207,4 +212,9 @@ tbody td:hover {
   background-attachment: fixed;
 
   box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+}
+
+.drawer-menu-tree {
+  background: rgba(244, 244, 244, 1);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }

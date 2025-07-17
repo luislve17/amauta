@@ -10,12 +10,12 @@ import (
 	"github.com/luislve17/amauta/linter"
 )
 
-//go:embed templates/*.html
+//go:embed templates/*.html templates/*.csshtml
 var templateFS embed.FS
 var templates *template.Template
 
 func init() {
-	templates = template.Must(template.ParseFS(templateFS, "templates/*.html"))
+	templates = template.Must(template.ParseFS(templateFS, "templates/*.html", "templates/*.csshtml"))
 }
 
 func Render(data any) (string, error) {

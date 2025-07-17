@@ -11,9 +11,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-<script>hljs.highlightAll();</script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -262,6 +260,27 @@ tbody tr:hover td {
 
 .menu-toggle-button i {
   color: #cbd5e0;
+}
+
+/* Code syntax theme */
+.hljs{
+    color:#ddd;
+    background:#303030
+}
+.hljs-keyword,.hljs-link,.hljs-literal,.hljs-section,.hljs-selector-tag{
+    color:#fff
+}
+.hljs-addition,.hljs-attribute,.hljs-built_in,.hljs-bullet,.hljs-name,.hljs-string,.hljs-symbol,.hljs-template-tag,.hljs-template-variable,.hljs-title,.hljs-type,.hljs-variable{
+    color:#d88
+}
+.hljs-comment,.hljs-deletion,.hljs-meta,.hljs-quote{
+    color:#979797
+}
+.hljs-doctag,.hljs-keyword,.hljs-literal,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-strong,.hljs-title,.hljs-type{
+    font-weight:700
+}
+.hljs-emphasis{
+    font-style:italic
 }
 
 
@@ -693,12 +712,16 @@ print(foo)
 <p>Or in Go</p>
 <pre><code class="language-go">package main
 
-func handleMethodThatDoesTheThingButItsNameIsQuiteLong(my_id int, my_callable: interface, my_model: []map[string]Foo) int{
-	return 1
-}
+import &quot;fmt&quot;
 
-foo := &quot;Hello World!&quot;
-fmt.Printf(&quot;%s\n&quot;, foo)
+func main() {
+    ch := make(chan float64)
+    ch &lt;- 1.0e10    // magic number
+    x, ok := &lt;- ch
+    defer fmt.Println(`exitting now\`)
+    go println(len(&quot;hello world!&quot;))
+    return
+}
 </code></pre>
 <p>Here is a table:</p>
 <table>

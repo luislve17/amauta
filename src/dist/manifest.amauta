@@ -74,12 +74,16 @@ Or in Go
 ```go
 package main
 
-func handleMethodThatDoesTheThingButItsNameIsQuiteLong(my_id int, my_callable: interface, my_model: []map[string]Foo) int{
-	return 1
-}
+import "fmt"
 
-foo := "Hello World!"
-fmt.Printf("%s\n", foo)
+func main() {
+    ch := make(chan float64)
+    ch <- 1.0e10    // magic number
+    x, ok := <- ch
+    defer fmt.Println(`exitting now\`)
+    go println(len("hello world!"))
+    return
+}
 ```
 
 Here is a table:

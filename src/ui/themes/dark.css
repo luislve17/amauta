@@ -73,6 +73,10 @@ code {
   
 }
 
+span[class^="hljs-"] {
+  font-family: 'Fira Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
+}
+
 .menu-tree {
   background: rgba(26, 26, 26, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -265,4 +269,21 @@ tbody tr:hover td {
 }
 .hljs-emphasis{
     font-style:italic
+}
+
+.menu-footer {
+  background: #27282f;
+}
+
+.menu-footer-content {
+  background: inherit;
+  color: #777;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+  transition: color: 0.3s ease;
+}
+
+.menu-footer-content:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #eee;
 }

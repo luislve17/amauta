@@ -69,6 +69,10 @@ pre code {
   tab-size: 4;
 }
 
+span[class^="hljs-"] {
+  font-family: 'Fira Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
+}
+
 .menu-tree {
   background: rgba(245, 245, 245, 0.85);
 
@@ -263,4 +267,21 @@ tbody td:hover {
 }
 .hljs-strong{
     font-weight:700
+}
+
+.menu-footer {
+  background: #eee;
+}
+
+.menu-footer-content {
+  background: inherit;
+  color: #777;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+  transition: color: 0.3s ease;
+}
+
+.menu-footer-content:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #444;
 }

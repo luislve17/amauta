@@ -22,8 +22,8 @@
 
 .menu-toggle-button {
   padding: 0 0 0 20px;
-  display:grid;
-  place-items:center; 
+  display: grid;
+  place-items: center; 
   cursor: pointer;
 }
 

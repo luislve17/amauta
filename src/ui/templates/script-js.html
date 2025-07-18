@@ -1,4 +1,6 @@
 {{define "script-js"}}
+hljs.highlightAll();
+
 function showSection(id) {
   document.querySelectorAll('.content-section').forEach(el => {
     el.classList.remove('active');

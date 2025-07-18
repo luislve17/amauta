@@ -11,6 +11,7 @@ import (
 )
 
 func RunCLI() {
+	version := flag.Bool("v", false, "binary version")
 	inputPath := flag.String("i", "", "input path (currently unused)")
 	outputPath := flag.String("o", "./dist/doc.html", "output HTML file")
 	lintOnly := flag.Bool("lint", false, "only run linter (alias)")
@@ -20,6 +21,11 @@ func RunCLI() {
 
 	runLint := *lintOnly
 	runRender := *render
+
+	if *version {
+		fmt.Fprintf(os.Stdout, "%sAmauta:%s version %s%s%s%s\n", bold, reset, bold, green, buildVersion, reset)
+		os.Exit(0)
+	}
 
 	if !runLint && !runRender {
 		fmt.Fprintf(os.Stderr, "%sError:%s %sYou must specify either --lint or --render%s\n", red, reset, bold, reset)

@@ -1,26 +1,33 @@
 {{ define "menu-tree" }}
 <nav class="menu-tree">
-  {{ range .Links }}
+  <div class="menu-tree-inner">
+    {{ range .Links }}
 
     {{ if eq .Info.type "Group"}}
-      <div class="row group-item">
-        <span>
-          {{ .Info.description }}
-        </span>
-      </div>
-
-      {{ range .Links}}
+    <div class="row group-item">
+      <span>
+        {{ .Info.description }}
+      </span>
+    </div>
+    {{ range .Links}}
 
         {{ if or (eq .Info.type "Module") (eq .Info.type "Content") }}
-        <div class="row menu-item" onclick="showSection('section-{{ .Info.id }}')">
-          <span class="menu-item-content">
-            {{ .Info.id }}
-          </span>
-        </div>
-        {{ end }}
+    <div class="row menu-item" onclick="showSection('section-{{ .Info.id }}')">
+      <span class="menu-item-content">
+        {{ .Info.id }}
+      </span>
+    </div>
+    {{ end }}
 
       {{ end }}
     {{ end }}
   {{ end }}
+  </div>
+  <div class="menu-footer" onclick="window.open('https://github.com/luislve17/amauta', '_blank')">
+    <div class="menu-footer-content">
+      <i class="ri-book-fill"></i>
+      Powered with ♥ by Amauta
+    </div>
+  </div>
 </nav>
 {{ end }}

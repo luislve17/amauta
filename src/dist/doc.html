@@ -1,0 +1,1654 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+<meta charset="UTF-8">
+<title>Amauta docs</title>
+
+<link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@700&display=swap');
+
+html, body, h1, h2, h3, h4, h5, h6, p, div, span, a, ul, li, button, input, textarea, select {
+  font-family: 'Inter', sans-serif !important;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-blend-mode: multiply;
+  background: #27282f;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+  color: #f7fafc;
+}
+
+h1 {
+  font-size: 2.1rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+pre {
+  font-family: 'Fira Code', monospace !important;
+  font-size: 14px !important;
+  background: #282c34 !important;
+  border: 1px solid #3a3f4b !important;
+  border-left: 0.25rem solid #434f73 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  border-radius: 6px !important;
+  padding: 1rem !important;
+  margin: 1.5rem 0 !important;
+
+  line-height: 1.6 !important;
+  color: #e3e3e3 !important;
+  overflow-x: auto;
+}
+
+pre code {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  color: inherit !important;
+  background: none !important;
+  tab-size: 4;
+}
+
+code {
+  background: #282c34 !important;
+  
+}
+
+span[class^="hljs-"] {
+  font-family: 'Fira Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
+}
+
+.menu-tree {
+  background: rgba(26, 26, 26, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.group-item {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: #EEE;
+}
+
+.menu-item {
+  transition: background-color 0.2s ease;
+  border-radius: 4px;
+  margin-bottom: 2px;
+}
+
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.menu-item-content {
+  color: #bbb;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.menu-item:hover .menu-item-content {
+  color: #fff;
+}
+
+.content-body {
+  color: #bbb;
+}
+
+ul, ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+li::marker {
+  color: #888;
+}
+
+blockquote {
+  background: rgba(255, 255, 255, 0.05);
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-radius: 0 6px 6px 0;
+  border: 1px solid #3a3f4b !important;
+  position: relative;
+  font-style: italic;
+  color: #f5f5f5;
+}
+
+blockquote::before {
+  content: '"';
+  font-size: 4rem;
+  color: #ff9800;
+  position: absolute;
+  left: 0.5rem;
+  top: -0.5rem;
+  line-height: 1;
+  font-family: serif;
+  opacity: 0.2;
+}
+
+blockquote p {
+  margin: 0;
+  padding-left: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: inherit;
+}
+
+blockquote cite {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #ffa726; /* lighter orange for contrast */
+  font-style: normal;
+  font-weight: 500;
+  text-align: right;
+}
+
+blockquote cite::before {
+  content: '~ ';
+}
+
+/* Hard reset for table elements */
+table,
+thead,
+tbody,
+tr,
+th,
+td {
+  all: unset !important;
+  display: revert !important;
+  border: none !important;
+  background: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  border-spacing: 0 !important;
+  border-collapse: collapse !important;
+}
+
+table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  border: none !important;
+  margin: 1.5rem 0 !important;
+}
+
+thead th {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: #e2e8f0 !important; /* light gray text for contrast */
+  padding: 0.75rem 1rem !important;
+  font-weight: 600 !important;
+  text-align: left !important;
+}
+
+thead th:first-child {
+  border-top-left-radius: 12px !important;
+  border-bottom-left-radius: 12px !important;
+}
+
+thead th:last-child {
+  border-top-right-radius: 12px !important;
+  border-bottom-right-radius: 12px !important;
+}
+
+tbody td {
+  border: none !important;
+  background-color: transparent !important;
+  color: #cbd5e0 !important; /* soft light gray */
+  padding: 0.75rem 1rem !important;
+  transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+
+tbody tr:hover td {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  color: #ffffff !important;
+}
+
+.amauta-head-banner {
+  background: #27282f;
+  background-blend-mode: multiply;
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.banner-logo > svg {
+  filter: brightness(0) saturate(100%) invert(88%) sepia(7%) saturate(92%) hue-rotate(7deg) brightness(90%) contrast(82%);
+}
+
+.drawer-menu-tree {
+  background: rgba(34, 34, 40, 1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.menu-toggle-button i {
+  color: #cbd5e0;
+}
+
+/* Code syntax theme */
+.hljs{
+    color:#ddd;
+    background:#303030
+}
+.hljs-keyword,.hljs-link,.hljs-literal,.hljs-section,.hljs-selector-tag{
+    color:#fff
+}
+.hljs-addition,.hljs-attribute,.hljs-built_in,.hljs-bullet,.hljs-name,.hljs-string,.hljs-symbol,.hljs-template-tag,.hljs-template-variable,.hljs-title,.hljs-type,.hljs-variable{
+    color:#d88
+}
+.hljs-comment,.hljs-deletion,.hljs-meta,.hljs-quote{
+    color:#979797
+}
+.hljs-doctag,.hljs-keyword,.hljs-literal,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-strong,.hljs-title,.hljs-type{
+    font-weight:700
+}
+.hljs-emphasis{
+    font-style:italic
+}
+
+.menu-footer {
+  background: #27282f;
+}
+
+.menu-footer-content {
+  background: inherit;
+  color: #777;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+  transition: color: 0.3s ease;
+}
+
+.menu-footer-content:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #eee;
+}
+
+
+
+
+.menu-tree {
+  position: fixed;
+  top: 100px;
+  left: 8.33%;
+  height: calc(100vh - 150px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: clamp(300px, 15vw, 800px);
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-tree > * {
+  user-select: none;
+}
+
+.group-item {
+  padding: 0;
+}
+
+.menu-item {
+  cursor: pointer;
+  padding: 0;
+  border-radius: 6px;
+}
+
+.menu-item-content {
+  transition: color 0.2s ease;
+  padding: 4px 16px 4px 16px
+}
+
+.drawer-menu {
+  position: fixed;
+  top: 100px;
+  left: 15px;
+  width: calc(100% - 15px);
+  height: calc(100% - 100px);
+  overflow-y: auto;
+  border-radius: 10px;
+  z-index: 1000;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.drawer-menu.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu-tree-inner {
+  overflow-y: auto;
+  flex: 1 1 auto;
+  padding-bottom: 60px;
+}
+
+.menu-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.menu-footer-content {
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+
+
+.container, .row, .amauta-content, .content-body {
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.amauta-content {
+  padding: 110px 2.5rem 5rem 2rem;
+
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.amauta-content.col-sm-12 {
+  width: 100% !important;
+}
+
+.amauta-content pre {
+  padding: 10px !important;
+  border-radius: 4px !important;
+
+  overflow-x: auto;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
+  white-space: pre;
+}
+
+.amauta-content pre code {
+  padding: 0 !important;
+  margin: 0 !important;
+
+  display: block !important;
+  white-space: pre !important;
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+}
+
+@media (min-width: 1280px) {
+  .amauta-content {
+    padding: 110px 7rem 5rem 5rem;
+    margin-left: calc(8.33% + clamp(300px, 15vw, 800px));
+    margin-right: 5rem;
+    width: calc(100% - (8.33% + clamp(300px, 15vw, 800px)) - 5rem);
+  }
+}
+
+.content-body.row {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;  
+  align-items: stretch;  
+  min-width: 0;
+}
+
+.content-section {
+  display: none;
+  width: 100%;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  box-sizing: border-box;
+}
+
+.content-section.active {
+  display: block;
+}
+
+
+
+.amauta-head-banner {
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  position: fixed;
+  z-index: 1000;
+}
+
+.banner-logo{
+  padding-left: 8.33%;
+}
+
+@media (max-width: 1280px) {
+  .banner-logo {
+    padding-left: 20px;
+  }
+}
+
+.menu-toggle-button {
+  padding: 0 0 0 20px;
+  display: grid;
+  place-items: center; 
+  cursor: pointer;
+}
+
+
+</style>
+
+<script>
+  
+hljs.highlightAll();
+
+function showSection(id) {
+  document.querySelectorAll('.content-section').forEach(el => {
+    el.classList.remove('active');
+  });
+
+  const target = document.getElementById(id);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const toggleBtn = document.querySelector(".menu-toggle-button");
+  const drawerMenu = document.querySelector(".drawer-menu");
+
+  toggleBtn?.addEventListener("click", function () {
+    drawerMenu?.classList.toggle("show");
+  });
+});
+
+</script>
+
+</head>
+<body>
+    
+<div class="amauta-head-banner">
+    
+<div class="row banner-content">
+  <div class="col-sm-2 col-md-1 hidden-lg menu-toggle-button">
+    <i class="ri-menu-fill"></i>
+  </div>
+  
+<div class="drawer-menu hidden-lg">
+  <nav class="drawer-menu-tree">
+    
+
+    
+    <div class="row group-item">
+      <span>
+        Getting started
+      </span>
+    </div>
+    
+
+        
+
+      
+
+        
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-About amauta')">
+      <span class="menu-item-content">
+        About amauta
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+    
+  
+
+    
+    <div class="row group-item">
+      <span>
+        API
+      </span>
+    </div>
+    
+
+        
+
+      
+
+        
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Users')">
+      <span class="menu-item-content">
+        Users
+      </span>
+    </div>
+    
+
+      
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+  </nav>
+</div>
+
+  <div class="col-sm-4 banner-logo">
+    <svg height="90">
+      <image xlink:href="https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-banner.svg" height="90" style="width: auto;"/>
+    </svg>
+  </div>
+</div>
+
+</div>
+<div class="container">
+  <div class="row">
+    <div class="amauta-menu hidden-sm hidden-md">
+        
+<div class="row">
+  
+<nav class="menu-tree">
+  <div class="menu-tree-inner">
+    
+
+    
+    <div class="row group-item">
+      <span>
+        Getting started
+      </span>
+    </div>
+    
+
+        
+
+      
+
+        
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-About amauta')">
+      <span class="menu-item-content">
+        About amauta
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Final section')">
+      <span class="menu-item-content">
+        Final section
+      </span>
+    </div>
+    
+
+      
+    
+  
+
+    
+    <div class="row group-item">
+      <span>
+        API
+      </span>
+    </div>
+    
+
+        
+
+      
+
+        
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Users')">
+      <span class="menu-item-content">
+        Users
+      </span>
+    </div>
+    
+
+      
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+  </div>
+  <div class="menu-footer" onclick="window.open('https://github.com/luislve17/amauta', '_blank')">
+    <div class="menu-footer-content">
+      <i class="ri-book-fill"></i>
+      Powered with ♥ by Amauta
+    </div>
+  </div>
+</nav>
+
+</div>
+
+    </div>
+
+    <div class="amauta-content col-sm-12 col-md-12">
+      
+<div class="content-body row">
+  
+  
+    
+      
+        
+      
+        
+      
+        
+        <div class="content-section" id="section-About amauta">
+          <h1>Amauta</h1>
+<p>Welcome to Amauta. The right tool to write documentation. This line is excesively long just to verify how line breaks render once that they load on templates</p>
+<h2>What is Amauta?</h2>
+<p>Amauta is a non-standardized documentation tool. Improves readability and maintanibility for small and big developer teams.</p>
+<h2>List of things</h2>
+<ul>
+<li>Item 1</li>
+<li>Item 2</li>
+<li>Item 3</li>
+</ul>
+<h3>Sub topic</h3>
+<blockquote>
+<p>&quot;This is a quote&quot; ~ The quoter</p>
+</blockquote>
+<p>This is inline code <code>lambda x: x+1</code></p>
+<pre><code class="language-python">import numpy as np
+
+def handleMethodThatDoesTheThingButItsNameIsQuiteLong(my_id: int, my_callable: ..., my_model: List[Tuple[Foo]]):
+	pass
+
+foo = &quot;Hello World!&quot;
+print(foo)
+</code></pre>
+<p>Or in Go</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    ch := make(chan float64)
+    ch &lt;- 1.0e10    // magic number
+    x, ok := &lt;- ch
+    defer fmt.Println(`exitting now\`)
+    go println(len(&quot;hello world!&quot;))
+    return
+}
+</code></pre>
+<p>Here is a table:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Item</th>
+<th style="text-align:center">In Stock</th>
+<th style="text-align:right">Price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Python Hat</td>
+<td style="text-align:center">True</td>
+<td style="text-align:right">23.99</td>
+</tr>
+<tr>
+<td style="text-align:left">SQL Hat</td>
+<td style="text-align:center">True</td>
+<td style="text-align:right">23.99</td>
+</tr>
+<tr>
+<td style="text-align:left">Codecademy Tee</td>
+<td style="text-align:center">False</td>
+<td style="text-align:right">19.99</td>
+</tr>
+<tr>
+<td style="text-align:left">Codecademy Hoodie</td>
+<td style="text-align:center">False</td>
+<td style="text-align:right">42.99</td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          <h1>Final section I guess</h1>
+<p>This is a separate content section</p>
+<h2>Foo</h2>
+<p>Foo indeed</p>
+<h2>List of things</h2>
+<ul>
+<li>Item 1</li>
+<li>Item 2</li>
+<li>Item 3</li>
+</ul>
+
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+        
+        <div class="content-section" id="section-Final section">
+          
+        </div>
+        
+      
+    
+  
+    
+      
+        
+      
+        
+      
+        
+        <div class="content-section" id="section-Users">
+          <p>Endpoints related to user operations</p>
+
+        </div>
+        
+      
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -211,7 +211,7 @@ Usage of ./amauta:
 
 > 0. Why did you made this?
 1. I dislike long yaml files
-3. I dislike indentation
+3. I dislike deep indentation
 4. I dislike clunky websites that look from the earlier 2000's, [with some exceptions of course](https://www.spacejam.com/1996/jam.htm)
 5. I haven't being hired yet
 
@@ -229,8 +229,9 @@ Please refer to (2)
 
 > 4. Is there a way I can contribute
 
-You may create issues requesting features or reporting bugs, but since the development is in a really early stage for now, those are probably going to be addressed anyway and the issues section will get (optimistically speaking) floaded.
-For now, using the tool, leaving a star, sharing it with friends and collegues is enough. Thank you! 🙂
+You may create issues requesting features or reporting bugs, but since the development is in a really early stage for now, those are probably going to be addressed anyway and the issues section will get (optimistically speaking) floaded. PRs are also just for me for the moment.
+Ideally and for now: using the tool, starring the project, leaving your toughts in an issue using the "Input" template and sharing the repo with friends and collegues is enough.
+Thank you! 🙂
 
 > 5. I want to give you my moneh tho
 

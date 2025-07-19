@@ -184,7 +184,7 @@ Base themes support, responsive and elegant, out of the box, from a single cli r
 
 ## CLI
 
-As mentiones, we expect for you to just write the docs, and get your page back. A single, all-in-it `.html` for you to sue as you wish. Some minor dependencies are expected, for loading icons, fonts and code highlight. (👷‍♂️⚠️Under development)
+As mentioned, we expect you to just write the docs, and get your page back. A single, all-in-it `.html` for you to use as you wish. Some minor dependencies are expected for loading icons, fonts and code highlight. (👷‍♂️⚠️Under development)
 
 ```
 amauta -v
@@ -209,13 +209,13 @@ Usage of ./amauta:
 
 # FAQ
 
-> 0. Why did you made this?
+> 0. Why did you create this?
 1. I dislike long yaml files
 3. I dislike deep indentation
 4. I dislike clunky websites that look from the earlier 2000's, [with some exceptions of course](https://www.spacejam.com/1996/jam.htm)
 5. I haven't being hired yet
 
-> 1. Who asks this question? You don't have any real users yet...
+> 1. Who asks this questions? You don't have any real users yet...
 
 The voices in my head.
 

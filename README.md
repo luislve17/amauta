@@ -151,17 +151,91 @@ You may find the fully detailed protocol on our documentation (👷‍♂️⚠�
 
 ## Linter/Renderer
 Documenting expects to export a final page that is both professional and easy to navigate. Being honest, there are plenty platforms that do this quiet well, [after](https://www.dreamfactory.com/) you [click](https://redocly.com/) the "[talk to sales team](https://scalar.com/)" button [of course](https://stoplight.io/).
-From a FOSS point of view, most alternatives to render a doc manifest into a web page to present, most solutions lack a lean, professional interface. **_Amauta_** is also improving this by providing a responsive product that uses a simplified but elegant look.
+
+From a FOSS point of view, most alternatives to render a doc manifest into a page lack a lean, professional interface. And yes, the user could invest time and effort modifying the style to get an specific theme around the baseline that these tools offer, but with **_Amauta_** is expected to have available a responsive result that has a simplified but elegant look.
 
 <details>
 <summary>😕 What other free alternatives offer out of the box</summary>
 
 <img width="1882" height="1092" alt="image" src="https://github.com/user-attachments/assets/c620e9af-1521-4b42-95c1-284395b264d6" />
 <img width="1851" height="980" alt="image" src="https://github.com/user-attachments/assets/bb3036c2-4afc-4e9b-b5d4-b27ba1f9f320" />
+<img width="1851" height="980" alt="image" src="https://github.com/user-attachments/assets/95c7012f-ebe4-4b0f-a4e1-b85f526126c8" />
   
 </details>
 
 
 <details>
-<summary>:moyai: What Amauta offers </summary>
+<summary>:moyai: What Amauta offers (alpha0.1 version) </summary>
+  
+`amauta --render -i ./dist/manifest.amauta -theme default`
+
+<img width="1689" height="1068" alt="image" src="https://github.com/user-attachments/assets/af95e9a0-2615-409c-a7f3-bd3ec3217929" />
+<img width="649" height="1043" alt="image" src="https://github.com/user-attachments/assets/49e6bbbb-9152-4c54-b751-9e96f8189051" />
+
+
+`amauta --render -i ./dist/manifest.amauta -theme dark`
+
+<img width="1689" height="1068" alt="image" src="https://github.com/user-attachments/assets/d842c3cb-1844-4e02-a98e-3eb0e296c5b2" />
+<img width="649" height="1043" alt="image" src="https://github.com/user-attachments/assets/f55fddb9-a675-45e1-9bed-9a8a7671f95e" />
+  
 </details>
+
+Base themes support, responsive and elegant, out of the box, from a single cli run, into a single fully-embedded HTML file (with minor dependencies for fonts, for example) for you to self-host, toy around, customize with themes and include in your own pipeline. No free-trial, no credit-card reader, no "talk with sales" call to action, no hosting fee's.
+
+## CLI
+
+As mentiones, we expect for you to just write the docs, and get your page back. A single, all-in-it `.html` for you to sue as you wish. Some minor dependencies are expected, for loading icons, fonts and code highlight. (👷‍♂️⚠️Under development)
+
+```
+amauta -v
+Amauta: version alpha-0.1
+
+amauta -h
+Usage of ./amauta:
+  -i string
+    	input path (currently unused)
+  -lint
+    	only run linter (alias)
+  -o string
+    	output HTML file (default "./dist/doc.html")
+  -render
+    	render HTML (alias)
+  -theme string
+    	select theme set as css (default "default")
+  -v	binary version
+```
+
+~Enjoy! 🎶
+
+# FAQ
+
+> 0. Why did you made this?
+1. I dislike long yaml files
+3. I dislike indentation
+4. I dislike clunky websites that look from the earlier 2000's, [with some exceptions of course](https://www.spacejam.com/1996/jam.htm)
+5. I haven't being hired yet
+
+> 1. Who asks this question? You don't have any real users yet...
+
+The voices in my head.
+
+> 2. Is this going to be free forever?
+
+I expect this to be maintained only by myself, on my own time, while I try to figure out life in general. While I enjoy it, yes, it will be free.
+
+> 3. How often do you plan to make releases?
+
+Please refer to (2)
+
+> 4. Is there a way I can contribute
+
+You may create issues requesting features or reporting bugs, but since the development is in a really early stage for now, those are probably going to be addressed anyway and the issues section will get (optimistically speaking) floaded.
+For now, using the tool, leaving a star, sharing it with friends and collegues is enough. Thank you! 🙂
+
+> 5. I want to give you my moneh tho
+
+Here you go:
+
+<a href='https://ko-fi.com/Q5Q0P976H' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+
+And thank you. Specially now, support is much appreaciated at home.

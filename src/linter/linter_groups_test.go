@@ -17,22 +17,21 @@ func TestRunsLinterFindingGroupSection(t *testing.T) {
 	assert.Equal("success", result.Msg)
 
 	// Root
-	assert.Equal("root", result.Structure.Root.Info["type"])
-	assert.Equal("root", result.Structure.Root.Info["id"])
+	assert.Equal("Root", result.Structure.Root.Info.(*Root).BlockType)
+	assert.Equal("Root", result.Structure.Root.Info.(*Root).Id)
 	assert.Equal(2, len(result.Structure.Root.Links))
 
 	// Groups
-	expectedTagData := []map[string]interface{}{
+	expectedGroupData := []map[string]interface{}{
 		{"id": "getting-started", "description": "getting started"},
 		{"id": "api", "description": "client api"},
 	}
 	for idx := 0; idx < len(result.Structure.Root.Links); idx++ {
 		groupNode := result.Structure.Root.Links[idx]
-		assert.Equal("Group", groupNode.Info["type"])
-		assert.Equal(expectedTagData[idx]["id"], groupNode.Info["id"])
-		assert.Equal(expectedTagData[idx]["color"], groupNode.Info["color"])
-		assert.Equal(expectedTagData[idx]["description"], groupNode.Info["description"])
+		assert.Equal("Group", groupNode.Info.(Group).BlockType)
+		assert.Equal(expectedGroupData[idx]["id"], groupNode.Info.(Group).Id)
+		assert.Equal(expectedGroupData[idx]["description"], groupNode.Info.(Group).Description)
 		assert.Equal(1, len(groupNode.Links))
-		assert.Equal("root", groupNode.Links[0].Info["type"])
+		assert.Equal("Root", groupNode.Links[0].Info.(*Root).Id)
 	}
 }

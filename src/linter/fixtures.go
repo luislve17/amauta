@@ -216,6 +216,6 @@ api#public: client api
 
 var manifestWithRootDetails string = `
 [[@root]]
-logoUrl: https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-logo.svg
-githubUrl: https://github.com/luislve17/amauta
+LogoUrl: https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-logo.svg
+GithubUrl: https://github.com/luislve17/amauta
 `

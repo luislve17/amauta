@@ -17,8 +17,8 @@ func TestRunsLinterIgnoringInlineComment(t *testing.T) {
 	assert.Equal("success", result.Msg)
 
 	// Root
-	assert.Equal("root", result.Structure.Root.Info["type"])
-	assert.Equal("root", result.Structure.Root.Info["id"])
+	assert.Equal("Root", result.Structure.Root.Info.(*Root).BlockType)
+	assert.Equal("Root", result.Structure.Root.Info.(*Root).Id)
 	assert.Equal(6, len(result.Structure.Root.Links))
 }
 
@@ -33,7 +33,7 @@ func TestRunsLinterIgnoringMultilineComment(t *testing.T) {
 	assert.Equal("success", result.Msg)
 
 	// Root
-	assert.Equal("root", result.Structure.Root.Info["type"])
-	assert.Equal("root", result.Structure.Root.Info["id"])
+	assert.Equal("Root", result.Structure.Root.Info.(*Root).BlockType)
+	assert.Equal("Root", result.Structure.Root.Info.(*Root).Id)
 	assert.Equal(6, len(result.Structure.Root.Links))
 }

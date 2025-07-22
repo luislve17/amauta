@@ -17,8 +17,8 @@ func TestRunsLinterFindingTagSection(t *testing.T) {
 	assert.Equal("success", result.Msg)
 
 	// Root
-	assert.Equal("root", result.Structure.Root.Info["type"])
-	assert.Equal("root", result.Structure.Root.Info["id"])
+	assert.Equal("Root", result.Structure.Root.Info.(*Root).BlockType)
+	assert.Equal("Root", result.Structure.Root.Info.(*Root).Id)
 	assert.Equal(4, len(result.Structure.Root.Links))
 
 	// Tags
@@ -30,12 +30,12 @@ func TestRunsLinterFindingTagSection(t *testing.T) {
 	}
 	for idx := 0; idx < len(result.Structure.Root.Links); idx++ {
 		tagNode := result.Structure.Root.Links[idx]
-		assert.Equal("Tag", tagNode.Info["type"])
-		assert.Equal(expectedTagData[idx]["id"], tagNode.Info["id"])
-		assert.Equal(expectedTagData[idx]["color"], tagNode.Info["color"])
-		assert.Equal(expectedTagData[idx]["description"], tagNode.Info["description"])
+		assert.Equal("Tag", tagNode.Info.(Tag).BlockType)
+		assert.Equal(expectedTagData[idx]["id"], tagNode.Info.(Tag).Id)
+		assert.Equal(expectedTagData[idx]["color"], tagNode.Info.(Tag).color)
+		assert.Equal(expectedTagData[idx]["description"], tagNode.Info.(Tag).Description)
 		assert.Equal(1, len(tagNode.Links))
-		assert.Equal("root", tagNode.Links[0].Info["type"])
+		assert.Equal("Root", tagNode.Links[0].Info.(*Root).BlockType)
 	}
 }
 
@@ -50,8 +50,8 @@ func TestRunsLinterFindingEmptyTagSection(t *testing.T) {
 	assert.Equal("success", result.Msg)
 
 	// Root
-	assert.Equal("root", result.Structure.Root.Info["type"])
-	assert.Equal("root", result.Structure.Root.Info["id"])
+	assert.Equal("Root", result.Structure.Root.Info.(*Root).BlockType)
+	assert.Equal("Root", result.Structure.Root.Info.(*Root).Id)
 	assert.Equal(0, len(result.Structure.Root.Links))
 }
 

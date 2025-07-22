@@ -1,3 +1,6 @@
+build:
+	go build -o amauta
+
 run:
 	go run main.go --lint --render -i ./dist/manifest.amauta
 

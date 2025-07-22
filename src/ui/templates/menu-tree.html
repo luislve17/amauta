@@ -3,18 +3,18 @@
   <div class="menu-tree-inner">
     {{ range .Links }}
 
-    {{ if eq .Info.type "Group"}}
+    {{ if eq .Info.BlockType "Group"}}
     <div class="row group-item">
       <span>
-        {{ .Info.description }}
+        {{ .Info.Description }}
       </span>
     </div>
     {{ range .Links}}
 
-        {{ if or (eq .Info.type "Module") (eq .Info.type "Content") }}
-    <div class="row menu-item" onclick="showSection('section-{{ .Info.id }}')">
+    {{ if or (eq .Info.BlockType "Module") (eq .Info.BlockType "Content") }}
+    <div class="row menu-item" onclick="showSection('section-{{ .Info.Id }}')">
       <span class="menu-item-content">
-        {{ .Info.id }}
+        {{ .Info.Id }}
       </span>
     </div>
     {{ end }}

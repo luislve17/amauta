@@ -1,12 +1,12 @@
 {{define "content-body"}}
   {{ range .Links }}
-    {{ if eq .Info.type "Group"}}
+    {{ if eq .Info.BlockType "Group"}}
       {{ range .Links}}
-        {{ if or (eq .Info.type "Content") (eq .Info.type "Module") }}
-        <div class="content-section" id="section-{{ .Info.id }}">
-          {{ .Info.htmlContent }}
-        </div>
-        {{ end }}
+        {{ if or (eq .Info.BlockType "Content") (eq .Info.BlockType "Module") }}
+<div class="content-section" id="section-{{ .Info.Id }}">
+  {{ .Info.Summary }}
+</div>
+{{ end }}
       {{ end }}
     {{ end }}
   {{ end }}

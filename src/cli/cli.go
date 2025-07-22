@@ -53,7 +53,8 @@ func RunCLI() {
 		return
 	}
 
-	data.Structure.Root.Info["themeStyle"], err = loadThemeFromFile(fmt.Sprintf("./ui/themes/%s.css", *theme))
+	root := data.Structure.Root.Info.(*linter.Root)
+	root.ThemeStyle, err = loadThemeFromFile(fmt.Sprintf("./ui/themes/%s.css", *theme))
 	if err != nil {
 		fmt.Printf("Theme not found: %s. %s. Using default\n", *theme, err)
 	}

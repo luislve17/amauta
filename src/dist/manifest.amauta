@@ -1,6 +1,6 @@
 [[@root]]
-logoUrl: https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-banner.svg
-githubUrl: https://github.com/luislve17/amauta
+LogoUrl: https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-banner.svg
+GithubUrl: https://github.com/luislve17/amauta
 <--
 This is a multiline comment block
 Starts with --> and ends with <--

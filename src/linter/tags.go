@@ -31,16 +31,22 @@ func getTags(rawBlocks []RawBlock) ([]*Node, error) {
 		}
 
 		node := &Node{
-			Info: map[string]interface{}{
-				"type":        "Tag",
-				"id":          match[1],
-				"color":       match[2],
-				"description": match[3],
-			},
+			Info:  createTagNodeInfo(match),
 			Links: []*Node{},
 		}
 		nodes = append(nodes, node)
 	}
 
 	return nodes, nil
+}
+
+func createTagNodeInfo(tagMatch []string) Tag {
+	return Tag{
+		BlockType: "Tag",
+		Identifiable: Identifiable{
+			Id: tagMatch[1],
+		},
+		color:       tagMatch[2],
+		Description: tagMatch[3],
+	}
 }

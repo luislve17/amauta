@@ -77,39 +77,6 @@ func generateGraph(manifestContent ManifestContent) (*StructureGraph, error) {
 	return &graph, nil
 }
 
-func initRoot(rawBlocks []RawBlock) (*Node, error) {
-	root := &Node{
-		Info: map[string]interface{}{
-			"type": "root",
-			"id":   "root",
-		},
-		Links: []*Node{},
-	}
-
-	rootSection, sectionFindErr := findSection(rawBlocks, rootSectionRegex, true, false)
-	if sectionFindErr != nil {
-		return root, nil
-	}
-
-	fields := strings.Split(rootSection[0].Content, "\n")
-	rootFieldPattern := regexp.MustCompile(rootFieldRegex)
-
-	for i, field := range fields[1:] {
-		if field == "" {
-			continue
-		}
-		match := rootFieldPattern.FindStringSubmatch(field)
-		if len(match) == 0 {
-			return nil, fmt.Errorf("Error@line:%d\n->Invalid root field format: %q", rootSection[0].StartLine+i+1, field)
-		}
-		key := match[1]
-		value := match[2]
-		root.Info[key] = value
-	}
-
-	return root, nil
-}
-
 func linkNodeOneToOne(nodeA *Node, nodeB *Node) {
 	nodeA.Links = append(nodeA.Links, nodeB)
 	nodeB.Links = append(nodeB.Links, nodeA)
@@ -124,15 +91,31 @@ func linkNodeOneToMany(mainNode *Node, nodes []*Node) {
 
 func linkNodesManyToManyById(linkingKey string, nodesA []*Node, nodesB []*Node) {
 	for _, nodeA := range nodesA {
-		linkingIds := nodeA.Info[linkingKey].([]string)
+		a, okA := nodeA.Info.(Linkable)
+		if !okA {
+			continue
+		}
+		linkingIds := a.GetLinkIds(linkingKey)
+
 		for _, nodeB := range nodesB {
-			for _, linkId := range linkingIds {
-				if nodeB.Info["id"] == linkId {
-					linkNodeOneToOne(nodeA, nodeB)
-				}
+			b, okB := nodeB.Info.(Linkable)
+			if !okB {
+				continue
+			}
+			if contains(linkingIds, b.GetId()) {
+				linkNodeOneToOne(nodeA, nodeB)
 			}
 		}
 	}
+}
+
+func contains(arr []string, val string) bool {
+	for _, item := range arr {
+		if item == val {
+			return true
+		}
+	}
+	return false
 }
 
 func findSection(rawBlocks []RawBlock, rawRegex string, onlyOne bool, allowNone bool) ([]*RawBlock, error) {

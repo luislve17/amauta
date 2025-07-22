@@ -31,16 +31,24 @@ func getGroups(rawBlocks []RawBlock) ([]*Node, error) {
 		}
 
 		node := &Node{
-			Info: map[string]interface{}{
-				"type":        "Group",
-				"id":          match[1],
-				"description": match[3],
-				"_tagIds":     strings.Split(match[2], ","),
-			},
+			Info:  createGroupNodeInfo(match),
 			Links: []*Node{},
 		}
 		nodes = append(nodes, node)
 	}
 
 	return nodes, nil
+}
+
+func createGroupNodeInfo(groupMatch []string) Group {
+	return Group{
+		BlockType: "Group",
+		Identifiable: Identifiable{
+			Id: groupMatch[1],
+		},
+		Description: groupMatch[3],
+		LinkFields: LinkFields{
+			_tagIds: strings.Split(groupMatch[2], ","),
+		},
+	}
 }

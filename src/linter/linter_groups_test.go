@@ -22,16 +22,15 @@ func TestRunsLinterFindingGroupSection(t *testing.T) {
 	assert.Equal(2, len(result.Structure.Root.Links))
 
 	// Groups
-	expectedTagData := []map[string]interface{}{
+	expectedGroupData := []map[string]interface{}{
 		{"id": "getting-started", "description": "getting started"},
 		{"id": "api", "description": "client api"},
 	}
 	for idx := 0; idx < len(result.Structure.Root.Links); idx++ {
 		groupNode := result.Structure.Root.Links[idx]
 		assert.Equal("Group", groupNode.Info.(Group).BlockType)
-		assert.Equal(expectedTagData[idx]["id"], groupNode.Info.(Group).Id)
-		// assert.Equal(expectedTagData[idx]["color"], groupNode.Info.(Tag).color) TODO fix
-		assert.Equal(expectedTagData[idx]["description"], groupNode.Info.(Group).Description)
+		assert.Equal(expectedGroupData[idx]["id"], groupNode.Info.(Group).Id)
+		assert.Equal(expectedGroupData[idx]["description"], groupNode.Info.(Group).Description)
 		assert.Equal(1, len(groupNode.Links))
 		assert.Equal("Root", groupNode.Links[0].Info.(*Root).Id)
 	}

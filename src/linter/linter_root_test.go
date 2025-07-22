@@ -41,9 +41,9 @@ func TestRunsLinterLoadingRootData(t *testing.T) {
 
 	// Root
 	root := result.Structure.Root
-	assert.Equal("root", root.Info["type"])
-	assert.Equal("root", root.Info["id"])
+	assert.Equal("Root", root.Info.(*Root).BlockType)
+	assert.Equal("Root", root.Info.(*Root).Id)
 	assert.Equal(0, len(root.Links))
-	assert.Equal("https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-logo.svg", root.Info["logoUrl"])
-	assert.Equal("https://github.com/luislve17/amauta", root.Info["githubUrl"])
+	assert.Equal("https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-logo.svg", root.Info.(*Root).LogoUrl)
+	assert.Equal("https://github.com/luislve17/amauta", root.Info.(*Root).GithubUrl)
 }

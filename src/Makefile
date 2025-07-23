@@ -2,10 +2,7 @@ build:
 	go build -o amauta
 
 run:
-	go run main.go --lint --render -i ./dist/manifest.amauta
-
-run-black:
-	go run main.go --lint --render -i ./dist/manifest.amauta -theme dark
+	go run main.go --lint --render -i ./dist/manifest.amauta -theme $(theme)
 
 test:
 	@go test -v -cover ./... | awk '\

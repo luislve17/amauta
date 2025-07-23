@@ -118,8 +118,8 @@ func contains(arr []string, val string) bool {
 	return false
 }
 
-func findSection(rawBlocks []RawBlock, rawRegex string, onlyOne bool, allowNone bool) ([]*RawBlock, error) {
-	headerPattern := regexp.MustCompile(rawRegex)
+func findSection(rawBlocks []RawBlock, sectionHeadRawRgx string, onlyOne bool, allowNone bool) ([]*RawBlock, error) {
+	headerPattern := regexp.MustCompile(sectionHeadRawRgx)
 	var matches []*RawBlock
 
 	for i := range rawBlocks {
@@ -138,19 +138,19 @@ func findSection(rawBlocks []RawBlock, rawRegex string, onlyOne bool, allowNone 
 			return []*RawBlock{matches[0]}, nil
 		}
 		if len(matches) > 1 {
-			return nil, fmt.Errorf("multiple sections matched regex: %s", rawRegex)
+			return nil, fmt.Errorf("multiple sections matched regex: %s", sectionHeadRawRgx)
 		}
 		if allowNone {
 			return nil, nil
 		} else {
-			return nil, fmt.Errorf("no section matched regex: %s", rawRegex)
+			return nil, fmt.Errorf("no section matched regex: %s", sectionHeadRawRgx)
 		}
 	}
 
 	return matches, nil
 }
 
-func getGroupsInSection(raw string) string {
+func getGroupsInSection(raw string) string { // TODO: Extract + refactor
 	lines := strings.Split(raw, "\n")
 
 	for _, line := range lines {
@@ -163,7 +163,7 @@ func getGroupsInSection(raw string) string {
 	return ""
 }
 
-func getHTMLContent(raw string) template.HTML {
+func getHTMLContent(raw string) template.HTML { // TODO: Extract + refactor
 	lines := strings.Split(raw, "\n")
 	var inMarkdown bool
 	var mdLines []string

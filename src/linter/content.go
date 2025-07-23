@@ -17,6 +17,15 @@ func getContent(rawBlocks []RawBlock) ([]*Node, error) {
 		return nil, nil
 	}
 
+	nodes, contentParseErr := getContents(contentSections, contentHeaderPattern)
+	if contentParseErr != nil {
+		return nil, contentParseErr
+	}
+
+	return nodes, nil
+}
+
+func getContents(contentSections []*RawBlock, contentHeaderPattern *regexp.Regexp) ([]*Node, error) {
 	var nodes []*Node
 
 	for i, contentSection := range contentSections {
@@ -25,13 +34,13 @@ func getContent(rawBlocks []RawBlock) ([]*Node, error) {
 		if len(headerMatch) == 0 {
 			return nil, fmt.Errorf("Error@line:%d\n->Invalid content format: %q", contentSection.StartLine+i+1, rawHeader)
 		}
+		// contentData := getContentData(contentSection)
 		node := &Node{
 			Info:  createContentNodeInfo(headerMatch, contentSection),
 			Links: []*Node{},
 		}
 		nodes = append(nodes, node)
 	}
-
 	return nodes, nil
 }
 

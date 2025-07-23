@@ -97,8 +97,6 @@ Here is a table:
 
 </md>
 
-meta: foo
-
 [[Users@api#public,internal]]
 group: api
 summary: Endpoints related to user operations

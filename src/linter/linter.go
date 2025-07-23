@@ -163,37 +163,6 @@ func getGroupsInSection(raw string) string { // TODO: Extract + refactor
 	return ""
 }
 
-func getHTMLContent(raw string) template.HTML { // TODO: Extract + refactor
-	lines := strings.Split(raw, "\n")
-	var inMarkdown bool
-	var mdLines []string
-
-	for _, line := range lines {
-		trimmed := strings.TrimSpace(line)
-
-		if trimmed == "summary: <md>" {
-			inMarkdown = true
-			continue
-		}
-
-		if trimmed == "</md>" {
-			inMarkdown = false
-			break
-		}
-
-		if strings.HasPrefix(trimmed, "summary:") && !strings.Contains(trimmed, "<md>") {
-			summary := strings.TrimPrefix(trimmed, "summary:")
-			return renderMarkdown(strings.TrimSpace(summary))
-		}
-
-		if inMarkdown {
-			mdLines = append(mdLines, line)
-		}
-	}
-
-	return renderMarkdown(strings.Join(mdLines, "\n"))
-}
-
 func renderMarkdown(content string) template.HTML {
 	var buf bytes.Buffer
 	if err := md.Convert([]byte(content), &buf); err != nil {

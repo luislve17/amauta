@@ -1,3 +1,4 @@
+# Deploy dist/doc.html
 name: Deploy amauta doc
 
 on:

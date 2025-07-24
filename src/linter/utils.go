@@ -6,32 +6,35 @@ import (
 )
 
 func getHTMLContent(raw string) template.HTML {
-	lines := strings.Split(raw, "\n")
-	var inMarkdown bool
+	return renderMarkdown(raw)
+}
+
+func extractSummary(raw string) string {
+	var insideSummary bool
 	var mdLines []string
 
+	lines := strings.Split(raw, "\n")
 	for _, line := range lines {
 		trimmed := strings.TrimSpace(line)
 
 		if trimmed == "summary: <md>" {
-			inMarkdown = true
+			insideSummary = true
 			continue
 		}
 
 		if trimmed == "</md>" {
-			inMarkdown = false
+			insideSummary = false
 			break
 		}
 
 		if strings.HasPrefix(trimmed, "summary:") && !strings.Contains(trimmed, "<md>") {
 			summary := strings.TrimPrefix(trimmed, "summary:")
-			return renderMarkdown(strings.TrimSpace(summary))
+			return strings.TrimSpace(summary)
 		}
 
-		if inMarkdown {
+		if insideSummary {
 			mdLines = append(mdLines, line)
 		}
 	}
-
-	return renderMarkdown(strings.Join(mdLines, "\n"))
+	return strings.Join(mdLines, "\n")
 }

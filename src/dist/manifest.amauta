@@ -31,6 +31,7 @@ admin#FF1493: Admin only
 
 [[@groups]]
 getting-started#public: Getting started
+finishing#public: Almost done
 api#public: API
 
 
@@ -143,7 +144,7 @@ metadata.source: newsletter
 metadata.tags: [beta, test]
 
 [[Final section@content#public]]
-group: getting-started
+group: finishing
 summary: <md>
 # Final section I guess
 This is a separate content section

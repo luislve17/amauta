@@ -18,8 +18,16 @@ func getGroups(rawBlocks []RawBlock) ([]*Node, error) {
 		return nil, nil
 	}
 
-	lines := strings.Split(groupSection[0].Content, "\n")
+	nodes, groupFetchErr := getGroupsInSection(groupSection[0], groupPattern)
+	if groupFetchErr != nil {
+		return nil, groupFetchErr
+	}
+	return nodes, nil
+}
+
+func getGroupsInSection(groupSection *RawBlock, groupPattern *regexp.Regexp) ([]*Node, error) {
 	var nodes []*Node
+	lines := strings.Split(groupSection.Content, "\n")
 
 	for i, group := range lines[1:] {
 		if group == "" {
@@ -27,7 +35,7 @@ func getGroups(rawBlocks []RawBlock) ([]*Node, error) {
 		}
 		match := groupPattern.FindStringSubmatch(group)
 		if len(match) == 0 {
-			return nil, fmt.Errorf("Error@line:%d\n->Invalid group format: %q", groupSection[0].StartLine+i+1, group)
+			return nil, fmt.Errorf("Error@line:%d\n->Invalid group format: %q", groupSection.StartLine+i+1, group)
 		}
 
 		node := &Node{

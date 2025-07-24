@@ -150,19 +150,6 @@ func findSection(rawBlocks []RawBlock, sectionHeadRawRgx string, onlyOne bool, a
 	return matches, nil
 }
 
-func getGroupsInSection(raw string) string { // TODO: Extract + refactor
-	lines := strings.Split(raw, "\n")
-
-	for _, line := range lines {
-		prefix := "group:"
-		trimmed := strings.ReplaceAll(line, " ", "")
-		if strings.HasPrefix(trimmed, prefix) {
-			return trimmed[len(prefix):]
-		}
-	}
-	return ""
-}
-
 func renderMarkdown(content string) template.HTML {
 	var buf bytes.Buffer
 	if err := md.Convert([]byte(content), &buf); err != nil {

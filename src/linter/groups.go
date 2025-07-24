@@ -35,7 +35,7 @@ func getGroupsInSection(groupSection *RawBlock, groupPattern *regexp.Regexp) ([]
 		}
 		match := groupPattern.FindStringSubmatch(group)
 		if len(match) == 0 {
-			return nil, fmt.Errorf("Error@line:%d\n->Invalid group format: %q", groupSection.StartLine+i+1, group)
+			return nil, fmt.Errorf("Error@line:%d\n->Invalid group format: %q", groupSection.From+i+1, group)
 		}
 
 		node := &Node{

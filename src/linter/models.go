@@ -34,8 +34,13 @@ type StructureGraph struct {
 }
 
 type RawBlock struct {
-	Content   string
-	StartLine int
+	Content string
+	LineRange
+}
+
+type LineRange struct {
+	From int
+	To   int
 }
 
 // From Structure Graph

@@ -23,9 +23,12 @@ func getModules(rawBlocks []RawBlock) ([]*Node, error) {
 		rawHeader := strings.Split(moduleSection.Content, "\n")[0]
 		headerMatch := moduleHeaderPattern.FindStringSubmatch(rawHeader)
 		if len(headerMatch) == 0 {
-			return nil, fmt.Errorf("Error@line:%d\n->Invalid tag format: %q", moduleSection.StartLine+i+1, rawHeader)
+			return nil, fmt.Errorf("Error@line:%d\n->Invalid tag format: %q", moduleSection.From+i+1, rawHeader)
 		}
-		moduleData := getModuleData(moduleSection)
+		moduleData, moduleDataErr := getModuleData(moduleSection)
+		if moduleDataErr != nil {
+			return nil, moduleDataErr
+		}
 		node := &Node{
 			Info:  createModuleNodeInfo(headerMatch, moduleData),
 			Links: []*Node{},
@@ -36,7 +39,7 @@ func getModules(rawBlocks []RawBlock) ([]*Node, error) {
 	return nodes, nil
 }
 
-func getModuleData(moduleSection *RawBlock) map[string]interface{} {
+func getModuleData(moduleSection *RawBlock) (map[string]interface{}, error) {
 	moduleData := make(map[string]interface{})
 	lines := strings.Split(moduleSection.Content, "\n")
 	for ln, line := range lines {
@@ -55,15 +58,18 @@ func getModuleData(moduleSection *RawBlock) map[string]interface{} {
 
 		key := fieldInfo[1]
 		switch key {
+		case "summary":
+			value, nLines := extractSummary(strings.Join(lines[ln:], "\n"))
+			ln += nLines
+			moduleData[key] = value
 		case "group":
 			value := fieldInfo[2]
 			moduleData[key] = value
-		case "summary":
-			value := extractSummary(strings.Join(lines[ln:], "\n"))
-			moduleData[key] = value
+		default:
+			continue
 		}
 	}
-	return moduleData
+	return moduleData, nil
 }
 
 func createModuleNodeInfo(headerMatch []string, moduleData map[string]interface{}) Module {

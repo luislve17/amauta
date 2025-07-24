@@ -36,7 +36,7 @@ func getRootFieldsInSection(root *Node, rootSection *RawBlock, rootFieldPattern 
 		}
 		match := rootFieldPattern.FindStringSubmatch(field)
 		if len(match) == 0 {
-			return nil, fmt.Errorf("Error@line:%d\n->Invalid root field format: %q", rootSection.StartLine+i+1, field)
+			return nil, fmt.Errorf("Error@line:%d\n->Invalid root field format: %q", rootSection.From+i+1, field)
 		}
 		value := match[2]
 		rootData, ok := root.Info.(*Root)

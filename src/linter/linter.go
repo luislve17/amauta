@@ -37,6 +37,7 @@ func LintFromRoot(content ManifestContent, createStructure bool) (LintResult, er
 
 func generateGraph(manifestContent ManifestContent) (*StructureGraph, error) {
 	rawBlocks := extractRawBlocks(manifestContent)
+
 	root, rootErr := initRoot(rawBlocks)
 	if rootErr != nil {
 		return nil, rootErr
@@ -158,50 +159,70 @@ func renderMarkdown(content string) template.HTML {
 	return template.HTML(buf.String())
 }
 
+// TEST
 func extractRawBlocks(content ManifestContent) []RawBlock {
 	lines := strings.Split(string(content), "\n")
 	var blocks []RawBlock
 	var current []string
 	var startLine int
+	var inBlock bool
 	var inComment bool
-	inBlock := false
+	var inMD bool
 
 	for i, line := range lines {
 		trimmed := strings.TrimSpace(line)
 
-		isInlineCommentStart := strings.HasPrefix(trimmed, "--")
-		isMultiLineCommentStart := strings.HasPrefix(trimmed, "<--")
-		isMultiLineCommentEnd := strings.HasPrefix(trimmed, "-->")
-		isNewModuleStart := strings.HasPrefix(trimmed, "[[")
-		isNewInnerSectionStart := strings.HasPrefix(trimmed, "[") && !strings.HasPrefix(trimmed, "[[")
-		hasCurrentBlock := len(current) > 0
+		// Detect markdown block boundaries
+		if strings.Contains(trimmed, "<md>") {
+			inMD = true
+		}
+		if strings.Contains(trimmed, "</md>") {
+			inMD = false
+		}
 
-		if isMultiLineCommentEnd {
-			inComment = false
-			continue
-		} else if isInlineCommentStart || inComment {
-			continue
-		} else if isMultiLineCommentStart {
-			inComment = true
-			continue
-		} else if isNewModuleStart {
-			if inBlock && hasCurrentBlock {
-				blocks = append(blocks, RawBlock{Content: strings.Join(current, "\n"), StartLine: startLine})
+		// Skip comments (only outside markdown)
+		if !inMD {
+			if strings.HasPrefix(trimmed, "-->") {
+				inComment = false
+				continue
+			}
+			if inComment || strings.HasPrefix(trimmed, "--") {
+				continue
+			}
+			if strings.HasPrefix(trimmed, "<--") {
+				inComment = true
+				continue
+			}
+		}
+
+		// Start a new block at [[...]], outside markdown
+		if strings.HasPrefix(trimmed, "[[") && !inMD {
+			if inBlock && len(current) > 0 {
+				blocks = append(blocks, RawBlock{
+					Content: strings.Join(current, "\n"),
+					LineRange: LineRange{
+						From: startLine,
+						To:   i,
+					},
+				})
 			}
 			current = []string{line}
 			startLine = i + 1
 			inBlock = true
-		} else if inBlock && isNewInnerSectionStart {
-			blocks = append(blocks, RawBlock{Content: strings.Join(current, "\n"), StartLine: startLine})
-			current = nil
-			inBlock = false
 		} else if inBlock {
 			current = append(current, line)
 		}
 	}
 
+	// Append last block
 	if inBlock && len(current) > 0 {
-		blocks = append(blocks, RawBlock{Content: strings.Join(current, "\n"), StartLine: startLine})
+		blocks = append(blocks, RawBlock{
+			Content: strings.Join(current, "\n"),
+			LineRange: LineRange{
+				From: startLine,
+				To:   len(lines),
+			},
+		})
 	}
 
 	return blocks

@@ -18,25 +18,10 @@ func getTags(rawBlocks []RawBlock) ([]*Node, error) {
 		return nil, nil
 	}
 
-	lines := strings.Split(tagSection[0].Content, "\n")
-	var nodes []*Node
-
-	for i, tag := range lines[1:] {
-		if tag == "" {
-			continue
-		}
-		match := tagPattern.FindStringSubmatch(tag)
-		if len(match) == 0 {
-			return nil, fmt.Errorf("Error@line:%d\n->Invalid tag format: %q", tagSection[0].StartLine+i+1, tag)
-		}
-
-		node := &Node{
-			Info:  createTagNodeInfo(match),
-			Links: []*Node{},
-		}
-		nodes = append(nodes, node)
+	nodes, tagFetchErr := getTagsInSection(*tagSection[0], tagPattern)
+	if tagFetchErr != nil {
+		return nil, tagFetchErr
 	}
-
 	return nodes, nil
 }
 
@@ -49,4 +34,24 @@ func createTagNodeInfo(tagMatch []string) Tag {
 		color:       tagMatch[2],
 		Description: tagMatch[3],
 	}
+}
+
+func getTagsInSection(tagSection RawBlock, tagPattern *regexp.Regexp) ([]*Node, error) {
+	foundTagNodes := []*Node{}
+	sectionLines := strings.Split(tagSection.Content, "\n")
+	for i, line := range sectionLines[1:] {
+		if line == "" {
+			continue
+		}
+		match := tagPattern.FindStringSubmatch(line)
+		if len(match) == 0 {
+			return nil, fmt.Errorf("Error@line:%d\n->Invalid tag format: %q", tagSection.StartLine+i+1, line)
+		}
+		node := &Node{
+			Info:  createTagNodeInfo(match),
+			Links: []*Node{},
+		}
+		foundTagNodes = append(foundTagNodes, node)
+	}
+	return foundTagNodes, nil
 }

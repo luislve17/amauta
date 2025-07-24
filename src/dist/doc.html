@@ -29,41 +29,42 @@ html, body {
 
 body {
   min-height: 100vh;
-  background-blend-mode: multiply;
-  background: #27282f;
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: 1.3;
   margin-bottom: 1rem;
-  color: #f7fafc;
+  color: rgb(23, 23, 23, 0.85);
 }
 
 h1 {
-  font-size: 2.1rem;
-  font-weight: 700;
+  font-size: 2.25rem;
+  font-weight: 800;
 }
 
 h2 {
   font-size: 1.75rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(27, 27, 27, 0.3);
   padding-bottom: 0.5rem;
 }
 
 p {
-  line-height: 1.6;
+  line-height: 1.4;
   margin-bottom: 1rem;
 }
 
 pre {
   font-family: 'Fira Code', monospace !important;
   font-size: 14px !important;
-  background: #282c34 !important;
-  border: 1px solid #3a3f4b !important;
-  border-left: 0.25rem solid #434f73 !important;
+  background: #f7f7f7 !important;
+  border-left: 0.25rem solid #a3a3a3 !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
   border-radius: 6px !important;
@@ -71,7 +72,7 @@ pre {
   margin: 1.5rem 0 !important;
 
   line-height: 1.6 !important;
-  color: #e3e3e3 !important;
+  color: #2a2a2a !important;
   overflow-x: auto;
 }
 
@@ -84,19 +85,13 @@ pre code {
   tab-size: 4;
 }
 
-code {
-  background: #282c34 !important;
-  
-}
-
 span[class^="hljs-"] {
   font-family: 'Fira Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
 }
 
 .menu-tree {
-  background: rgba(26, 26, 26, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 6px;
+  background: rgba(245, 245, 245, 0.85);
+
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -106,31 +101,24 @@ span[class^="hljs-"] {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   font-size: 0.8rem;
-  color: #EEE;
-}
-
-.menu-item {
-  transition: background-color 0.2s ease;
-  border-radius: 4px;
-  margin-bottom: 2px;
 }
 
 .menu-item:hover {
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .menu-item-content {
-  color: #bbb;
+  color: #777;
   font-size: 0.9rem;
   font-weight: 500;
 }
 
 .menu-item:hover .menu-item-content {
-  color: #fff;
+  color: #000;
 }
 
-.content-body {
-  color: #bbb;
+.content {
+  color: #777;
 }
 
 ul, ol {
@@ -143,14 +131,15 @@ li::marker {
 }
 
 blockquote {
-  background: rgba(255, 255, 255, 0.05);
+  background: #fff8e1;
   margin: 1.5rem 0;
+  border: 1px solid #3a3f4b !important;
   padding: 1rem 1.5rem;
   border-radius: 0 6px 6px 0;
-  border: 1px solid #3a3f4b !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   position: relative;
   font-style: italic;
-  color: #f5f5f5;
+  color: #5d4037;
 }
 
 blockquote::before {
@@ -162,7 +151,7 @@ blockquote::before {
   top: -0.5rem;
   line-height: 1;
   font-family: serif;
-  opacity: 0.2;
+  opacity: 0.3;
 }
 
 blockquote p {
@@ -170,14 +159,13 @@ blockquote p {
   padding-left: 1.5rem;
   font-size: 1rem;
   line-height: 1.6;
-  color: inherit;
 }
 
 blockquote cite {
   display: block;
   margin-top: 0.5rem;
   font-size: 0.875rem;
-  color: #ffa726; /* lighter orange for contrast */
+  color: #8d6e63;
   font-style: normal;
   font-weight: 500;
   text-align: right;
@@ -187,7 +175,6 @@ blockquote cite::before {
   content: '~ ';
 }
 
-/* Hard reset for table elements */
 table,
 thead,
 tbody,
@@ -209,16 +196,12 @@ table {
   border-collapse: collapse !important;
   width: 100% !important;
   border: none !important;
-  margin: 1.5rem 0 !important;
 }
 
 thead th {
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  color: #e2e8f0 !important; /* light gray text for contrast */
-  padding: 0.75rem 1rem !important;
-  font-weight: 600 !important;
-  text-align: left !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  background-color: #f9f9f9 !important;
+  padding: 8px !important;
 }
 
 thead th:first-child {
@@ -234,61 +217,76 @@ thead th:last-child {
 tbody td {
   border: none !important;
   background-color: transparent !important;
-  color: #cbd5e0 !important; /* soft light gray */
-  padding: 0.75rem 1rem !important;
-  transition: background-color 0.2s ease, color 0.2s ease !important;
+  padding: 8px !important;
+  transition: background-color 0.2s ease !important;
 }
 
-tbody tr:hover td {
-  background-color: rgba(255, 255, 255, 0.04) !important;
-  color: #ffffff !important;
+tbody td:hover {
+  background-color: rgba(0, 0, 0, 0.03) !important;
 }
 
 .amauta-head-banner {
-  background: #27282f;
-  background-blend-mode: multiply;
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-.banner-logo > svg {
-  filter: brightness(0) saturate(100%) invert(88%) sepia(7%) saturate(92%) hue-rotate(7deg) brightness(90%) contrast(82%);
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
 }
 
 .drawer-menu-tree {
-  background: rgba(34, 34, 40, 1);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 6px;
+  background: rgba(244, 244, 244, 1);
   transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.menu-toggle-button i {
-  color: #cbd5e0;
 }
 
 /* Code syntax theme */
 .hljs{
-    color:#ddd;
-    background:#303030
+    background:#f3f3f3;
+    color:#444
 }
-.hljs-keyword,.hljs-link,.hljs-literal,.hljs-section,.hljs-selector-tag{
-    color:#fff
+.hljs-comment{
+    color:#697070
 }
-.hljs-addition,.hljs-attribute,.hljs-built_in,.hljs-bullet,.hljs-name,.hljs-string,.hljs-symbol,.hljs-template-tag,.hljs-template-variable,.hljs-title,.hljs-type,.hljs-variable{
-    color:#d88
+.hljs-punctuation,.hljs-tag{
+    color:#444a
 }
-.hljs-comment,.hljs-deletion,.hljs-meta,.hljs-quote{
-    color:#979797
+.hljs-tag .hljs-attr,.hljs-tag .hljs-name{
+    color:#444
 }
-.hljs-doctag,.hljs-keyword,.hljs-literal,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-strong,.hljs-title,.hljs-type{
+.hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-name,.hljs-selector-tag{
     font-weight:700
+}
+.hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-string,.hljs-template-tag,.hljs-type{
+    color:#800
+}
+.hljs-section,.hljs-title{
+    color:#800;
+    font-weight:700
+}
+.hljs-link,.hljs-operator,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable,.hljs-variable{
+    color:#ab5656
+}
+.hljs-literal{
+    color:#695
+}
+.hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code{
+    color:#397300
+}
+.hljs-meta{
+    color:#1f7199
+}
+.hljs-meta .hljs-string{
+    color:#38a
 }
 .hljs-emphasis{
     font-style:italic
 }
+.hljs-strong{
+    font-weight:700
+}
 
 .menu-footer {
-  background: #27282f;
+  background: #eee;
 }
 
 .menu-footer-content {
@@ -300,8 +298,8 @@ tbody tr:hover td {
 }
 
 .menu-footer-content:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-  color: #eee;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #444;
 }
 
 
@@ -553,6 +551,20 @@ document.addEventListener("DOMContentLoaded", function () {
     
 
       
+    
+  
+
+    
+    <div class="row group-item">
+      <span>
+        Almost done
+      </span>
+    </div>
+    
+
+        
+
+      
 
         
     <div class="row menu-item" onclick="showSection('section-Final section')">
@@ -646,6 +658,20 @@ document.addEventListener("DOMContentLoaded", function () {
         About amauta
       </span>
     </div>
+    
+
+      
+    
+  
+
+    
+    <div class="row group-item">
+      <span>
+        Almost done
+      </span>
+    </div>
+    
+
     
 
       
@@ -799,6 +825,12 @@ func main() {
 
 </div>
 
+      
+    
+  
+    
+      
+        
       
         
 <div class="content-section" id="section-Final section">

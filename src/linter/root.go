@@ -17,16 +17,26 @@ func initRoot(rawBlocks []RawBlock) (*Node, error) {
 		return root, nil
 	}
 
-	fields := strings.Split(rootSection[0].Content, "\n")
 	rootFieldPattern := regexp.MustCompile(rootFieldRegex)
 
-	for i, field := range fields[1:] {
+	root, rootFieldsFetchErr := getRootFieldsInSection(root, rootSection[0], rootFieldPattern)
+	if rootFieldsFetchErr != nil {
+		return nil, rootFieldsFetchErr
+	}
+
+	return root, nil
+}
+
+func getRootFieldsInSection(root *Node, rootSection *RawBlock, rootFieldPattern *regexp.Regexp) (*Node, error) {
+	lines := strings.Split(rootSection.Content, "\n")
+
+	for i, field := range lines[1:] {
 		if field == "" {
 			continue
 		}
 		match := rootFieldPattern.FindStringSubmatch(field)
 		if len(match) == 0 {
-			return nil, fmt.Errorf("Error@line:%d\n->Invalid root field format: %q", rootSection[0].StartLine+i+1, field)
+			return nil, fmt.Errorf("Error@line:%d\n->Invalid root field format: %q", rootSection.StartLine+i+1, field)
 		}
 		value := match[2]
 		rootData, ok := root.Info.(*Root)
@@ -41,7 +51,6 @@ func initRoot(rawBlocks []RawBlock) (*Node, error) {
 			rootData.GithubUrl = value
 		}
 	}
-
 	return root, nil
 }
 

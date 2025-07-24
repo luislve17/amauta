@@ -4,6 +4,7 @@ import (
 	"html/template"
 )
 
+// From Linter
 type ManifestContent string
 type LintStatus string
 
@@ -37,6 +38,7 @@ type RawBlock struct {
 	StartLine int
 }
 
+// From Structure Graph
 type Identifiable struct {
 	Id string
 }

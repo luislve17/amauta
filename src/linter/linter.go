@@ -118,8 +118,8 @@ func contains(arr []string, val string) bool {
 	return false
 }
 
-func findSection(rawBlocks []RawBlock, rawRegex string, onlyOne bool, allowNone bool) ([]*RawBlock, error) {
-	headerPattern := regexp.MustCompile(rawRegex)
+func findSection(rawBlocks []RawBlock, sectionHeadRawRgx string, onlyOne bool, allowNone bool) ([]*RawBlock, error) {
+	headerPattern := regexp.MustCompile(sectionHeadRawRgx)
 	var matches []*RawBlock
 
 	for i := range rawBlocks {
@@ -138,60 +138,16 @@ func findSection(rawBlocks []RawBlock, rawRegex string, onlyOne bool, allowNone 
 			return []*RawBlock{matches[0]}, nil
 		}
 		if len(matches) > 1 {
-			return nil, fmt.Errorf("multiple sections matched regex: %s", rawRegex)
+			return nil, fmt.Errorf("multiple sections matched regex: %s", sectionHeadRawRgx)
 		}
 		if allowNone {
 			return nil, nil
 		} else {
-			return nil, fmt.Errorf("no section matched regex: %s", rawRegex)
+			return nil, fmt.Errorf("no section matched regex: %s", sectionHeadRawRgx)
 		}
 	}
 
 	return matches, nil
-}
-
-func getGroupsInSection(raw string) string {
-	lines := strings.Split(raw, "\n")
-
-	for _, line := range lines {
-		prefix := "group:"
-		trimmed := strings.ReplaceAll(line, " ", "")
-		if strings.HasPrefix(trimmed, prefix) {
-			return trimmed[len(prefix):]
-		}
-	}
-	return ""
-}
-
-func getHTMLContent(raw string) template.HTML {
-	lines := strings.Split(raw, "\n")
-	var inMarkdown bool
-	var mdLines []string
-
-	for _, line := range lines {
-		trimmed := strings.TrimSpace(line)
-
-		if trimmed == "summary: <md>" {
-			inMarkdown = true
-			continue
-		}
-
-		if trimmed == "</md>" {
-			inMarkdown = false
-			break
-		}
-
-		if strings.HasPrefix(trimmed, "summary:") && !strings.Contains(trimmed, "<md>") {
-			summary := strings.TrimPrefix(trimmed, "summary:")
-			return renderMarkdown(strings.TrimSpace(summary))
-		}
-
-		if inMarkdown {
-			mdLines = append(mdLines, line)
-		}
-	}
-
-	return renderMarkdown(strings.Join(mdLines, "\n"))
 }
 
 func renderMarkdown(content string) template.HTML {

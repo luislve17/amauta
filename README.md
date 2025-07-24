@@ -191,18 +191,13 @@ amauta -v
 Amauta: version alpha-0.1
 
 amauta -h
-Usage of ./amauta:
-  -i string
-    	input path (currently unused)
-  -lint
-    	only run linter (alias)
-  -o string
-    	output HTML file (default "./dist/doc.html")
-  -render
-    	render HTML (alias)
-  -theme string
-    	select theme set as css (default "default")
-  -v	binary version
+Usage of Amauta CLI (alpha-0.1):
+-v	Build version
+-i	Input path
+-o	Output HTML file path (defaults to './dist/doc.html')
+-lint	Lint doc manifest
+-render	Render HTML from doc manifest
+-theme	Name of the selected theme
 ```
 
 ~Enjoy! 🎶

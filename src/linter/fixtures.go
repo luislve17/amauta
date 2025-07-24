@@ -1,12 +1,15 @@
 package linter
 
 var ValidManifest string = `
--->
+[[@root]]
+LogoUrl: https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-banner.svg
+GithubUrl: https://github.com/luislve17/amauta
+<--
 This is a multiline comment block
 Starts with --> and ends with <--
 but both must be on a new line with nothing
 else but that characters sequence.
-<--
+-->
 
 <--
 Basic types to identify are:
@@ -19,8 +22,8 @@ Basic types to identify are:
 
 -- Inline comment block.
 
--- tags: Special section
--- items follows: '<name>#<color>: <description>' syntax
+-- tags: Special section  
+-- items follow: '<name>#<color>: <description>' syntax
 [[@tags]]
 public#00FF00: Public API  
 internal#AAAAAA: Internal use only  
@@ -29,56 +32,107 @@ under-dev#FFD966: Still under development
 beta#87CEEB: Beta feature  
 admin#FF1493: Admin only
 
--- module: Special section
--- header follows: '[[<name>#<tag1,tag2,...>]]'
--- fields follow: '<name>(@|?)<type>#<tag1,tag2,...>: <description>'
+[[@groups]]
+getting-started#public: Getting started
+finishing#public: Almost done
+api#public: API
+
+
+<--
+module: Special section  
+header follows: '[[<name>#<tag1,tag2,...>]]'  
+fields follow: '<name>(@|?)<type>#<tag1,tag2,...>: <description>'
+-->
+[[About amauta@content#public]]
+group: getting-started
+summary: <md>
+# Amauta
+Welcome to Amauta. The right tool to write documentation. This line is excesively long just to verify how line breaks render once that they load on templates
+
+## What is Amauta?
+Amauta is a non-standardized documentation tool. Improves readability and maintanibility for small and big developer teams.
+
+## List of things
+
+* Item 1
+* Item 2
+* Item 3
+
+
+### Sub topic
+
+> "This is a quote" ~ The quoter
+
+Here is a table:
+
+| Item              | In Stock | Price |
+| :---------------- | :------: | ----: |
+| Python Hat        |   True   | 23.99 |
+| SQL Hat           |   True   | 23.99 |
+| Codecademy Tee    |  False   | 19.99 |
+| Codecademy Hoodie |  False   | 42.99 |
+
+</md>
+
 [[Users@api#public,internal]]
+group: api
 summary: Endpoints related to user operations
 
--- section
--- header follows: '[<section>@<type>:<description>]'
+-- section  
+-- header follows: '[<section>@<type>:<description>]'  
 -- fields follow: '<name>(@|?)<type>#<tag1,tag2,...>: <description>'
 [request@POST:/v1/users]
 summary: Create a new user  
 contentType: application/json  
 
--- Inline object declaration
+-- Inline object declaration  
 -- Only allowed for 1-depth object
-header@object: This is the object root description
+header@object: This is the object root description  
 header.Authorization@str#internal: Bearer token. This is only the field's description
 
--- Multiline object declaration
-body: This is the object root description
--- Here the type of the field is custom 'user_profile', and must
--- import from other declaration of type 'ref@schema'.
-.profile@user_profile: Main user information  
-.metadata@object: Tracking info  
-.metadata
-..source?str#internal: Origin of signup  
-..labels?str[]#internal: Internal labels  
+-- Explicit field paths for nested objects
+body@object: This is the object root description  
+body.profile@user_profile: Main user information  
+body.metadata@object: Tracking info  
+body.metadata.source?str#internal: Origin of signup  
+body.metadata.labels?str[]#internal: Internal labels  
+body.metadata.status@enum[active,inactive,archived]|null#deprecated: User status
 
--- To import an example, expect to be declared as 'ref@example'
--- 'example' field will not be validated to follow the specified
+-- To import an example, expect to be declared as 'ref@example'  
+-- 'example' field will not be validated to follow the specified  
 -- schema. Works as wildcard
 example: <ref@example:create_user>
 
 [ref@schema:user_profile]
-name@str: User's name
-email@str: User's email
--- For special types like 'datetime' declared here
--- the parser will completely ignore its validation, since
--- is not supported by the expected basby the expected basic type
+name@str: User's name  
+email@str: User's email  
+-- For special types like 'datetime' declared here  
+-- the parser will completely ignore its validation, since  
+-- it is not supported by the expected basic type  
 -- Works as a wildcard for types
-timezone@@datetime: User's timezone
+timezone@custom:datetime: User's timezone
 
 [ref@example:create_user]
-profile:  
-.name: Jane Doe  
-.email: jane@example.com  
-.gender: female  
-metadata:  
-.source: newsletter  
-.tags: [beta, test]
+profile.name: Jane Doe  
+profile.email: jane@example.com  
+profile.gender: female  
+metadata.source: newsletter  
+metadata.tags: [beta, test]
+
+[[Final section@content#public]]
+group: finishing
+summary: <md>
+# Final section I guess
+This is a separate content section
+
+## Foo
+Foo indeed
+
+## List of things
+
+* Item 1
+* Item 2
+* Item 3
 `
 
 var manifestWithValidTags string = `
@@ -114,15 +168,15 @@ api: API
 
 [[Users@api]]
 group: api
-description: Endpoints related to user operations
+summary: Endpoints related to user operations
 
 [[Items@api]]
 group: api
-description: Endpoints related to items owned by users
+summary: Endpoints related to items owned by users
 
 [[invalidModule@api]]
 group: api
-description: This should never be loaded due syntax error
+summary: This should never be loaded due syntax error
 `
 
 var manifestWithValidTaggedModules string = `
@@ -137,11 +191,11 @@ under-dev#FFD966: Still under development
 
 [[Users@api#public,under-dev]]
 group: api
-description: Endpoints related to user operations
+summary: Endpoints related to user operations
 
 [[Items@api#internal]]
 group: api
-description: Endpoints related to items owned by users
+summary: Endpoints related to items owned by users
 `
 
 var manifestWithUnexistentTaggedModules string = `
@@ -154,7 +208,7 @@ api: API
 
 [[Users@api#public,under-dev]]
 group: api
-description: Endpoints related to user operations
+summary: Endpoints related to user operations
 `
 
 var ValidManifestWithInlineComments string = `

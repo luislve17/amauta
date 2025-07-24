@@ -26,9 +26,6 @@ func getModules(rawBlocks []RawBlock) ([]*Node, error) {
 			return nil, fmt.Errorf("Error@line:%d\n->Invalid tag format: %q", moduleSection.StartLine+i+1, rawHeader)
 		}
 		moduleData := getModuleData(moduleSection)
-		for k, v := range moduleData {
-			fmt.Printf("• %s: %v\n", k, v)
-		}
 		node := &Node{
 			Info:  createModuleNodeInfo(headerMatch, moduleData),
 			Links: []*Node{},

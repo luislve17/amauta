@@ -6,7 +6,7 @@
   Docs for people
 </h1>
 
-![Static Badge](https://img.shields.io/badge/version-alpha0.1-2b7573)
+![Static Badge](https://img.shields.io/badge/version-alpha0.2-2b7573)
 ![Static Badge](https://img.shields.io/badge/engine-go-00ADD8?logo=go)
 ![Static Badge](https://img.shields.io/badge/ui-html-F06529?logo=html5)
 
@@ -156,7 +156,7 @@ You may find the fully detailed protocol on our [our documentation](https://luis
 ## Linter/Renderer
 Documenting expects to export a final page that is both professional and easy to navigate. Being honest, there are plenty platforms that do this quiet well, [after](https://www.dreamfactory.com/) you [click](https://redocly.com/) the "[talk to sales team](https://scalar.com/)" button [of course](https://stoplight.io/).
 
-From a FOSS point of view, most alternatives to render a doc manifest into a page lack a lean, professional interface. And yes, the user could invest time and effort modifying the style to get an specific theme around the baseline that these tools offer, but with **_Amauta_** is expected to have available a responsive result that has a simplified but elegant look.
+From a FOSS point of view, most alternatives to render a doc manifest into a page lack a lean, professional interface. And yes, the user could invest time and effort modifying the style to get an specific theme around the baseline that these tools offer, but with **_Amauta_** it is expected to get a responsive page with a simplified but elegant look.
 
 <details>
 <summary>😕 What other free alternatives offer out of the box</summary>
@@ -169,7 +169,7 @@ From a FOSS point of view, most alternatives to render a doc manifest into a pag
 
 
 <details>
-<summary>:moyai: What Amauta offers (alpha0.1 version) </summary>
+<summary>:moyai: What Amauta offers (alpha-0.2 version) </summary>
   
 `amauta --render -i ./dist/manifest.amauta -theme default`
 

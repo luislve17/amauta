@@ -192,10 +192,10 @@ As mentioned, we expect you to just write the docs, and get your page back. A si
 
 ```
 amauta -v
-Amauta: version alpha-0.1
+Amauta: version alpha-0.2
 
 amauta -h
-Usage of Amauta CLI (alpha-0.1):
+Usage of Amauta CLI (alpha-0.2):
 -v	Build version
 -i	Input path
 -o	Output HTML file path (defaults to './dist/doc.html')

@@ -29,42 +29,41 @@ html, body {
 
 body {
   min-height: 100vh;
-  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+  background-blend-mode: multiply;
+  background: #27282f;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: 1.3;
   margin-bottom: 1rem;
-  color: rgb(23, 23, 23, 0.85);
+  color: #f7fafc;
 }
 
 h1 {
-  font-size: 2.25rem;
-  font-weight: 800;
+  font-size: 2.1rem;
+  font-weight: 700;
 }
 
 h2 {
   font-size: 1.75rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  border-bottom: 1px solid rgba(27, 27, 27, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 0.5rem;
 }
 
 p {
-  line-height: 1.4;
+  line-height: 1.6;
   margin-bottom: 1rem;
 }
 
 pre {
   font-family: 'Fira Code', monospace !important;
   font-size: 14px !important;
-  background: #f7f7f7 !important;
-  border-left: 0.25rem solid #a3a3a3 !important;
+  background: #282c34 !important;
+  border: 1px solid #3a3f4b !important;
+  border-left: 0.25rem solid #434f73 !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
   border-radius: 6px !important;
@@ -72,7 +71,7 @@ pre {
   margin: 1.5rem 0 !important;
 
   line-height: 1.6 !important;
-  color: #2a2a2a !important;
+  color: #e3e3e3 !important;
   overflow-x: auto;
 }
 
@@ -85,40 +84,53 @@ pre code {
   tab-size: 4;
 }
 
+code {
+  background: #282c34 !important;
+  
+}
+
 span[class^="hljs-"] {
   font-family: 'Fira Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
 }
 
 .menu-tree {
-  background: rgba(245, 245, 245, 0.85);
-
+  background: rgba(26, 26, 26, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .group-item {
   font-family: 'Inter', sans-serif;
-  font-weight: 500;
+  font-weight: 800;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   font-size: 0.8rem;
+  color: #EEE;
+}
+
+.menu-item {
+  transition: background-color 0.2s ease;
+  border-radius: 4px;
+  margin-bottom: 2px;
 }
 
 .menu-item:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .menu-item-content {
-  color: #777;
+  color: #bbb;
   font-size: 0.9rem;
   font-weight: 500;
 }
 
 .menu-item:hover .menu-item-content {
-  color: #000;
+  color: #fff;
 }
 
-.content {
-  color: #777;
+.content-body {
+  color: #bbb;
 }
 
 ul, ol {
@@ -131,15 +143,14 @@ li::marker {
 }
 
 blockquote {
-  background: #fff8e1;
+  background: rgba(255, 255, 255, 0.05);
   margin: 1.5rem 0;
-  border: 1px solid #3a3f4b !important;
   padding: 1rem 1.5rem;
   border-radius: 0 6px 6px 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #3a3f4b !important;
   position: relative;
   font-style: italic;
-  color: #5d4037;
+  color: #f5f5f5;
 }
 
 blockquote::before {
@@ -151,7 +162,7 @@ blockquote::before {
   top: -0.5rem;
   line-height: 1;
   font-family: serif;
-  opacity: 0.3;
+  opacity: 0.2;
 }
 
 blockquote p {
@@ -159,13 +170,14 @@ blockquote p {
   padding-left: 1.5rem;
   font-size: 1rem;
   line-height: 1.6;
+  color: inherit;
 }
 
 blockquote cite {
   display: block;
   margin-top: 0.5rem;
   font-size: 0.875rem;
-  color: #8d6e63;
+  color: #ffa726; /* lighter orange for contrast */
   font-style: normal;
   font-weight: 500;
   text-align: right;
@@ -175,6 +187,7 @@ blockquote cite::before {
   content: '~ ';
 }
 
+/* Hard reset for table elements */
 table,
 thead,
 tbody,
@@ -196,12 +209,16 @@ table {
   border-collapse: collapse !important;
   width: 100% !important;
   border: none !important;
+  margin: 1.5rem 0 !important;
 }
 
 thead th {
-  border: 1px solid rgba(0, 0, 0, 0.1) !important;
-  background-color: #f9f9f9 !important;
-  padding: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: #e2e8f0 !important; /* light gray text for contrast */
+  padding: 0.75rem 1rem !important;
+  font-weight: 600 !important;
+  text-align: left !important;
 }
 
 thead th:first-child {
@@ -217,76 +234,61 @@ thead th:last-child {
 tbody td {
   border: none !important;
   background-color: transparent !important;
-  padding: 8px !important;
-  transition: background-color 0.2s ease !important;
+  color: #cbd5e0 !important; /* soft light gray */
+  padding: 0.75rem 1rem !important;
+  transition: background-color 0.2s ease, color 0.2s ease !important;
 }
 
-tbody td:hover {
-  background-color: rgba(0, 0, 0, 0.03) !important;
+tbody tr:hover td {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  color: #ffffff !important;
 }
 
 .amauta-head-banner {
-  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+  background: #27282f;
+  background-blend-mode: multiply;
 
-  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.banner-logo > svg {
+  filter: brightness(0) saturate(100%) invert(88%) sepia(7%) saturate(92%) hue-rotate(7deg) brightness(90%) contrast(82%);
 }
 
 .drawer-menu-tree {
-  background: rgba(244, 244, 244, 1);
+  background: rgba(34, 34, 40, 1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
   transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.menu-toggle-button i {
+  color: #cbd5e0;
 }
 
 /* Code syntax theme */
 .hljs{
-    background:#f3f3f3;
-    color:#444
+    color:#ddd;
+    background:#303030
 }
-.hljs-comment{
-    color:#697070
+.hljs-keyword,.hljs-link,.hljs-literal,.hljs-section,.hljs-selector-tag{
+    color:#fff
 }
-.hljs-punctuation,.hljs-tag{
-    color:#444a
+.hljs-addition,.hljs-attribute,.hljs-built_in,.hljs-bullet,.hljs-name,.hljs-string,.hljs-symbol,.hljs-template-tag,.hljs-template-variable,.hljs-title,.hljs-type,.hljs-variable{
+    color:#d88
 }
-.hljs-tag .hljs-attr,.hljs-tag .hljs-name{
-    color:#444
+.hljs-comment,.hljs-deletion,.hljs-meta,.hljs-quote{
+    color:#979797
 }
-.hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-name,.hljs-selector-tag{
+.hljs-doctag,.hljs-keyword,.hljs-literal,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-strong,.hljs-title,.hljs-type{
     font-weight:700
-}
-.hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-string,.hljs-template-tag,.hljs-type{
-    color:#800
-}
-.hljs-section,.hljs-title{
-    color:#800;
-    font-weight:700
-}
-.hljs-link,.hljs-operator,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable,.hljs-variable{
-    color:#ab5656
-}
-.hljs-literal{
-    color:#695
-}
-.hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code{
-    color:#397300
-}
-.hljs-meta{
-    color:#1f7199
-}
-.hljs-meta .hljs-string{
-    color:#38a
 }
 .hljs-emphasis{
     font-style:italic
 }
-.hljs-strong{
-    font-weight:700
-}
 
 .menu-footer {
-  background: #eee;
+  background: #27282f;
 }
 
 .menu-footer-content {
@@ -298,8 +300,8 @@ tbody td:hover {
 }
 
 .menu-footer-content:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  color: #444;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #eee;
 }
 
 
@@ -533,6 +535,30 @@ document.addEventListener("DOMContentLoaded", function () {
     
     <div class="row group-item">
       <span>
+        Development
+      </span>
+    </div>
+    
+
+        
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-CHANGELOG')">
+      <span class="menu-item-content">
+        CHANGELOG
+      </span>
+    </div>
+    
+
+      
+    
+  
+
+    
+    <div class="row group-item">
+      <span>
         Getting started
       </span>
     </div>
@@ -551,72 +577,16 @@ document.addEventListener("DOMContentLoaded", function () {
     
 
       
-    
-  
-
-    
-    <div class="row group-item">
-      <span>
-        Almost done
-      </span>
-    </div>
-    
 
         
-
-      
-
-        
-    <div class="row menu-item" onclick="showSection('section-Final section')">
+    <div class="row menu-item" onclick="showSection('section-Quickstart')">
       <span class="menu-item-content">
-        Final section
+        Quickstart
       </span>
     </div>
     
 
       
-    
-  
-
-    
-    <div class="row group-item">
-      <span>
-        API
-      </span>
-    </div>
-    
-
-        
-
-      
-
-        
-    <div class="row menu-item" onclick="showSection('section-Users')">
-      <span class="menu-item-content">
-        Users
-      </span>
-    </div>
-    
-
-      
-    
-  
-
-    
-  
-
-    
-  
-
-    
-  
-
-    
-  
-
-    
-  
-
     
   
   </nav>
@@ -643,6 +613,30 @@ document.addEventListener("DOMContentLoaded", function () {
     
     <div class="row group-item">
       <span>
+        Development
+      </span>
+    </div>
+    
+
+    
+
+      
+
+    
+    <div class="row menu-item" onclick="showSection('section-CHANGELOG')">
+      <span class="menu-item-content">
+        CHANGELOG
+      </span>
+    </div>
+    
+
+      
+    
+  
+
+    
+    <div class="row group-item">
+      <span>
         Getting started
       </span>
     </div>
@@ -661,72 +655,16 @@ document.addEventListener("DOMContentLoaded", function () {
     
 
       
-    
-  
 
     
-    <div class="row group-item">
-      <span>
-        Almost done
-      </span>
-    </div>
-    
-
-    
-
-      
-
-    
-    <div class="row menu-item" onclick="showSection('section-Final section')">
+    <div class="row menu-item" onclick="showSection('section-Quickstart')">
       <span class="menu-item-content">
-        Final section
+        Quickstart
       </span>
     </div>
     
 
       
-    
-  
-
-    
-    <div class="row group-item">
-      <span>
-        API
-      </span>
-    </div>
-    
-
-    
-
-      
-
-    
-    <div class="row menu-item" onclick="showSection('section-Users')">
-      <span class="menu-item-content">
-        Users
-      </span>
-    </div>
-    
-
-      
-    
-  
-
-    
-  
-
-    
-  
-
-    
-  
-
-    
-  
-
-    
-  
-
     
   
   </div>
@@ -752,127 +690,78 @@ document.addEventListener("DOMContentLoaded", function () {
         
       
         
+<div class="content-section" id="section-CHANGELOG">
+  <h2>2025-07-24 (<code>alpha-0.2</code>)</h2>
+<ul>
+<li>Inital publication of <em><em>Amauta</em></em> documentation</li>
+</ul>
+
+</div>
+
+      
+    
+  
+    
+      
+        
+      
+        
 <div class="content-section" id="section-About amauta">
-  <h1>Amauta</h1>
-<p>Welcome to Amauta. The right tool to write documentation. This line is excesively long just to verify how line breaks render once that they load on templates</p>
-<h2>What is Amauta?</h2>
-<p>Amauta is a non-standardized documentation tool. Improves readability and maintanibility for small and big developer teams.</p>
-<h2>List of things</h2>
-<ul>
-<li>Item 1</li>
-<li>Item 2</li>
-<li>Item 3</li>
-</ul>
-<h3>Sub topic</h3>
-<blockquote>
-<p>&quot;This is a quote&quot; ~ The quoter</p>
-</blockquote>
-<p>This is inline code <code>lambda x: x+1</code></p>
-<pre><code class="language-python">import numpy as np
+  <div align="center">
+<p><img src="https://github.com/luislve17/amauta/raw/refs/heads/main/assets/amauta-banner.svg" alt="logo"></p>
+<h1>
+  Docs for people
+</h1>
+<p><img src="https://img.shields.io/badge/version-alpha-0.2-2b7573" alt="Static Badge">
+<img src="https://img.shields.io/badge/engine-go-00ADD8?logo=go" alt="Static Badge">
+<img src="https://img.shields.io/badge/ui-html-F06529?logo=html5" alt="Static Badge"></p>
+</div>
+<p>Amauta focuses on fulfilling the need to create maintainable, redable and intuitive documentation. It defines a new protocol to declare documentation for RESTful APIs, marked-up content, SDKs and virtually anything that could be used in a collaborative team, open source tools or personal projects.</p>
 
-def handleMethodThatDoesTheThingButItsNameIsQuiteLong(my_id: int, my_callable: ..., my_model: List[Tuple[Foo]]):
-	pass
+</div>
 
-foo = &quot;Hello World!&quot;
-print(foo)
+      
+        
+<div class="content-section" id="section-Quickstart">
+  <h1>Installation</h1>
+<p><em>For the current version</em> there is no distributed binary yet. You may find the precompiled binary in the <a href="https://github.com/luislve17/amauta/releases"><em>releases</em></a> page of the project.</p>
+<p>Once downloaded, is recommended to put it in a binary folder that your <code>$PATH</code> env var is aware of. You should finally be able to do:</p>
+<pre><code class="language-zsh">$ amauta -v
+Amauta: version alpha-0.2	
 </code></pre>
-<p>Or in Go</p>
-<pre><code class="language-go">package main
+<h1>CLI Usage</h1>
+<p><em><em>Amauta</em></em> generates documentation from a manifest file. Skipping the trivial (but valid for the linter &amp; renderer) example of an empty file, a minimal documentation would look something like this:</p>
+<pre><code># ./dist/manifest.amauta
+[[@groups]]
+intro: Introduction
 
-import &quot;fmt&quot;
-
-func main() {
-    ch := make(chan float64)
-    ch &lt;- 1.0e10    // magic number
-    x, ok := &lt;- ch
-    defer fmt.Println(`exitting now\`)
-    go println(len(&quot;hello world!&quot;))
-    return
-}
+[[Hello doc@content]]
+group: intro
+summary: Hello from Amauta!
 </code></pre>
-<p>Here is a table:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Item</th>
-<th style="text-align:center">In Stock</th>
-<th style="text-align:right">Price</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Python Hat</td>
-<td style="text-align:center">True</td>
-<td style="text-align:right">23.99</td>
-</tr>
-<tr>
-<td style="text-align:left">SQL Hat</td>
-<td style="text-align:center">True</td>
-<td style="text-align:right">23.99</td>
-</tr>
-<tr>
-<td style="text-align:left">Codecademy Tee</td>
-<td style="text-align:center">False</td>
-<td style="text-align:right">19.99</td>
-</tr>
-<tr>
-<td style="text-align:left">Codecademy Hoodie</td>
-<td style="text-align:center">False</td>
-<td style="text-align:right">42.99</td>
-</tr>
-</tbody>
-</table>
+<p>Which defines:</p>
+<ol>
+<li>A group named <code>intro</code></li>
+<li>A <code>content</code>-type section, linked to the <code>intro</code> group, and with its corresponding <code>summary</code></li>
+</ol>
+<p>Executing the command:</p>
+<pre><code class="language-zsh">amauta --render -i ./dist/manifest.amauta
+</code></pre>
+<p><em><em>Amauta</em></em> will generate the given doc as an <code>.html</code> file in the default relative path <code>./dist/doc.html</code>.</p>
+<p>More available options will be explored later when reviewing the CLI, but on general lines and depending on the version, one would have the following from the cli interface:</p>
+<pre><code class="language-zsh">$ amauta --h                               
+Usage of Amauta CLI (alpha-0.2):
+-v	Build version
+-i	Input path
+-o	Output HTML file path (defaults to './dist/doc.html')
+-lint	Lint doc manifest
+-render	Render HTML from doc manifest
+-theme	Name of the selected theme
+</code></pre>
 
 </div>
 
       
-    
-  
-    
-      
-        
-      
-        
-<div class="content-section" id="section-Final section">
-  <h1>Final section I guess</h1>
-<p>This is a separate content section</p>
-<h2>Foo</h2>
-<p>Foo indeed</p>
-<h2>List of things</h2>
-<ul>
-<li>Item 1</li>
-<li>Item 2</li>
-<li>Item 3</li>
-</ul>
-
-</div>
-
-      
-    
-  
-    
-      
-        
-      
-        
-<div class="content-section" id="section-Users">
-  <p>Endpoints related to user operations</p>
-
-</div>
-
-      
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
     
   
 

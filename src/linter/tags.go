@@ -45,7 +45,7 @@ func getTagsInSection(tagSection RawBlock, tagPattern *regexp.Regexp) ([]*Node, 
 		}
 		match := tagPattern.FindStringSubmatch(line)
 		if len(match) == 0 {
-			return nil, fmt.Errorf("Error@line:%d\n->Invalid tag format: %q", tagSection.StartLine+i+1, line)
+			return nil, fmt.Errorf("Error@line:%d\n->Invalid tag format: %q", tagSection.From+i+1, line)
 		}
 		node := &Node{
 			Info:  createTagNodeInfo(match),

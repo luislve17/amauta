@@ -151,7 +151,7 @@ metadata.tags: [beta, test]
 </details>
 
 Focusing on simplicity and readability, **_Amauta_** avoids a nested/indented syntax. Some repetition to access inner fields might be encountered, while encouraging separate modular definitions on more complex entities.
-You may find the fully detailed protocol on our [our documentation](https://luislve17.github.io/amauta/doc) (👷‍♂️⚠️Under development)
+You may find the fully detailed protocol on our [our documentation](https://luislve17.github.io/amauta/doc) (👷‍♂️⚠️Under development).
 
 ## Linter/Renderer
 Documenting expects to export a final page that is both professional and easy to navigate. Being honest, there are plenty platforms that do this quiet well, [after](https://www.dreamfactory.com/) you [click](https://redocly.com/) the "[talk to sales team](https://scalar.com/)" button [of course](https://stoplight.io/).

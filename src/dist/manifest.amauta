@@ -3,7 +3,15 @@ LogoUrl: https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/asse
 GithubUrl: https://github.com/luislve17/amauta
 
 [[@groups]]
+dev: Development
 getting-started: Getting started
+
+[[CHANGELOG@content]]
+group: dev
+summary: <md>
+## 2025-07-24 (`alpha0.1`)
+* Inital publication of _*Amauta*_ documentation
+</md>
 
 [[About amauta@content]]
 group: getting-started
@@ -25,8 +33,13 @@ summary: <md>
 </div>
 
 Amauta focuses on fulfilling the need to create maintainable, redable and intuitive documentation. It defines a new protocol to declare documentation for RESTful APIs, marked-up content, SDKs and virtually anything that could be used in a collaborative team, open source tools or personal projects.
+</md>
 
-## Installation
+
+[[Quickstart@content]]
+group: getting-started
+summary: <md>
+# Installation
 _For the current version_ there is no distributed binary yet. You may find the precompiled binary in the [_releases_](https://github.com/luislve17/amauta/releases) page of the project.
 
 Once downloaded, is recommended to put it in a binary folder that your `$PATH` env var is aware of. You should finally be able to do:
@@ -35,13 +48,12 @@ $ amauta -v
 Amauta: version alpha-0.1	
 ```
 
-## Quick start
+# CLI Usage
 
-_*Amauta*_ generates documentation by creating a fully connected graph that is tied to the intention of the *section* that is meant to refer to. So eveything is defined as *sections*, a term that we will use naturally across this.
-
-Skipping the trivial (but valid for the linter & renderer) example of an empty file, a minimal documentation would look something like this:
+_*Amauta*_ generates documentation from a manifest file. Skipping the trivial (but valid for the linter & renderer) example of an empty file, a minimal documentation would look something like this:
 
 ```
+# ./dist/manifest.amauta
 [[@groups]]
 intro: Introduction
 
@@ -54,29 +66,24 @@ Which defines:
 1. A group named `intro`
 2. A `content`-type section, linked to the `intro` group, and with its corresponding `summary`
 
-Making a not-so-fair comparisong, this is somehow equivalent of declaring this manifest using OpenAPI protocol:
+Executing the command:
 
-```yaml
-openapi: 3.1.0
-info:
-  title: Amauta Equivalent
-  version: 1.0.0
-
-tags:
-  - name: intro
-    description: Introduction
-
-paths:
-  /hello:
-    get:
-      tags:
-        - intro
-      summary: Hello from Amauta!
-      responses:
-        '200':
-          description: OK
-
+```zsh
+amauta --render -i ./dist/manifest.amauta
 ```
 
-</md>
+_*Amauta*_ will generate the given doc as an `.html` file in the default relative path `./dist/doc.html`.
 
+More available options will be explored later when reviewing the CLI, but on general lines and depending on the version, one would have the following from the cli interface:
+
+```zsh
+$ amauta --h                               
+Usage of Amauta CLI (alpha-0.1):
+-v	Build version
+-i	Input path
+-o	Output HTML file path (defaults to './dist/doc.html')
+-lint	Lint doc manifest
+-render	Render HTML from doc manifest
+-theme	Name of the selected theme
+```
+</md>

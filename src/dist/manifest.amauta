@@ -9,7 +9,11 @@ getting-started: Getting started
 [[CHANGELOG@content]]
 group: dev
 summary: <md>
-## 2025-07-24 (`alpha0.1`)
+## 2025-07-24 (`alpha-0.2`)
+* Reinforcement of `rawBlocks` generation
+* First version of official documentation deployed
+
+## 2025-07-23 (`alpha-0.1`)
 * Inital publication of _*Amauta*_ documentation
 </md>
 
@@ -25,7 +29,7 @@ summary: <md>
   Docs for people
 </h1>
 
-![Static Badge](https://img.shields.io/badge/version-alpha0.1-2b7573)
+![Static Badge](https://img.shields.io/badge/version-alpha-0.2-2b7573)
 ![Static Badge](https://img.shields.io/badge/engine-go-00ADD8?logo=go)
 ![Static Badge](https://img.shields.io/badge/ui-html-F06529?logo=html5)
 
@@ -45,7 +49,7 @@ _For the current version_ there is no distributed binary yet. You may find the p
 Once downloaded, is recommended to put it in a binary folder that your `$PATH` env var is aware of. You should finally be able to do:
 ```zsh
 $ amauta -v
-Amauta: version alpha-0.1	
+Amauta: version alpha-0.2	
 ```
 
 # CLI Usage
@@ -78,7 +82,7 @@ More available options will be explored later when reviewing the CLI, but on gen
 
 ```zsh
 $ amauta --h                               
-Usage of Amauta CLI (alpha-0.1):
+Usage of Amauta CLI (alpha-0.2):
 -v	Build version
 -i	Input path
 -o	Output HTML file path (defaults to './dist/doc.html')

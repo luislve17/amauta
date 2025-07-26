@@ -47,11 +47,12 @@ func setupCli() cliOptions {
 	outputPath := flag.String("o", "./dist/doc.html", "Output HTML file path (defaults to './dist/doc.html')")
 	lintOnly := flag.Bool("lint", false, "Lint doc manifest")
 	render := flag.Bool("render", false, "Render HTML from doc manifest")
-	theme := flag.String("theme", "default", "Name of the selected theme")
+	theme := flag.String("theme", "default", "Name of the selected theme (available: 'default', 'dark')")
 
 	flag.Usage = func() {
 		flagSet := flag.CommandLine
 		fmt.Printf("Usage of Amauta CLI (%s):\n", buildVersion)
+		fmt.Printf("-h\tShow this help\n")
 		order := []string{"v", "i", "o", "lint", "render", "theme"}
 		for _, name := range order {
 			flag := flagSet.Lookup(name)

@@ -287,3 +287,25 @@ tbody tr:hover td {
   background-color: rgba(0, 0, 0, 0.1);
   color: #eee;
 }
+
+.copy-float {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  font-size: 1.45em;
+  color: #4ade80;
+  animation: float-out 700ms ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes float-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+}
+

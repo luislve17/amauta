@@ -6,7 +6,7 @@ GithubUrl: https://github.com/luislve17/amauta
 dev: Development
 getting-started: Getting started
 
-[[CHANGELOG@content]]
+[[Changelog@content]]
 group: dev
 summary: <md>
 ## 2025-07-24 (`alpha-0.2`)

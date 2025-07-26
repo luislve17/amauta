@@ -21,4 +21,40 @@ document.addEventListener("DOMContentLoaded", function () {
     drawerMenu?.classList.toggle("show");
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("pre > code").forEach((codeEl) => {
+    const preEl = codeEl.parentElement;
+    preEl.style.position = "relative";
+
+    const btn = document.createElement("button");
+    btn.innerHTML = '<i class="ri-file-copy-fill"></i>';
+    btn.style.position = "absolute";
+    btn.style.top = "0.5em";
+    btn.style.right = "0.5em";
+    btn.style.background = "transparent";
+    btn.style.border = "none";
+    btn.style.cursor = "pointer";
+    btn.style.fontSize = "1.45em";
+    btn.style.color = "#888";
+    btn.style.padding = "0";
+    btn.style.margin = "0";
+
+    btn.onclick = () => {
+      navigator.clipboard.writeText(codeEl.textContent.trim());
+
+      // Create floating icon
+      const floatIcon = document.createElement("i");
+      floatIcon.className = "ri-clipboard-fill copy-float";
+      preEl.appendChild(floatIcon);
+
+      // Remove after animation
+      setTimeout(() => {
+        floatIcon.remove();
+      }, 600);
+    };
+
+    preEl.appendChild(btn);
+  });
+});
 {{end}}

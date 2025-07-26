@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"os"
@@ -22,4 +23,12 @@ func loadThemeFromFile(path string) (template.CSS, error) {
 		return template.CSS(""), err
 	}
 	return template.CSS(content), nil
+}
+
+func (str styledString) style(args ...string) string {
+	prefix := ""
+	for _, arg := range args {
+		prefix += arg
+	}
+	return fmt.Sprintf("%s%s%s", prefix, str, reset)
 }

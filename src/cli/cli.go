@@ -52,11 +52,11 @@ func setupCli() cliOptions {
 	flag.Usage = func() {
 		flagSet := flag.CommandLine
 		fmt.Printf("Usage of Amauta CLI (%s):\n", buildVersion)
-		fmt.Printf("-h\tShow this help\n")
+		fmt.Printf("-%s\tShow this help\n", styledString("h").style(italic))
 		order := []string{"v", "i", "o", "lint", "render", "theme"}
 		for _, name := range order {
 			flag := flagSet.Lookup(name)
-			fmt.Printf("-%s\t%s\n", flag.Name, flag.Usage)
+			fmt.Printf("-%s\t%s\n", styledString(flag.Name).style(italic), flag.Usage)
 		}
 	}
 	flag.Parse()
@@ -76,18 +76,33 @@ func verifyCliUsage(cli cliOptions) {
 	runRender := *cli.render
 
 	if *cli.version {
-		fmt.Fprintf(os.Stdout, "%sAmauta:%s version %s%s%s%s\n", bold, reset, bold, green, buildVersion, reset)
+		fmt.Fprintf(
+			os.Stdout,
+			"%s version %s\n",
+			styledString("Amauta:").style(bold), styledString(buildVersion).style(bold, green),
+		)
 		os.Exit(0)
 	}
 
 	if !runLint && !runRender {
-		fmt.Fprintf(os.Stderr, "%sError:%s %sYou must specify either --lint or --render%s\n", red, reset, bold, reset)
+		fmt.Fprintf(
+			os.Stdout,
+			"%s You must specify either %s or %s\n",
+			styledString("Error:").style(red, bold),
+			styledString("--lint").style(bold, italic),
+			styledString("--render").style(bold, italic),
+		)
 		flag.Usage()
 		os.Exit(1)
 	}
 
 	if *cli.inputPath == "" {
-		fmt.Fprintf(os.Stderr, "%sError:%s %sYou must specify a non-empty input file path (-i)%s\n", red, reset, bold, reset)
+		fmt.Fprintf(
+			os.Stderr,
+			"%s You must specify a non-empty input file path (%s)\n",
+			styledString("Error:").style(bold, red),
+			styledString("-i").style(bold, italic),
+		)
 		flag.Usage()
 		os.Exit(1)
 	}

@@ -11,6 +11,10 @@ custom-section: Custom sections
 [[Changelog@content]]
 group: dev
 summary: <md>
+## 2025-07-30 (`alpha-0.3`)
+* Expose `Content` type section, supporting mardown
+* Update official documentation with available features
+
 ## 2025-07-24 (`alpha-0.2`)
 * Reinforcement of `rawBlocks` generation
 * First version of official documentation deployed
@@ -31,7 +35,7 @@ summary: <md>
   Docs for people
 </h1>
 
-![Static Badge](https://img.shields.io/badge/version-alpha0.2-2b7573)
+![Static Badge](https://img.shields.io/badge/version-alpha0.3-2b7573)
 ![Static Badge](https://img.shields.io/badge/engine-go-00ADD8?logo=go)
 ![Static Badge](https://img.shields.io/badge/ui-html-F06529?logo=html5)
 
@@ -50,7 +54,7 @@ Once downloaded, it is recommended to put it in a binary folder that your `$PATH
 
 ```zsh
 $ amauta -v
-Amauta: version alpha-0.2	
+Amauta: version alpha-0.3
 ```
 
 # CLI Usage
@@ -81,13 +85,14 @@ More available options will be explored later when reviewing the CLI, but in gen
 
 ```zsh
 $ amauta --h                               
-Usage of Amauta CLI (alpha-0.2):
+Usage of Amauta CLI (alpha-0.3):
+-h	Show this help
 -v	Build version
 -i	Input path
 -o	Output HTML file path (defaults to './dist/doc.html')
 -lint	Lint doc manifest
 -render	Render HTML from doc manifest
--theme	Name of the selected theme
+-theme	Name of the selected theme (available: 'default', 'dark')
 ```
 </md>
 

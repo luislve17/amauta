@@ -205,16 +205,6 @@ thead th {
   text-align: left !important;
 }
 
-thead th:first-child {
-  border-top-left-radius: 12px !important;
-  border-bottom-left-radius: 12px !important;
-}
-
-thead th:last-child {
-  border-top-right-radius: 12px !important;
-  border-bottom-right-radius: 12px !important;
-}
-
 tbody td {
   border: none !important;
   background-color: transparent !important;

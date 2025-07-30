@@ -14,7 +14,7 @@ summary: <md>
 * First version of official documentation deployed
 
 ## 2025-07-23 (`alpha-0.1`)
-* Inital publication of _*Amauta*_ documentation
+* Inital publication of _**Amauta**_ documentation
 </md>
 
 [[About amauta@content]]
@@ -36,7 +36,7 @@ summary: <md>
 
 </div>
 
-Amauta focuses on fulfilling the need to create maintainable, redable and intuitive documentation. It defines a new protocol to declare documentation for RESTful APIs, marked-up content, SDKs and virtually anything that could be used in a collaborative team, open source tools or personal projects.
+_**Amauta**_ focuses on fulfilling the need to create maintainable, redable and intuitive documentation. It defines a new protocol to declare documentation for RESTful APIs, marked-up content, SDKs and virtually anything that could be used in a collaborative team, open source tools or personal projects.
 </md>
 
 
@@ -54,7 +54,7 @@ Amauta: version alpha-0.2
 
 # CLI Usage
 
-_*Amauta*_ generates documentation from a manifest file. Skipping the trivial (but valid for the linter & renderer) example of an empty file, a minimal documentation would look something like this:
+_**Amauta**_ generates documentation from a manifest file. Skipping the trivial (but valid for the linter & renderer) example of an empty file, a minimal documentation would look something like this:
 
 ```
 # ./dist/manifest.amauta
@@ -76,7 +76,7 @@ Executing the command:
 amauta --render -i ./dist/manifest.amauta
 ```
 
-_*Amauta*_ will generate the given doc as an `.html` file in the default relative path `./dist/doc.html`.
+_**Amauta**_ will generate the given doc as an `.html` file in the default relative path `./dist/doc.html`.
 
 More available options will be explored later when reviewing the CLI, but on general lines and depending on the version, one would have the following from the cli interface:
 
@@ -90,4 +90,104 @@ Usage of Amauta CLI (alpha-0.2):
 -render	Render HTML from doc manifest
 -theme	Name of the selected theme
 ```
+</md>
+
+[[Syntax@content]]
+group: getting-started
+summary: <md>
+> **_Amauta_** focuses on achieving a simple syntax, with intuitive rules that work on separate contexts.
+
+# Section
+
+_Sections_ are the core documentation entity. Defines a finite text region that renders in a particular way depending of its type.
+e.g.: _Root, Tags, Groups, Content._
+
+# Base syntax
+
+For _**Amauta**_, the syntax must be simple and reliable. On 99% percent of the use cases:
+
+| Symbol / Syntax     | Indicates                                          |
+|---------------------|----------------------------------------------------|
+| `@`                 | typing                                             |
+| `?`                 | nullability                                        |
+| `#`                 | tagging                                            |
+| `[[...]]`           | section block declaration                          |
+| `:`                 | description                                        |
+| `---`, `<-- -->`    | inline (`---`) and multiline (`<-- -->`) comments  |
+
+# Base rules
+There only exists one rule (more of a suggestion) and comes from experience on how to avoid doing things wrong:
+
+> **We highly encourage to avoid indentation while redacting documentation**
+
+We will see later how to approach use cases like nested object's declaration.
+
+
+The real challenge is adapting this to different contexts—creating a section is not the same as defining a 200-response schema. Nevertheless, the same rules apply unless the context justifies a more detailed declaration of intent.
+
+# Headers
+
+Defines the beginning of a section. All content below it, until a new header (or EOF) will be treated as content from declared by the header
+
+For example:
+```
+[[@groups]]
+```
+
+Indicates the key-type of an item (`@`) as `groups`. This is a reserved section, since it's identified by the type itself and is required by linter/renderer to perform operations.
+  
+```
+[[Products@api#public,sales]]
+```
+
+Declares:
+* A particulare name "Products" for this section.
+* Of type (`@`) `api`
+* And tagged (`#`) as `public` and `sales`
+
+This is not a reserved section since the user is allowed to declared it as needed, and not creating it won't block the linter/renderer to perform its operations.
+
+# Fields
+
+Defines details on specific attributes, depending on the context these are declared.
+
+For example:
+
+```toml
+[[Products@api#public,sales]]
+id@str: Product's id
+name@str: Product's name
+calories?float#private: Products's caloric content
+```
+
+Declares a product's:
+* `id`, which is a string (typed by `@`)
+* `name`, which also types as string
+* And `calories`, typed as an **optional** (`?`) float (real number) and tagged (`#`) as `private`
+
+All of these have their corresponding description, declared after the `:` character.
+
+An equivalent declaration of these 4 lines of doc, but for other protocols would look something like:
+
+```yaml
+Products:
+  type: object
+  properties:
+    id:
+      type: string
+      description: Product's id
+    name:
+      type: string
+      description: Product's name
+    calories:
+      type: number
+      format: float
+      description: Product's caloric content
+  required:
+    - id
+    - name
+```
+
+Which when scaling to a more complex manifest as a product grows, exemplifies the rule made at the begining.
+
 </md>

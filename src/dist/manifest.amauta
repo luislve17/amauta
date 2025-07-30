@@ -16,7 +16,7 @@ summary: <md>
 * First version of official documentation deployed
 
 ## 2025-07-23 (`alpha-0.1`)
-* Inital publication of _**Amauta**_ documentation
+* Initial publication of **Amauta** documentation
 </md>
 
 [[About amauta@content]]
@@ -35,28 +35,26 @@ summary: <md>
 ![Static Badge](https://img.shields.io/badge/engine-go-00ADD8?logo=go)
 ![Static Badge](https://img.shields.io/badge/ui-html-F06529?logo=html5)
 
-
 </div>
 
-_**Amauta**_ focuses on fulfilling the need to create maintainable, redable and intuitive documentation. It defines a new protocol to declare documentation for RESTful APIs, marked-up content, SDKs and virtually anything that could be used in a collaborative team, open source tools or personal projects.
+**Amauta** focuses on fulfilling the need to create maintainable, readable and intuitive documentation. It defines a new protocol to declare documentation for RESTful APIs, marked-up content, SDKs and virtually anything that could be used in collaborative teams, open source tools or personal projects.
 </md>
-
 
 [[Quickstart@content]]
 group: getting-started
 summary: <md>
 # Installation
-_For the current version_ there is no distributed binary yet. You may find the precompiled binary in the [_releases_](https://github.com/luislve17/amauta/releases) page of the project.
+*For the current version* there is no distributed binary yet. You may find the precompiled binary in the [_releases_](https://github.com/luislve17/amauta/releases) page of the project.
 
-Once downloaded, is recommended to put it in a binary folder that your `$PATH` env var is aware of. You should finally be able to do:
+Once downloaded, it is recommended to put it in a binary folder that your `$PATH` environment variable is aware of. You should finally be able to do:
+
 ```zsh
 $ amauta -v
 Amauta: version alpha-0.2	
 ```
 
 # CLI Usage
-
-_**Amauta**_ generates documentation from a manifest file. Skipping the trivial (but valid for the linter & renderer) example of an empty file, a minimal documentation would look something like this:
+**Amauta** generates documentation from a manifest file. Skipping the trivial (but valid for the linter & renderer) example of an empty file, a minimal documentation would look something like this:
 
 ```
 # ./dist/manifest.amauta
@@ -73,14 +71,13 @@ Which defines:
 2. A `content`-type section, linked to the `intro` group, and with its corresponding `summary`
 
 Executing the command:
-
 ```zsh
 amauta --render -i ./dist/manifest.amauta
 ```
 
-_**Amauta**_ will generate the given doc as an `.html` file in the default relative path `./dist/doc.html`.
+**Amauta** will generate the given doc as an `.html` file in the default relative path `./dist/doc.html`.
 
-More available options will be explored later when reviewing the CLI, but on general lines and depending on the version, one would have the following from the cli interface:
+More available options will be explored later when reviewing the CLI, but in general terms and depending on the version, one would have the following from the CLI interface:
 
 ```zsh
 $ amauta --h                               
@@ -97,16 +94,14 @@ Usage of Amauta CLI (alpha-0.2):
 [[Syntax@content]]
 group: getting-started
 summary: <md>
-> **_Amauta_** focuses on achieving a simple syntax, with intuitive rules that work on separate contexts.
+> **Amauta** focuses on achieving a simple syntax, with intuitive rules that work in separate contexts.
 
 # Section
-
-_Sections_ are the core documentation entity. Defines a finite text region that renders in a particular way depending of its type.
-e.g.: _Root, Tags, Groups, Content._
+*Sections* are the core documentation entity. They define a finite text region that renders in a particular way depending on its type.
+e.g.: *Root, Tags, Groups, Content.*
 
 # Base syntax
-
-For _**Amauta**_, the syntax must be simple and reliable. On 99% percent of the use cases:
+For **Amauta**, the syntax must be simple and reliable. In 99% of use cases:
 
 | Symbol / Syntax     | Indicates                                          |
 |---------------------|----------------------------------------------------|
@@ -118,48 +113,42 @@ For _**Amauta**_, the syntax must be simple and reliable. On 99% percent of the 
 | `---`, `<-- -->`    | inline (`---`) and multiline (`<-- -->`) comments  |
 
 # Base rules
-There only exists one rule (more of a suggestion) and comes from experience on how to avoid doing things wrong:
+There only exists one rule (more of a suggestion) and it comes from experience on how to avoid doing things wrong:
 
-> **We highly encourage to avoid indentation while redacting documentation**
+> **We highly encourage avoiding indentation while writing documentation**
 
-We will see later how to approach use cases like nested object's declaration.
-
+We will see later how to approach use cases like nested object declarations.
 
 The real challenge is adapting this to different contexts—creating a section is not the same as defining a 200-response schema. Nevertheless, the same rules apply unless the context justifies a more detailed declaration of intent.
 
 # Headers
-
-Defines the beginning of a section. All content below it, until a new header (or EOF) will be treated as content from declared by the header
+Define the beginning of a section. All content below it, until a new header (or EOF) will be treated as content declared by the header.
 
 For example:
 ```
 [[@groups]]
 ```
-
-Indicates the key-type of an item (`@`) as `groups`. This is a reserved section, since it's identified by the type itself and is required by linter/renderer to perform operations.
+Indicates the key-type of an item (`@`) as `groups`. This is a reserved section, since it's identified by the type itself and is required by the linter/renderer to perform operations.
   
 ```
 [[Products@api#public,sales]]
 ```
-
 Declares:
-* A particulare name "Products" for this section.
+* A particular name "Products" for this section
 * Of type (`@`) `api`
 * And tagged (`#`) as `public` and `sales`
 
-This is not a reserved section since the user is allowed to declared it as needed, and not creating it won't block the linter/renderer to perform its operations.
+This is not a reserved section since the user is allowed to declare it as needed, and not creating it won't block the linter/renderer from performing its operations.
 
 # Fields
-
-Defines details on specific attributes, depending on the context these are declared.
+Define details on specific attributes, depending on the context where these are declared.
 
 For example:
-
 ```toml
 [[Products@api#public,sales]]
 id@str: Product's id
 name@str: Product's name
-calories?float#private: Products's caloric content
+calories?float#private: Product's caloric content
 ```
 
 Declares a product's:
@@ -190,14 +179,13 @@ Products:
     - name
 ```
 
-Which when scaling to a more complex manifest as a product grows, exemplifies the rule made at the begining.
+Which when scaling to a more complex manifest as a product grows, exemplifies the rule made at the beginning.
 </md>
 
 [[Root@content]]
 group: key-section
 summary: <md>
 # `Root`
-
 ```toml
 [[@root]]
 LogoUrl: <url>
@@ -207,10 +195,9 @@ Specifies global setup or resources. (under development)
 
 | field | description                                       |
 |-------|---------------------------------------------------|
-| url   | url to image resource to render in the doc header |
+| url   | URL to image resource to render in the doc header |
 
 ### Example
-
 ```toml
 [[@root]]
 LogoUrl: https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-banner.svg
@@ -221,24 +208,21 @@ LogoUrl: https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/asse
 group: key-section
 summary: <md>
 # `Tags`
-
 ```toml
 [[@tags]]
 <id>#<color>:<description>
 ```
 
 Specifies available tags to use.
-
-As for the current build version, there is no particular use yet (under development).
+As of the current build version, there is no particular use yet (under development).
 
 | field       | description                                             |
 |-------------|---------------------------------------------------------|
 | id          | Tag's name/id to reference from other resources         |
-| color       | hex-based color, for color labeling (under development) |
+| color       | Hex-based color, for color labeling (under development) |
 | description | Tag's description                                       |
 
 ### Example
-
 ```toml
 [[@tags]]
 public#00FF00: Public API
@@ -254,21 +238,19 @@ admin#FF1493: Admin only
 group: key-section
 summary: <md>
 # `Groups`
-
 ```toml
 [[@groups]]
 <id>: <description>
 ```
 
-Specifies global setup or resources. (under development)
+Specifies group definitions for organizing sections.
 
 | field       | description                                         |
 |-------------|-----------------------------------------------------|
-| id          | Group id to reference in other sections.            |
-| description | Title to render per group, located on the nav menu. |
+| id          | Group id to reference in other sections            |
+| description | Title to render per group, located on the nav menu |
 
 ### Example
-
 ```toml
 [[@groups]]
 dev: Development
@@ -281,14 +263,13 @@ key-section: Key sections
 group: custom-section
 summary: <md>
 # `Content`
-
 ```toml
 [[<name>@content#<tag_ids>]]
 group: <group-id>
 summary: <summary>
 ```
 
-Declares an all-purpose doc section, supporting markdown.
+Declares an all-purpose doc section, with markdown support.
 
 | field    | required | description                                                                                         |
 |----------|----------|-----------------------------------------------------------------------------------------------------|
@@ -298,15 +279,12 @@ Declares an all-purpose doc section, supporting markdown.
 | summary  | yes      | Inline or markdown-based paragraph holding any text-based content. Limited by `<md>` & `</md>` tags |
 
 ### Example
-
 ```toml
 \[\[Tax management@content#internal\]\]
 group: finances
 summary: \<md\>
 # Support for markdown!
-
 ## Subtitle
-
 List:
 1. One
 2. Two
@@ -317,7 +295,6 @@ List:
 | table | also | works |
 |-------|------|-------|
 | table | also | works |
-
 \</md\>
 ```
 </md>

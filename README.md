@@ -6,7 +6,7 @@
   Docs for people
 </h1>
 
-![Static Badge](https://img.shields.io/badge/version-alpha0.2-2b7573)
+![Static Badge](https://img.shields.io/badge/version-alpha0.3-2b7573)
 ![Static Badge](https://img.shields.io/badge/engine-go-00ADD8?logo=go)
 ![Static Badge](https://img.shields.io/badge/ui-html-F06529?logo=html5)
 
@@ -169,7 +169,7 @@ From a FOSS point of view, most alternatives to render a doc manifest into a pag
 
 
 <details>
-<summary>:moyai: What Amauta offers (alpha-0.2 version) </summary>
+<summary>:moyai: What Amauta offers (alpha-0.3 version) </summary>
   
 `amauta --render -i ./dist/manifest.amauta -theme default`
 
@@ -191,17 +191,18 @@ Base themes support, responsive and elegant, out of the box, from a single cli r
 As mentioned, we expect you to just write the docs, and get your page back. A single, all-in-it `.html` for you to use as you wish. Some minor dependencies are expected for loading icons, fonts and code highlight. (👷‍♂️⚠️Under development)
 
 ```
-amauta -v
-Amauta: version alpha-0.2
+$ amauta -v
+Amauta: version alpha-0.3
 
-amauta -h
-Usage of Amauta CLI (alpha-0.2):
+$amauta -h
+Usage of Amauta CLI (alpha-0.3):
+-h	Show this help
 -v	Build version
 -i	Input path
 -o	Output HTML file path (defaults to './dist/doc.html')
 -lint	Lint doc manifest
 -render	Render HTML from doc manifest
--theme	Name of the selected theme
+-theme	Name of the selected theme (available: 'default', 'dark')
 ```
 
 ~Enjoy! 🎶

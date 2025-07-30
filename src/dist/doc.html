@@ -656,6 +656,50 @@ document.addEventListener("DOMContentLoaded", () => {
       
     
   
+
+    
+    <div class="row group-item">
+      <span>
+        Key sections
+      </span>
+    </div>
+    
+
+        
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Root')">
+      <span class="menu-item-content">
+        Root
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Tags')">
+      <span class="menu-item-content">
+        Tags
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Groups')">
+      <span class="menu-item-content">
+        Groups
+      </span>
+    </div>
+    
+
+      
+    
+  
   </nav>
 </div>
 
@@ -737,6 +781,50 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="row menu-item" onclick="showSection('section-Syntax')">
       <span class="menu-item-content">
         Syntax
+      </span>
+    </div>
+    
+
+      
+    
+  
+
+    
+    <div class="row group-item">
+      <span>
+        Key sections
+      </span>
+    </div>
+    
+
+    
+
+      
+
+    
+    <div class="row menu-item" onclick="showSection('section-Root')">
+      <span class="menu-item-content">
+        Root
+      </span>
+    </div>
+    
+
+      
+
+    
+    <div class="row menu-item" onclick="showSection('section-Tags')">
+      <span class="menu-item-content">
+        Tags
+      </span>
+    </div>
+    
+
+      
+
+    
+    <div class="row menu-item" onclick="showSection('section-Groups')">
+      <span class="menu-item-content">
+        Groups
       </span>
     </div>
     
@@ -944,6 +1032,119 @@ calories?float#private: Products's caloric content
     - name
 </code></pre>
 <p>Which when scaling to a more complex manifest as a product grows, exemplifies the rule made at the begining.</p>
+
+</div>
+
+      
+    
+  
+    
+      
+        
+      
+        
+<div class="content-section" id="section-Root">
+  <h1><code>Root</code></h1>
+<pre><code class="language-toml">[[@root]]
+LogoUrl: &lt;url&gt;
+</code></pre>
+<p>Specifies global setup or resources. (under development)</p>
+<table>
+<thead>
+<tr>
+<th>field</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>url</td>
+<td>url to image resource to render in the doc header</td>
+</tr>
+</tbody>
+</table>
+<h3>Example</h3>
+<pre><code class="language-toml">[[@root]]
+LogoUrl: https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-banner.svg
+</code></pre>
+
+</div>
+
+      
+        
+<div class="content-section" id="section-Tags">
+  <h1><code>Tags</code></h1>
+<pre><code class="language-toml">[[@tags]]
+&lt;id&gt;#&lt;color&gt;:&lt;description&gt;
+</code></pre>
+<p>Specifies available tags to use.</p>
+<p>As for the current build version, there is no particular use yet (under development).</p>
+<table>
+<thead>
+<tr>
+<th>field</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Tag's name/id to reference from other resources</td>
+</tr>
+<tr>
+<td>color</td>
+<td>hex-based color, for color labeling (under development)</td>
+</tr>
+<tr>
+<td>description</td>
+<td>Tag's description</td>
+</tr>
+</tbody>
+</table>
+<h3>Example</h3>
+<pre><code class="language-toml">[[@tags]]
+public#00FF00: Public API
+internal#AAAAAA: Internal use only
+deprecated#FF6F61: Will be removed soon
+under-dev#FFD966: Still under development
+beta#87CEEB: Beta feature
+admin#FF1493: Admin only
+</code></pre>
+
+</div>
+
+      
+        
+<div class="content-section" id="section-Groups">
+  <h1><code>Groups</code></h1>
+<pre><code class="language-toml">[[@groups]]
+&lt;id&gt;: &lt;description&gt;
+</code></pre>
+<p>Specifies global setup or resources. (under development)</p>
+<table>
+<thead>
+<tr>
+<th>field</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Group id to reference in other sections.</td>
+</tr>
+<tr>
+<td>description</td>
+<td>Title to render per group, located on the nav menu.</td>
+</tr>
+</tbody>
+</table>
+<h3>Example</h3>
+<pre><code class="language-toml">[[@groups]]
+dev: Development
+getting-started: Getting started
+key-section: Key sections
+</code></pre>
 
 </div>
 

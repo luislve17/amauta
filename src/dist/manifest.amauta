@@ -5,6 +5,7 @@ GithubUrl: https://github.com/luislve17/amauta
 [[@groups]]
 dev: Development
 getting-started: Getting started
+key-section: Key sections
 
 [[Changelog@content]]
 group: dev
@@ -189,5 +190,88 @@ Products:
 ```
 
 Which when scaling to a more complex manifest as a product grows, exemplifies the rule made at the begining.
+</md>
 
+[[Root@content]]
+group: key-section
+summary: <md>
+# `Root`
+
+```toml
+[[@root]]
+LogoUrl: <url>
+```
+
+Specifies global setup or resources. (under development)
+
+| field | description                                       |
+|-------|---------------------------------------------------|
+| url   | url to image resource to render in the doc header |
+
+### Example
+
+```toml
+[[@root]]
+LogoUrl: https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-banner.svg
+```
+</md>
+
+[[Tags@content]]
+group: key-section
+summary: <md>
+# `Tags`
+
+```toml
+[[@tags]]
+<id>#<color>:<description>
+```
+
+Specifies available tags to use.
+
+As for the current build version, there is no particular use yet (under development).
+
+| field       | description                                             |
+|-------------|---------------------------------------------------------|
+| id          | Tag's name/id to reference from other resources         |
+| color       | hex-based color, for color labeling (under development) |
+| description | Tag's description                                       |
+
+### Example
+
+```toml
+[[@tags]]
+public#00FF00: Public API
+internal#AAAAAA: Internal use only
+deprecated#FF6F61: Will be removed soon
+under-dev#FFD966: Still under development
+beta#87CEEB: Beta feature
+admin#FF1493: Admin only
+```
+</md>
+
+[[Groups@content]]
+group: key-section
+summary: <md>
+# `Groups`
+
+```toml
+[[@groups]]
+<id>: <description>
+```
+
+Specifies global setup or resources. (under development)
+
+| field       | description                                         |
+|-------------|-----------------------------------------------------|
+| id          | Group id to reference in other sections.            |
+| description | Title to render per group, located on the nav menu. |
+
+### Example
+
+```toml
+[[@groups]]
+dev: Development
+getting-started: Getting started
+key-section: Key sections
+```
 </md>

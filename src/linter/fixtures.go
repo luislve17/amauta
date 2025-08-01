@@ -276,26 +276,16 @@ GithubUrl: https://github.com/luislve17/amauta
 
 var manifestWithComplexMdContent string = `
 [[@groups]]
-getting-started#public: getting started
+custom-section#public: Custom test section
 
 [[Content@content]]
 group: custom-section
 summary: <md>
-` + "#Content" + "\n```toml" + `
+` + "# Content" + "\n```toml" + `
 [[<name>@content#<tag_ids>]]
 group: <group-id>
 summary: <summary>
-` + "\n```" + `
-
-Declares an all-purpose doc section, with markdown support.
-
-| field    | required | description                                                                                         |
-|----------|----------|-----------------------------------------------------------------------------------------------------|
-| name     | yes      | Content's name. Renders in the nav menu                                                             |
-| tag_ids  | no       | Comma-separated list of related tags                                                                |
-| group-id | yes      | Group id used as reference for rendering in the same cluster, in the nav bar                        |
-| summary  | yes      | Inline or markdown-based paragraph holding any text-based content. Limited by
-` + "`<md>` & `</md>` tags |" + `
+` + "\n```\n" + "This is an inline code `<md>` and `</md>`\n" + `
 
 ### Example
 ` + "\n```toml" + `

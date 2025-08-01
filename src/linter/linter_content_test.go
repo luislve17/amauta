@@ -1,8 +1,6 @@
 package linter
 
 import (
-	"fmt"
-
 	"github.com/stretchr/testify/assert"
 
 	"strings"
@@ -51,15 +49,39 @@ func TestRunsLinterFindingContentSection(t *testing.T) {
 
 func TestMarkdownRendererInception(t *testing.T) {
 	assert := assert.New(t)
-	var manifestWithComplexMdContent = ManifestContent(manifestWithComplexMdContent)
-	resultGraph, err := generateGraph(manifestWithComplexMdContent)
+	var loadedManifestWithComplexMdContent = ManifestContent(manifestWithComplexMdContent)
+	resultGraph, err := generateGraph(loadedManifestWithComplexMdContent)
 
 	assert.Nil(err)
 	contentNode := resultGraph.Root.Links[0].Links[1]
 	contentSummary := contentNode.Info.(Content).Summary
 
-	fmt.Printf("%s", contentSummary)
-	fmt.Printf("\n----------------------------\n")
+	expectedHTML := `<h1>Content</h1>
+<pre><code class="language-toml">[[&lt;name&gt;@content#&lt;tag_ids&gt;]]
+group: &lt;group-id&gt;
+summary: &lt;summary&gt;
 
-	assert.Equal(1, 1)
+</code></pre>
+<p>This is an inline code <code>&lt;md&gt;</code> and <code>&lt;/md&gt;</code></p>
+<h3>Example</h3>
+<pre><code class="language-toml">[[Tax management@content#internal]]
+group: finances
+summary: &lt;md&gt;
+# Support for markdown!
+## Subtitle
+List:
+1. One
+2. Two
+3. Three
+
+&gt; This is a quote
+
+| tables | also | work |
+|--------|------|------|
+| tables | also | work |
+&lt;/md&gt;
+
+</code></pre>
+`
+	assert.Equal(expectedHTML, string(contentSummary))
 }

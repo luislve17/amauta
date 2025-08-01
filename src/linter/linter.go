@@ -152,7 +152,6 @@ func findSection(rawBlocks []RawBlock, sectionHeadRawRgx string, onlyOne bool, a
 }
 
 func renderMarkdown(content string) template.HTML {
-	// TEST
 	content = strings.ReplaceAll(content, "\\[", "[")
 	content = strings.ReplaceAll(content, "\\]", "]")
 	content = strings.ReplaceAll(content, "\\>", ">")

@@ -1,6 +1,8 @@
 package linter
 
 import (
+	"fmt"
+
 	"github.com/stretchr/testify/assert"
 
 	"strings"
@@ -45,4 +47,19 @@ func TestRunsLinterFindingContentSection(t *testing.T) {
 	assert.Equal(htmlContentStart, htmlContentFromNode)
 	assert.Equal(1, len(contentNode.Links))
 	assert.Equal("Group", contentNode.Links[0].Info.(Group).BlockType)
+}
+
+func TestMarkdownRendererInception(t *testing.T) {
+	assert := assert.New(t)
+	var manifestWithComplexMdContent = ManifestContent(manifestWithComplexMdContent)
+	resultGraph, err := generateGraph(manifestWithComplexMdContent)
+
+	assert.Nil(err)
+	contentNode := resultGraph.Root.Links[0].Links[1]
+	contentSummary := contentNode.Info.(Content).Summary
+
+	fmt.Printf("%s", contentSummary)
+	fmt.Printf("\n----------------------------\n")
+
+	assert.Equal(1, 1)
 }

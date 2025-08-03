@@ -34,7 +34,18 @@ timeline
             : 📅 Aug 02, 2025
             : Improved markdown detector
             : Installer script
+        alpha-0.5
+            : 📅 Aug 03, 2025
+			: Scrollable tables
+			: Add mermaid support
 ```
+
+## 2025-08-02 (`alpha-0.5`)
+* Add table wrapper to scroll on smaller viewports
+* Listen to `ESC` key to close nav drawer (on smaller viewports)
+* Add animation for selected content transition
+* Add mermaid support inside `md` summary context
+* Refactor JS usage, move to use jsdeliver
 
 ## 2025-08-02 (`alpha-0.4`)
 * Improve markdown context detector due conflicts within code blocks
@@ -64,7 +75,7 @@ summary: <md>
   Docs for people
 </h1>
 
-![Static Badge](https://img.shields.io/badge/version-alpha0.3-2b7573)
+![Static Badge](https://img.shields.io/badge/version-alpha0.5-2b7573)
 ![Static Badge](https://img.shields.io/badge/engine-go-00ADD8?logo=go)
 ![Static Badge](https://img.shields.io/badge/ui-html-F06529?logo=html5)
 
@@ -98,7 +109,7 @@ Once downloaded, it is recommended to put it in a binary folder that your `$PATH
 
 ```zsh
 $ amauta -v
-Amauta: version alpha-0.4
+Amauta: version alpha-0.5
 ```
 
 # CLI Usage
@@ -129,7 +140,7 @@ More available options will be explored later when reviewing the CLI, but in gen
 
 ```zsh
 $ amauta --h                               
-Usage of Amauta CLI (alpha-0.4):
+Usage of Amauta CLI (alpha-0.5):
 -h	Show this help
 -v	Build version
 -i	Input path

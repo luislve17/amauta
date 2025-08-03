@@ -993,7 +993,19 @@ timeline
             : 📅 Aug 02, 2025
             : Improved markdown detector
             : Installer script
+        alpha-0.5
+            : 📅 Aug 03, 2025
+			: Scrollable tables
+			: Add mermaid support
 </code></pre>
+<h2>2025-08-02 (<code>alpha-0.5</code>)</h2>
+<ul>
+<li>Add table wrapper to scroll on smaller viewports</li>
+<li>Listen to <code>ESC</code> key to close nav drawer (on smaller viewports)</li>
+<li>Add animation for selected content transition</li>
+<li>Add mermaid support inside <code>md</code> summary context</li>
+<li>Refactor JS usage, move to use jsdeliver</li>
+</ul>
 <h2>2025-08-02 (<code>alpha-0.4</code>)</h2>
 <ul>
 <li>Improve markdown context detector due conflicts within code blocks</li>
@@ -1030,7 +1042,7 @@ timeline
 <h1>
   Docs for people
 </h1>
-<p><img src="https://img.shields.io/badge/version-alpha0.3-2b7573" alt="Static Badge">
+<p><img src="https://img.shields.io/badge/version-alpha0.5-2b7573" alt="Static Badge">
 <img src="https://img.shields.io/badge/engine-go-00ADD8?logo=go" alt="Static Badge">
 <img src="https://img.shields.io/badge/ui-html-F06529?logo=html5" alt="Static Badge"></p>
 </div>
@@ -1052,7 +1064,7 @@ timeline
 <hr>
 <p>Once downloaded, it is recommended to put it in a binary folder that your <code>$PATH</code> environment variable is aware of. You should finally be able to do:</p>
 <pre><code class="language-zsh">$ amauta -v
-Amauta: version alpha-0.4
+Amauta: version alpha-0.5
 </code></pre>
 <h1>CLI Usage</h1>
 <p><strong>Amauta</strong> generates documentation from a manifest file. Skipping the trivial (but valid for the linter &amp; renderer) example of an empty file, a minimal documentation would look something like this:</p>
@@ -1075,7 +1087,7 @@ summary: Hello from Amauta!
 <p><strong>Amauta</strong> will generate the given doc as an <code>.html</code> file in the default relative path <code>./dist/doc.html</code>.</p>
 <p>More available options will be explored later when reviewing the CLI, but in general terms and depending on the version, one would have the following from the CLI interface:</p>
 <pre><code class="language-zsh">$ amauta --h                               
-Usage of Amauta CLI (alpha-0.4):
+Usage of Amauta CLI (alpha-0.5):
 -h	Show this help
 -v	Build version
 -i	Input path

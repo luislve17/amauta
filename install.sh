@@ -11,7 +11,7 @@ fi
 set -e
 
 BINARY_NAME="amauta"
-BINARY_VERSION="alpha-0.4"
+BINARY_VERSION="alpha-0.5"
 DOWNLOAD_URL="https://github.com/luislve17/amauta/releases/download/$BINARY_VERSION/$BINARY_NAME-$BINARY_VERSION"
 
 echo "Downloading Amauta:$BINARY_NAME..."

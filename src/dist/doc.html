@@ -366,7 +366,7 @@ tbody tr:hover td {
 
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
 }
 
 .drawer-menu.show {
@@ -531,6 +531,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   toggleBtn?.addEventListener("click", function () {
     drawerMenu?.classList.toggle("show");
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      drawerMenu?.classList.remove("show");
+    }
   });
 });
 

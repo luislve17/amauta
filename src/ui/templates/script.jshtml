@@ -23,6 +23,11 @@ document.addEventListener("DOMContentLoaded", function () {
   toggleBtn?.addEventListener("click", function () {
     drawerMenu?.classList.toggle("show");
   });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      drawerMenu?.classList.remove("show");
+    }
+  });
 });
 
 document.addEventListener("DOMContentLoaded", () => {

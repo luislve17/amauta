@@ -11,6 +11,31 @@ custom-section: Custom sections
 [[Changelog@content]]
 group: dev
 summary: <md>
+
+# Changelog
+
+```mermaid
+%%{init: {'theme':'neutral'}}%%
+timeline
+    section Alpha Phase
+        alpha-0.1
+            : 📅 Jul 23, 2025
+            : Initial publication
+            : Basic documentation structure
+        alpha-0.2
+            : 📅 Jul 24, 2025
+            : rawBlocks generation
+            : First official docs deployed
+        alpha-0.3
+            : 📅 Jul 30, 2025
+            : Content type sections
+            : Markdown support
+        alpha-0.4
+            : 📅 Aug 02, 2025
+            : Improved markdown detector
+            : Installer script
+```
+
 ## 2025-08-02 (`alpha-0.4`)
 * Improve markdown context detector due conflicts within code blocks
 * Create installer script (curl based)

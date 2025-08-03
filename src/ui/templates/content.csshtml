@@ -81,4 +81,11 @@
   width: stretch;
 }
 
+.mermaid > svg {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 550px;
+  display: block;
+}
+
 {{end}}

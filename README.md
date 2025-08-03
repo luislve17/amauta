@@ -32,7 +32,7 @@
 Just run:
 
 ```bash
-curl -sL https://raw.githubusercontent.com/luislve17/amauta/release/install.sh | sh
+wget -qO - https://raw.githubusercontent.com/luislve17/amauta/release/install.sh | bash
 ```
 
 You will get prompted to move the download binary to `/usr/local/bin`.

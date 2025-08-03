@@ -48,7 +48,29 @@ summary: <md>
 group: getting-started
 summary: <md>
 # Installation
-*For the current version* there is no distributed binary yet. You may find the precompiled binary in the [_releases_](https://github.com/luislve17/amauta/releases) page of the project.
+
+## 1. Using install script (Linux)
+
+Just run:
+
+```bash
+curl -sL https://raw.githubusercontent.com/luislve17/amauta/release/install.sh | sh
+```
+
+You will get prompted to move the download binary to `/usr/local/bin`.
+
+## 2. Using install script (Linux + other systems)
+
+You may also find the precompiled binary in the [_releases_](https://github.com/luislve17/amauta/releases) page of the project.
+
+___
+
+Once downloaded, it is recommended to put it in a binary folder that your `$PATH` environment variable is aware of. You should finally be able to do:
+
+```zsh
+$ amauta -v
+Amauta: version alpha-0.3
+```
 
 Once downloaded, it is recommended to put it in a binary folder that your `$PATH` environment variable is aware of. You should finally be able to do:
 

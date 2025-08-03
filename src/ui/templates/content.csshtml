@@ -63,10 +63,22 @@
   overflow-wrap: break-word;
   word-break: break-word;
   box-sizing: border-box;
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .content-section.active {
   display: block;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.table-scroll, .table-scroll>table {
+  width: stretch;
 }
 
 {{end}}

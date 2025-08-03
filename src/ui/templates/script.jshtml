@@ -4,11 +4,14 @@ hljs.highlightAll();
 function showSection(id) {
   document.querySelectorAll('.content-section').forEach(el => {
     el.classList.remove('active');
+    el.style.opacity = 0;
   });
 
   const target = document.getElementById(id);
   if (target) {
     target.classList.add('active');
+    void target.offsetWidth; // force reflow for transition
+    target.style.opacity = 1;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
@@ -19,6 +22,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   toggleBtn?.addEventListener("click", function () {
     drawerMenu?.classList.toggle("show");
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      drawerMenu?.classList.remove("show");
+    }
   });
 });
 
@@ -55,6 +63,15 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     preEl.appendChild(btn);
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".content-section table").forEach((table) => {
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("table-scroll");
+    table.parentNode.insertBefore(wrapper, table);
+    wrapper.appendChild(table);
   });
 });
 {{end}}

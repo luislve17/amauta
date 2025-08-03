@@ -895,7 +895,12 @@ document.addEventListener("DOMContentLoaded", () => {
       
         
 <div class="content-section" id="section-Changelog">
-  <h2>2025-07-30 (<code>alpha-0.3</code>)</h2>
+  <h2>2025-08-02 (<code>alpha-0.4</code>)</h2>
+<ul>
+<li>Improve markdown context detector due conflicts within code blocks</li>
+<li>Create installer script (curl based)</li>
+</ul>
+<h2>2025-07-30 (<code>alpha-0.3</code>)</h2>
 <ul>
 <li>Expose <code>Content</code> type section, supporting mardown</li>
 <li>Update official documentation with available features</li>
@@ -940,19 +945,15 @@ document.addEventListener("DOMContentLoaded", () => {
   <h1>Installation</h1>
 <h2>1. Using install script (Linux)</h2>
 <p>Just run:</p>
-<pre><code class="language-bash">curl -sL https://raw.githubusercontent.com/luislve17/amauta/release/install.sh | sh
+<pre><code class="language-bash">wget -qO - https://raw.githubusercontent.com/luislve17/amauta/release/install.sh | bash
 </code></pre>
-<p>You will get prompted to move the download binary to <code>/usr/local/bin</code>, so that the tool is avaiable from any session.</p>
+<p>You will get prompted to move the download binary to <code>/usr/local/bin</code>.</p>
 <h2>2. Using install script (Linux + other systems)</h2>
 <p>You may also find the precompiled binary in the <a href="https://github.com/luislve17/amauta/releases"><em>releases</em></a> page of the project.</p>
 <hr>
 <p>Once downloaded, it is recommended to put it in a binary folder that your <code>$PATH</code> environment variable is aware of. You should finally be able to do:</p>
 <pre><code class="language-zsh">$ amauta -v
-Amauta: version alpha-0.3
-</code></pre>
-<p>Once downloaded, it is recommended to put it in a binary folder that your <code>$PATH</code> environment variable is aware of. You should finally be able to do:</p>
-<pre><code class="language-zsh">$ amauta -v
-Amauta: version alpha-0.3
+Amauta: version alpha-0.4
 </code></pre>
 <h1>CLI Usage</h1>
 <p><strong>Amauta</strong> generates documentation from a manifest file. Skipping the trivial (but valid for the linter &amp; renderer) example of an empty file, a minimal documentation would look something like this:</p>
@@ -975,7 +976,7 @@ summary: Hello from Amauta!
 <p><strong>Amauta</strong> will generate the given doc as an <code>.html</code> file in the default relative path <code>./dist/doc.html</code>.</p>
 <p>More available options will be explored later when reviewing the CLI, but in general terms and depending on the version, one would have the following from the CLI interface:</p>
 <pre><code class="language-zsh">$ amauta --h                               
-Usage of Amauta CLI (alpha-0.3):
+Usage of Amauta CLI (alpha-0.4):
 -h	Show this help
 -v	Build version
 -i	Input path

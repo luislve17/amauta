@@ -65,4 +65,13 @@ document.addEventListener("DOMContentLoaded", () => {
     preEl.appendChild(btn);
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".content-section table").forEach((table) => {
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("table-scroll");
+    table.parentNode.insertBefore(wrapper, table);
+    wrapper.appendChild(table);
+  });
+});
 {{end}}

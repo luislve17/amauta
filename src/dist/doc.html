@@ -473,6 +473,15 @@ tbody tr:hover td {
   display: block;
 }
 
+.table-scroll {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.table-scroll, .table-scroll>table {
+  width: stretch;
+}
+
 
 
 .amauta-head-banner {
@@ -572,6 +581,15 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     preEl.appendChild(btn);
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".content-section table").forEach((table) => {
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("table-scroll");
+    table.parentNode.insertBefore(wrapper, table);
+    wrapper.appendChild(table);
   });
 });
 

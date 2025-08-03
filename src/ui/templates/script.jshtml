@@ -1,7 +1,18 @@
 {{define "script-js"}}
-hljs.highlightAll();
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Init hljs
+  hljs.highlightAll();
+
+  // Init mermaid
+  mermaid.initialize({
+    startOnLoad: false,
+    flowchart: {
+      htmlLabels: true,
+      useMaxWidth: true
+    }
+  });
+
   // Mermaid div formatter
   document.querySelectorAll('pre > code.language-mermaid').forEach((codeEl) => {
     const preEl = codeEl.parentElement;
@@ -68,14 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
     table.parentNode.insertBefore(wrapper, table);
     wrapper.appendChild(table);
   });
-});
-
-mermaid.initialize({
-  startOnLoad: false,
-  flowchart: {
-    htmlLabels: true,
-    useMaxWidth: true
-  }
 });
 
 function initVisibleMermaid() {

@@ -46,3 +46,42 @@ func TestRunsLinterFindingContentSection(t *testing.T) {
 	assert.Equal(1, len(contentNode.Links))
 	assert.Equal("Group", contentNode.Links[0].Info.(Group).BlockType)
 }
+
+func TestMarkdownRendererInception(t *testing.T) {
+	assert := assert.New(t)
+	var loadedManifestWithComplexMdContent = ManifestContent(manifestWithComplexMdContent)
+	resultGraph, err := generateGraph(loadedManifestWithComplexMdContent)
+
+	assert.Nil(err)
+	contentNode := resultGraph.Root.Links[0].Links[1]
+	contentSummary := contentNode.Info.(Content).Summary
+
+	expectedHTML := `<h1>Content</h1>
+<pre><code class="language-toml">[[&lt;name&gt;@content#&lt;tag_ids&gt;]]
+group: &lt;group-id&gt;
+summary: &lt;summary&gt;
+
+</code></pre>
+<p>This is an inline code <code>&lt;md&gt;</code> and <code>&lt;/md&gt;</code></p>
+<h3>Example</h3>
+<pre><code class="language-toml">[[Tax management@content#internal]]
+group: finances
+summary: &lt;md&gt;
+# Support for markdown!
+## Subtitle
+List:
+1. One
+2. Two
+3. Three
+
+&gt; This is a quote
+
+| tables | also | work |
+|--------|------|------|
+| tables | also | work |
+&lt;/md&gt;
+
+</code></pre>
+`
+	assert.Equal(expectedHTML, string(contentSummary))
+}

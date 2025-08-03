@@ -273,3 +273,38 @@ var manifestWithRootDetails string = `
 LogoUrl: https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-logo.svg
 GithubUrl: https://github.com/luislve17/amauta
 `
+
+var manifestWithComplexMdContent string = `
+[[@groups]]
+custom-section#public: Custom test section
+
+[[Content@content]]
+group: custom-section
+summary: <md>
+` + "# Content" + "\n```toml" + `
+[[<name>@content#<tag_ids>]]
+group: <group-id>
+summary: <summary>
+` + "\n```\n" + "This is an inline code `<md>` and `</md>`\n" + `
+
+### Example
+` + "\n```toml" + `
+[[Tax management@content#internal]]
+group: finances
+summary: \<md\>
+# Support for markdown!
+## Subtitle
+List:
+1. One
+2. Two
+3. Three
+
+> This is a quote
+
+| tables | also | work |
+|--------|------|------|
+| tables | also | work |
+\</md\>
+` + "\n```" + `
+</md>
+`

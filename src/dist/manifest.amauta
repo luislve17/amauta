@@ -285,7 +285,7 @@ Declares an all-purpose doc section, with markdown support.
 
 ### Example
 ```toml
-\[\[Tax management@content#internal\]\]
+[[Tax management@content#internal]]
 group: finances
 summary: \<md\>
 # Support for markdown!
@@ -297,9 +297,9 @@ List:
 
 > This is a quote
 
-| table | also | works |
-|-------|------|-------|
-| table | also | works |
+| tables | also | work |
+|--------|------|------|
+| tables | also | work |
 \</md\>
 ```
 </md>

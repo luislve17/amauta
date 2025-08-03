@@ -75,12 +75,6 @@ func getContentData(contentSection *RawBlock) (map[string]interface{}, error) {
 			contentData[key] = value
 		default:
 			return nil, fmt.Errorf("Error@line:%d\n->Invalid field found: '%s'", contentSection.From+ln, key)
-			/*
-				TEST
-				* Detect bad keys
-				* Ignore '<string>:' in summary
-			*/
-
 		}
 	}
 	return contentData, nil

@@ -152,9 +152,6 @@ func findSection(rawBlocks []RawBlock, sectionHeadRawRgx string, onlyOne bool, a
 }
 
 func renderMarkdown(content string) template.HTML {
-	// TEST
-	content = strings.ReplaceAll(content, "\\[", "[")
-	content = strings.ReplaceAll(content, "\\]", "]")
 	content = strings.ReplaceAll(content, "\\>", ">")
 	content = strings.ReplaceAll(content, "\\<", "<")
 
@@ -165,7 +162,6 @@ func renderMarkdown(content string) template.HTML {
 	return template.HTML(buf.String())
 }
 
-// TEST
 func extractRawBlocks(content ManifestContent) []RawBlock {
 	lines := strings.Split(string(content), "\n")
 	var blocks []RawBlock
@@ -173,16 +169,23 @@ func extractRawBlocks(content ManifestContent) []RawBlock {
 	var startLine int
 	var inBlock bool
 	var inComment bool
+	var inCodeBlock bool
 	var inMD bool
 
 	for i, line := range lines {
 		trimmed := strings.TrimSpace(line)
 
-		// Detect markdown block boundaries
-		if strings.Contains(trimmed, "<md>") {
+		if strings.HasPrefix(trimmed, "```") || strings.HasPrefix(trimmed, "~~~") {
+			inCodeBlock = !inCodeBlock
+		}
+
+		// Check for summary: <md>
+		if !inMD && !inCodeBlock && strings.HasPrefix(trimmed, "summary:") && strings.Contains(trimmed, "<md>") {
 			inMD = true
 		}
-		if strings.Contains(trimmed, "</md>") {
+
+		// Close </md>, only outside code block
+		if inMD && !inCodeBlock && strings.TrimSpace(trimmed) == "</md>" {
 			inMD = false
 		}
 

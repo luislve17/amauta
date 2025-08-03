@@ -162,7 +162,6 @@ func renderMarkdown(content string) template.HTML {
 	return template.HTML(buf.String())
 }
 
-// TEST
 func extractRawBlocks(content ManifestContent) []RawBlock {
 	lines := strings.Split(string(content), "\n")
 	var blocks []RawBlock

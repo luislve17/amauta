@@ -13,6 +13,8 @@
 
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
@@ -29,41 +31,42 @@ html, body {
 
 body {
   min-height: 100vh;
-  background-blend-mode: multiply;
-  background: #27282f;
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: 1.3;
   margin-bottom: 1rem;
-  color: #f7fafc;
+  color: rgb(23, 23, 23, 0.85);
 }
 
 h1 {
-  font-size: 2.1rem;
-  font-weight: 700;
+  font-size: 2.25rem;
+  font-weight: 800;
 }
 
 h2 {
   font-size: 1.75rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(27, 27, 27, 0.3);
   padding-bottom: 0.5rem;
 }
 
 p {
-  line-height: 1.6;
+  line-height: 1.4;
   margin-bottom: 1rem;
 }
 
 pre {
   font-family: 'Fira Code', monospace !important;
   font-size: 14px !important;
-  background: #282c34 !important;
-  border: 1px solid #3a3f4b !important;
-  border-left: 0.25rem solid #434f73 !important;
+  background: #f7f7f7 !important;
+  border-left: 0.25rem solid #a3a3a3 !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
   border-radius: 6px !important;
@@ -71,7 +74,7 @@ pre {
   margin: 1.5rem 0 !important;
 
   line-height: 1.6 !important;
-  color: #e3e3e3 !important;
+  color: #2a2a2a !important;
   overflow-x: auto;
 }
 
@@ -84,19 +87,13 @@ pre code {
   tab-size: 4;
 }
 
-code {
-  background: #282c34 !important;
-  
-}
-
 span[class^="hljs-"] {
   font-family: 'Fira Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
 }
 
 .menu-tree {
-  background: rgba(26, 26, 26, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 6px;
+  background: rgba(245, 245, 245, 0.85);
+
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -106,31 +103,24 @@ span[class^="hljs-"] {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   font-size: 0.8rem;
-  color: #EEE;
-}
-
-.menu-item {
-  transition: background-color 0.2s ease;
-  border-radius: 4px;
-  margin-bottom: 2px;
 }
 
 .menu-item:hover {
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .menu-item-content {
-  color: #bbb;
+  color: #777;
   font-size: 0.9rem;
   font-weight: 500;
 }
 
 .menu-item:hover .menu-item-content {
-  color: #fff;
+  color: #000;
 }
 
-.content-body {
-  color: #bbb;
+.content {
+  color: #777;
 }
 
 ul, ol {
@@ -143,14 +133,15 @@ li::marker {
 }
 
 blockquote {
-  background: rgba(255, 255, 255, 0.05);
+  background: #fff8e1;
   margin: 1.5rem 0;
+  border: 1px solid #3a3f4b !important;
   padding: 1rem 1.5rem;
   border-radius: 0 6px 6px 0;
-  border: 1px solid #3a3f4b !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   position: relative;
   font-style: italic;
-  color: #f5f5f5;
+  color: #5d4037;
 }
 
 blockquote::before {
@@ -162,7 +153,7 @@ blockquote::before {
   top: -0.5rem;
   line-height: 1;
   font-family: serif;
-  opacity: 0.2;
+  opacity: 0.3;
 }
 
 blockquote p {
@@ -170,14 +161,13 @@ blockquote p {
   padding-left: 1.5rem;
   font-size: 1rem;
   line-height: 1.6;
-  color: inherit;
 }
 
 blockquote cite {
   display: block;
   margin-top: 0.5rem;
   font-size: 0.875rem;
-  color: #ffa726; /* lighter orange for contrast */
+  color: #8d6e63;
   font-style: normal;
   font-weight: 500;
   text-align: right;
@@ -187,7 +177,6 @@ blockquote cite::before {
   content: '~ ';
 }
 
-/* Hard reset for table elements */
 table,
 thead,
 tbody,
@@ -209,76 +198,87 @@ table {
   border-collapse: collapse !important;
   width: 100% !important;
   border: none !important;
-  margin: 1.5rem 0 !important;
 }
 
 thead th {
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  color: #e2e8f0 !important; /* light gray text for contrast */
-  padding: 0.75rem 1rem !important;
-  font-weight: 600 !important;
-  text-align: left !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  background-color: #f9f9f9 !important;
+  padding: 8px !important;
 }
 
 tbody td {
   border: none !important;
   background-color: transparent !important;
-  color: #cbd5e0 !important; /* soft light gray */
-  padding: 0.75rem 1rem !important;
-  transition: background-color 0.2s ease, color 0.2s ease !important;
+  padding: 8px !important;
+  transition: background-color 0.2s ease !important;
 }
 
-tbody tr:hover td {
-  background-color: rgba(255, 255, 255, 0.04) !important;
-  color: #ffffff !important;
+tbody td:hover {
+  background-color: rgba(0, 0, 0, 0.03) !important;
 }
 
 .amauta-head-banner {
-  background: #27282f;
-  background-blend-mode: multiply;
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-.banner-logo > svg {
-  filter: brightness(0) saturate(100%) invert(88%) sepia(7%) saturate(92%) hue-rotate(7deg) brightness(90%) contrast(82%);
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
 }
 
 .drawer-menu-tree {
-  background: rgba(34, 34, 40, 1);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 6px;
+  background: rgba(244, 244, 244, 1);
   transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.menu-toggle-button i {
-  color: #cbd5e0;
 }
 
 /* Code syntax theme */
 .hljs{
-    color:#ddd;
-    background:#303030
+    background:#f3f3f3;
+    color:#444
 }
-.hljs-keyword,.hljs-link,.hljs-literal,.hljs-section,.hljs-selector-tag{
-    color:#fff
+.hljs-comment{
+    color:#697070
 }
-.hljs-addition,.hljs-attribute,.hljs-built_in,.hljs-bullet,.hljs-name,.hljs-string,.hljs-symbol,.hljs-template-tag,.hljs-template-variable,.hljs-title,.hljs-type,.hljs-variable{
-    color:#d88
+.hljs-punctuation,.hljs-tag{
+    color:#444a
 }
-.hljs-comment,.hljs-deletion,.hljs-meta,.hljs-quote{
-    color:#979797
+.hljs-tag .hljs-attr,.hljs-tag .hljs-name{
+    color:#444
 }
-.hljs-doctag,.hljs-keyword,.hljs-literal,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-strong,.hljs-title,.hljs-type{
+.hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-name,.hljs-selector-tag{
     font-weight:700
+}
+.hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-string,.hljs-template-tag,.hljs-type{
+    color:#800
+}
+.hljs-section,.hljs-title{
+    color:#800;
+    font-weight:700
+}
+.hljs-link,.hljs-operator,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable,.hljs-variable{
+    color:#ab5656
+}
+.hljs-literal{
+    color:#695
+}
+.hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code{
+    color:#397300
+}
+.hljs-meta{
+    color:#1f7199
+}
+.hljs-meta .hljs-string{
+    color:#38a
 }
 .hljs-emphasis{
     font-style:italic
 }
+.hljs-strong{
+    font-weight:700
+}
 
 .menu-footer {
-  background: #27282f;
+  background: #eee;
 }
 
 .menu-footer-content {
@@ -290,8 +290,20 @@ tbody tr:hover td {
 }
 
 .menu-footer-content:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-  color: #eee;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #444;
+}
+.copy-clicked {
+  animation: copy-wiggle 250ms ease-in-out;
+  color: #4ade80;
+}
+
+@keyframes copy-wiggle {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-1px); }
+  100% { transform: translateX(0); }
 }
 
 .copy-float {
@@ -314,7 +326,6 @@ tbody tr:hover td {
     transform: translateY(-15px);
   }
 }
-
 
 
 
@@ -482,6 +493,13 @@ tbody tr:hover td {
   width: stretch;
 }
 
+.mermaid > svg {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 500px;
+  display: block;
+}
+
 
 
 .amauta-head-banner {
@@ -518,6 +536,23 @@ tbody tr:hover td {
 <script>
   
 hljs.highlightAll();
+mermaid.initialize({
+    startOnLoad: false,
+    flowchart: {
+      htmlLabels: true,
+      useMaxWidth: true
+    }
+  });
+
+function initVisibleMermaid() {
+  document.querySelectorAll('.content-section.active .mermaid').forEach((el) => {
+    
+    if (!el.classList.contains('mermaid-initialized')) {
+      el.classList.add('mermaid-initialized');
+      mermaid.init(undefined, el);
+    }
+  });
+}
 
 function showSection(id) {
   document.querySelectorAll('.content-section').forEach(el => {
@@ -528,8 +563,12 @@ function showSection(id) {
   const target = document.getElementById(id);
   if (target) {
     target.classList.add('active');
-    void target.offsetWidth; 
+    void target.offsetWidth;
     target.style.opacity = 1;
+
+    
+    initVisibleMermaid();
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
@@ -612,30 +651,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
     <div class="row group-item">
       <span>
-        Development
-      </span>
-    </div>
-    
-
-        
-
-      
-
-        
-    <div class="row menu-item" onclick="showSection('section-Changelog')">
-      <span class="menu-item-content">
-        Changelog
-      </span>
-    </div>
-    
-
-      
-    
-  
-
-    
-    <div class="row group-item">
-      <span>
         Getting started
       </span>
     </div>
@@ -654,21 +669,25 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
       
+    
+  
 
-        
-    <div class="row menu-item" onclick="showSection('section-Quickstart')">
-      <span class="menu-item-content">
-        Quickstart
+    
+    <div class="row group-item">
+      <span>
+        Almost done
       </span>
     </div>
     
 
+        
+
       
 
         
-    <div class="row menu-item" onclick="showSection('section-Syntax')">
+    <div class="row menu-item" onclick="showSection('section-Final section')">
       <span class="menu-item-content">
-        Syntax
+        Final section
       </span>
     </div>
     
@@ -680,7 +699,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     <div class="row group-item">
       <span>
-        Key sections
+        API
       </span>
     </div>
     
@@ -690,29 +709,9 @@ document.addEventListener("DOMContentLoaded", () => {
       
 
         
-    <div class="row menu-item" onclick="showSection('section-Root')">
+    <div class="row menu-item" onclick="showSection('section-Users')">
       <span class="menu-item-content">
-        Root
-      </span>
-    </div>
-    
-
-      
-
-        
-    <div class="row menu-item" onclick="showSection('section-Tags')">
-      <span class="menu-item-content">
-        Tags
-      </span>
-    </div>
-    
-
-      
-
-        
-    <div class="row menu-item" onclick="showSection('section-Groups')">
-      <span class="menu-item-content">
-        Groups
+        Users
       </span>
     </div>
     
@@ -722,26 +721,20 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
     
-    <div class="row group-item">
-      <span>
-        Custom sections
-      </span>
-    </div>
+  
+
     
+  
 
-        
-
-      
-
-        
-    <div class="row menu-item" onclick="showSection('section-Content')">
-      <span class="menu-item-content">
-        Content
-      </span>
-    </div>
     
+  
 
-      
+    
+  
+
+    
+  
+
     
   
   </nav>
@@ -768,30 +761,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
     <div class="row group-item">
       <span>
-        Development
-      </span>
-    </div>
-    
-
-    
-
-      
-
-    
-    <div class="row menu-item" onclick="showSection('section-Changelog')">
-      <span class="menu-item-content">
-        Changelog
-      </span>
-    </div>
-    
-
-      
-    
-  
-
-    
-    <div class="row group-item">
-      <span>
         Getting started
       </span>
     </div>
@@ -810,21 +779,25 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
       
+    
+  
 
     
-    <div class="row menu-item" onclick="showSection('section-Quickstart')">
-      <span class="menu-item-content">
-        Quickstart
+    <div class="row group-item">
+      <span>
+        Almost done
       </span>
     </div>
+    
+
     
 
       
 
     
-    <div class="row menu-item" onclick="showSection('section-Syntax')">
+    <div class="row menu-item" onclick="showSection('section-Final section')">
       <span class="menu-item-content">
-        Syntax
+        Final section
       </span>
     </div>
     
@@ -836,7 +809,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     <div class="row group-item">
       <span>
-        Key sections
+        API
       </span>
     </div>
     
@@ -846,29 +819,9 @@ document.addEventListener("DOMContentLoaded", () => {
       
 
     
-    <div class="row menu-item" onclick="showSection('section-Root')">
+    <div class="row menu-item" onclick="showSection('section-Users')">
       <span class="menu-item-content">
-        Root
-      </span>
-    </div>
-    
-
-      
-
-    
-    <div class="row menu-item" onclick="showSection('section-Tags')">
-      <span class="menu-item-content">
-        Tags
-      </span>
-    </div>
-    
-
-      
-
-    
-    <div class="row menu-item" onclick="showSection('section-Groups')">
-      <span class="menu-item-content">
-        Groups
+        Users
       </span>
     </div>
     
@@ -878,26 +831,20 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
     
-    <div class="row group-item">
-      <span>
-        Custom sections
-      </span>
-    </div>
-    
+  
 
     
-
-      
+  
 
     
-    <div class="row menu-item" onclick="showSection('section-Content')">
-      <span class="menu-item-content">
-        Content
-      </span>
-    </div>
-    
+  
 
-      
+    
+  
+
+    
+  
+
     
   
   </div>
@@ -923,201 +870,53 @@ document.addEventListener("DOMContentLoaded", () => {
         
       
         
-<div class="content-section" id="section-Changelog">
-  <h2>2025-08-02 (<code>alpha-0.4</code>)</h2>
-<ul>
-<li>Improve markdown context detector due conflicts within code blocks</li>
-<li>Create installer script (curl based)</li>
-</ul>
-<h2>2025-07-30 (<code>alpha-0.3</code>)</h2>
-<ul>
-<li>Expose <code>Content</code> type section, supporting mardown</li>
-<li>Update official documentation with available features</li>
-</ul>
-<h2>2025-07-24 (<code>alpha-0.2</code>)</h2>
-<ul>
-<li>Reinforcement of <code>rawBlocks</code> generation</li>
-<li>First version of official documentation deployed</li>
-</ul>
-<h2>2025-07-23 (<code>alpha-0.1</code>)</h2>
-<ul>
-<li>Initial publication of <strong>Amauta</strong> documentation</li>
-</ul>
-
-</div>
-
-      
-    
-  
-    
-      
-        
-      
-        
 <div class="content-section" id="section-About amauta">
-  <div align="center">
-<p><img src="https://github.com/luislve17/amauta/raw/refs/heads/main/assets/amauta-banner.svg" alt="logo"></p>
-<h1>
-  Docs for people
-</h1>
-<p><img src="https://img.shields.io/badge/version-alpha0.3-2b7573" alt="Static Badge">
-<img src="https://img.shields.io/badge/engine-go-00ADD8?logo=go" alt="Static Badge">
-<img src="https://img.shields.io/badge/ui-html-F06529?logo=html5" alt="Static Badge"></p>
-</div>
-<p><strong>Amauta</strong> focuses on fulfilling the need to create maintainable, readable and intuitive documentation. It defines a new protocol to declare documentation for RESTful APIs, marked-up content, SDKs and virtually anything that could be used in collaborative teams, open source tools or personal projects.</p>
-
-</div>
-
-      
-        
-<div class="content-section" id="section-Quickstart">
-  <h1>Installation</h1>
-<h2>1. Using install script (Linux)</h2>
-<p>Just run:</p>
-<pre><code class="language-bash">wget -qO - https://raw.githubusercontent.com/luislve17/amauta/release/install.sh | bash
-</code></pre>
-<p>You will get prompted to move the download binary to <code>/usr/local/bin</code>.</p>
-<h2>2. Using install script (Linux + other systems)</h2>
-<p>You may also find the precompiled binary in the <a href="https://github.com/luislve17/amauta/releases"><em>releases</em></a> page of the project.</p>
-<hr>
-<p>Once downloaded, it is recommended to put it in a binary folder that your <code>$PATH</code> environment variable is aware of. You should finally be able to do:</p>
-<pre><code class="language-zsh">$ amauta -v
-Amauta: version alpha-0.4
-</code></pre>
-<h1>CLI Usage</h1>
-<p><strong>Amauta</strong> generates documentation from a manifest file. Skipping the trivial (but valid for the linter &amp; renderer) example of an empty file, a minimal documentation would look something like this:</p>
-<pre><code># ./dist/manifest.amauta
-[[@groups]]
-intro: Introduction
-
-[[Hello doc@content]]
-group: intro
-summary: Hello from Amauta!
-</code></pre>
-<p>Which defines:</p>
-<ol>
-<li>A group named <code>intro</code></li>
-<li>A <code>content</code>-type section, linked to the <code>intro</code> group, and with its corresponding <code>summary</code></li>
-</ol>
-<p>Executing the command:</p>
-<pre><code class="language-zsh">amauta --render -i ./dist/manifest.amauta
-</code></pre>
-<p><strong>Amauta</strong> will generate the given doc as an <code>.html</code> file in the default relative path <code>./dist/doc.html</code>.</p>
-<p>More available options will be explored later when reviewing the CLI, but in general terms and depending on the version, one would have the following from the CLI interface:</p>
-<pre><code class="language-zsh">$ amauta --h                               
-Usage of Amauta CLI (alpha-0.4):
--h	Show this help
--v	Build version
--i	Input path
--o	Output HTML file path (defaults to './dist/doc.html')
--lint	Lint doc manifest
--render	Render HTML from doc manifest
--theme	Name of the selected theme (available: 'default', 'dark')
-</code></pre>
-
-</div>
-
-      
-        
-<div class="content-section" id="section-Syntax">
-  <blockquote>
-<p><strong>Amauta</strong> focuses on achieving a simple syntax, with intuitive rules that work in separate contexts.</p>
-</blockquote>
-<h1>Section</h1>
-<p><em>Sections</em> are the core documentation entity. They define a finite text region that renders in a particular way depending on its type.
-e.g.: <em>Root, Tags, Groups, Content.</em></p>
-<h1>Base syntax</h1>
-<p>For <strong>Amauta</strong>, the syntax must be simple and reliable. In 99% of use cases:</p>
-<table>
-<thead>
-<tr>
-<th>Symbol / Syntax</th>
-<th>Indicates</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>@</code></td>
-<td>typing</td>
-</tr>
-<tr>
-<td><code>?</code></td>
-<td>nullability</td>
-</tr>
-<tr>
-<td><code>#</code></td>
-<td>tagging</td>
-</tr>
-<tr>
-<td><code>[[...]]</code></td>
-<td>section block declaration</td>
-</tr>
-<tr>
-<td><code>:</code></td>
-<td>description</td>
-</tr>
-<tr>
-<td><code>---</code>, <code>&lt;-- --&gt;</code></td>
-<td>inline (<code>---</code>) and multiline (<code>&lt;-- --&gt;</code>) comments</td>
-</tr>
-</tbody>
-</table>
-<h1>Base rules</h1>
-<p>There only exists one rule (more of a suggestion) and it comes from experience on how to avoid doing things wrong:</p>
+  <h1>Amauta</h1>
+<p>Welcome to Amauta. The right tool to write documentation. This line is excesively long just to verify how line breaks render once that they load on templates</p>
+<h2>What is Amauta?</h2>
+<p>Amauta is a non-standardized documentation tool. Improves readability and maintanibility for small and big developer teams.</p>
+<h2>List of things</h2>
+<ul>
+<li>Item 1</li>
+<li>Item 2</li>
+<li>Item 3</li>
+</ul>
+<h3>Sub topic</h3>
 <blockquote>
-<p><strong>We highly encourage avoiding indentation while writing documentation</strong></p>
+<p>&quot;This is a quote&quot; ~ The quoter</p>
 </blockquote>
-<p>We will see later how to approach use cases like nested object declarations.</p>
-<p>The real challenge is adapting this to different contexts—creating a section is not the same as defining a 200-response schema. Nevertheless, the same rules apply unless the context justifies a more detailed declaration of intent.</p>
-<h1>Headers</h1>
-<p>Define the beginning of a section. All content below it, until a new header (or EOF) will be treated as content declared by the header.</p>
-<p>For example:</p>
-<pre><code>[[@groups]]
-</code></pre>
-<p>Indicates the key-type of an item (<code>@</code>) as <code>groups</code>. This is a reserved section, since it's identified by the type itself and is required by the linter/renderer to perform operations.</p>
-<pre><code>[[Products@api#public,sales]]
-</code></pre>
-<p>Declares:</p>
-<ul>
-<li>A particular name &quot;Products&quot; for this section</li>
-<li>Of type (<code>@</code>) <code>api</code></li>
-<li>And tagged (<code>#</code>) as <code>public</code> and <code>sales</code></li>
-</ul>
-<p>This is not a reserved section since the user is allowed to declare it as needed, and not creating it won't block the linter/renderer from performing its operations.</p>
-<h1>Fields</h1>
-<p>Define details on specific attributes, depending on the context where these are declared.</p>
-<p>For example:</p>
-<pre><code class="language-toml">[[Products@api#public,sales]]
-id@str: Product's id
-name@str: Product's name
-calories?float#private: Product's caloric content
-</code></pre>
-<p>Declares a product's:</p>
-<ul>
-<li><code>id</code>, which is a string (typed by <code>@</code>)</li>
-<li><code>name</code>, which also types as string</li>
-<li>And <code>calories</code>, typed as an <strong>optional</strong> (<code>?</code>) float (real number) and tagged (<code>#</code>) as <code>private</code></li>
-</ul>
-<p>All of these have their corresponding description, declared after the <code>:</code> character.</p>
-<p>An equivalent declaration of these 4 lines of doc, but for other protocols would look something like:</p>
-<pre><code class="language-yaml">Products:
-  type: object
-  properties:
-    id:
-      type: string
-      description: Product's id
-    name:
-      type: string
-      description: Product's name
-    calories:
-      type: number
-      format: float
-      description: Product's caloric content
-  required:
-    - id
-    - name
-</code></pre>
-<p>Which when scaling to a more complex manifest as a product grows, exemplifies the rule made at the beginning.</p>
+<p>Here is a table:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Item</th>
+<th style="text-align:center">In Stock</th>
+<th style="text-align:right">Price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Python Hat</td>
+<td style="text-align:center">True</td>
+<td style="text-align:right">23.99</td>
+</tr>
+<tr>
+<td style="text-align:left">SQL Hat</td>
+<td style="text-align:center">True</td>
+<td style="text-align:right">23.99</td>
+</tr>
+<tr>
+<td style="text-align:left">Codecademy Tee</td>
+<td style="text-align:center">False</td>
+<td style="text-align:right">19.99</td>
+</tr>
+<tr>
+<td style="text-align:left">Codecademy Hoodie</td>
+<td style="text-align:center">False</td>
+<td style="text-align:right">42.99</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 
@@ -1129,108 +928,48 @@ calories?float#private: Product's caloric content
         
       
         
-<div class="content-section" id="section-Root">
-  <h1><code>Root</code></h1>
-<pre><code class="language-toml">[[@root]]
-LogoUrl: &lt;url&gt;
-</code></pre>
-<p>Specifies global setup or resources. (under development)</p>
-<table>
-<thead>
-<tr>
-<th>field</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>url</td>
-<td>URL to image resource to render in the doc header</td>
-</tr>
-</tbody>
-</table>
-<h3>Example</h3>
-<pre><code class="language-toml">[[@root]]
-LogoUrl: https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-banner.svg
-</code></pre>
-
+<div class="content-section" id="section-Final section">
+  <h1>Final section I guess</h1>
+<p>This is a separate content section</p>
+<div class="mermaid">
+flowchart LR
+    markdown["`This **is** _Markdown_`"]
+    newLines["`Line1
+    Line 2
+    Line 3`"]
+    markdown --> newLines
 </div>
-
-      
-        
-<div class="content-section" id="section-Tags">
-  <h1><code>Tags</code></h1>
-<pre><code class="language-toml">[[@tags]]
-&lt;id&gt;#&lt;color&gt;:&lt;description&gt;
-</code></pre>
-<p>Specifies available tags to use.
-As of the current build version, there is no particular use yet (under development).</p>
-<table>
-<thead>
-<tr>
-<th>field</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>Tag's name/id to reference from other resources</td>
-</tr>
-<tr>
-<td>color</td>
-<td>Hex-based color, for color labeling (under development)</td>
-</tr>
-<tr>
-<td>description</td>
-<td>Tag's description</td>
-</tr>
-</tbody>
-</table>
-<h3>Example</h3>
-<pre><code class="language-toml">[[@tags]]
-public#00FF00: Public API
-internal#AAAAAA: Internal use only
-deprecated#FF6F61: Will be removed soon
-under-dev#FFD966: Still under development
-beta#87CEEB: Beta feature
-admin#FF1493: Admin only
-</code></pre>
-
+<div class="mermaid">
+sequenceDiagram
+    autonumber
+    Alice->>John: Hello John, how are you?
+    loop HealthCheck
+        John->>John: Fight against hypochondria
+    end
+    Note right of John: Rational thoughts!
+    John-->>Alice: Great!
+    John->>Bob: How about you?
+    Bob-->>John: Jolly good!
 </div>
-
-      
-        
-<div class="content-section" id="section-Groups">
-  <h1><code>Groups</code></h1>
-<pre><code class="language-toml">[[@groups]]
-&lt;id&gt;: &lt;description&gt;
-</code></pre>
-<p>Specifies group definitions for organizing sections.</p>
-<table>
-<thead>
-<tr>
-<th>field</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>Group id to reference in other sections</td>
-</tr>
-<tr>
-<td>description</td>
-<td>Title to render per group, located on the nav menu</td>
-</tr>
-</tbody>
-</table>
-<h3>Example</h3>
-<pre><code class="language-toml">[[@groups]]
-dev: Development
-getting-started: Getting started
-key-section: Key sections
-</code></pre>
+<div class="mermaid">
+gantt
+    title A Gantt Diagram
+    dateFormat YYYY-MM-DD
+    section Section
+        A task          :a1, 2014-01-01, 30d
+        Another task    :after a1, 20d
+    section Another
+        Task in Another :2014-01-12, 12d
+        another task    :24d
+</div>
+<h2>Foo</h2>
+<p>Foo indeed</p>
+<h2>List of things</h2>
+<ul>
+<li>Item 1</li>
+<li>Item 2</li>
+<li>Item 3</li>
+</ul>
 
 </div>
 
@@ -1242,66 +981,24 @@ key-section: Key sections
         
       
         
-<div class="content-section" id="section-Content">
-  <h1><code>Content</code></h1>
-<pre><code class="language-toml">[[&lt;name&gt;@content#&lt;tag_ids&gt;]]
-group: &lt;group-id&gt;
-summary: &lt;summary&gt;
-</code></pre>
-<p>Declares an all-purpose doc section, with markdown support.</p>
-<table>
-<thead>
-<tr>
-<th>field</th>
-<th>required</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td>yes</td>
-<td>Content's name. Renders in the nav menu</td>
-</tr>
-<tr>
-<td>tag_ids</td>
-<td>no</td>
-<td>Comma-separated list of related tags</td>
-</tr>
-<tr>
-<td>group-id</td>
-<td>yes</td>
-<td>Group id used as reference for rendering in the same cluster, in the nav bar</td>
-</tr>
-<tr>
-<td>summary</td>
-<td>yes</td>
-<td>Inline or markdown-based paragraph holding any text-based content. Limited by <code>&lt;md&gt;</code> &amp; <code>&lt;/md&gt;</code> tags</td>
-</tr>
-</tbody>
-</table>
-<h3>Example</h3>
-<pre><code class="language-toml">[[Tax management@content#internal]]
-group: finances
-summary: &lt;md&gt;
-# Support for markdown!
-## Subtitle
-List:
-1. One
-2. Two
-3. Three
-
-&gt; This is a quote
-
-| tables | also | work |
-|--------|------|------|
-| tables | also | work |
-&lt;/md&gt;
-</code></pre>
+<div class="content-section" id="section-Users">
+  <p>Create a new user</p>
 
 </div>
 
       
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
     
   
 

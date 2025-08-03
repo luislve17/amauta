@@ -1,6 +1,24 @@
 {{define "script-js"}}
 hljs.highlightAll();
 
+mermaid.initialize({
+  startOnLoad: false,
+  flowchart: {
+    htmlLabels: true,
+    useMaxWidth: true
+  }
+});
+
+function initVisibleMermaid() {
+  document.querySelectorAll('.content-section.active .mermaid').forEach((el) => {
+    // Skip if already processed
+    if (!el.classList.contains('mermaid-initialized')) {
+      el.classList.add('mermaid-initialized');
+      mermaid.init(undefined, el);
+    }
+  });
+}
+
 function showSection(id) {
   document.querySelectorAll('.content-section').forEach(el => {
     el.classList.remove('active');
@@ -10,8 +28,10 @@ function showSection(id) {
   const target = document.getElementById(id);
   if (target) {
     target.classList.add('active');
-    void target.offsetWidth; // force reflow for transition
+    void target.offsetWidth;
     target.style.opacity = 1;
+
+    initVisibleMermaid();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

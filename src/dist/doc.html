@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Amauta docs</title>
 
-<link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mini.css@3.0.1/dist/mini-default.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
@@ -496,7 +496,7 @@ tbody td:hover {
 .mermaid > svg {
   width: 100% !important;
   height: auto !important;
-  max-height: 500px;
+  max-height: 550px;
   display: block;
 }
 
@@ -536,44 +536,20 @@ tbody td:hover {
 <script>
   
 hljs.highlightAll();
-mermaid.initialize({
-    startOnLoad: false,
-    flowchart: {
-      htmlLabels: true,
-      useMaxWidth: true
-    }
+
+document.addEventListener("DOMContentLoaded", () => {
+  
+  document.querySelectorAll('pre > code.language-mermaid').forEach((codeEl) => {
+    const preEl = codeEl.parentElement;
+
+    const mermaidDiv = document.createElement('div');
+    mermaidDiv.className = 'mermaid';
+    mermaidDiv.textContent = codeEl.textContent;
+
+    preEl.replaceWith(mermaidDiv);
   });
 
-function initVisibleMermaid() {
-  document.querySelectorAll('.content-section.active .mermaid').forEach((el) => {
-    
-    if (!el.classList.contains('mermaid-initialized')) {
-      el.classList.add('mermaid-initialized');
-      mermaid.init(undefined, el);
-    }
-  });
-}
-
-function showSection(id) {
-  document.querySelectorAll('.content-section').forEach(el => {
-    el.classList.remove('active');
-    el.style.opacity = 0;
-  });
-
-  const target = document.getElementById(id);
-  if (target) {
-    target.classList.add('active');
-    void target.offsetWidth;
-    target.style.opacity = 1;
-
-    
-    initVisibleMermaid();
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-}
-
-document.addEventListener("DOMContentLoaded", function () {
+  
   const toggleBtn = document.querySelector(".menu-toggle-button");
   const drawerMenu = document.querySelector(".drawer-menu");
 
@@ -585,9 +561,8 @@ document.addEventListener("DOMContentLoaded", function () {
       drawerMenu?.classList.remove("show");
     }
   });
-});
 
-document.addEventListener("DOMContentLoaded", () => {
+  
   document.querySelectorAll("pre > code").forEach((codeEl) => {
     const preEl = codeEl.parentElement;
     preEl.style.position = "relative";
@@ -621,9 +596,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     preEl.appendChild(btn);
   });
-});
 
-document.addEventListener("DOMContentLoaded", () => {
+  
   document.querySelectorAll(".content-section table").forEach((table) => {
     const wrapper = document.createElement("div");
     wrapper.classList.add("table-scroll");
@@ -631,6 +605,42 @@ document.addEventListener("DOMContentLoaded", () => {
     wrapper.appendChild(table);
   });
 });
+
+mermaid.initialize({
+  startOnLoad: false,
+  flowchart: {
+    htmlLabels: true,
+    useMaxWidth: true
+  }
+});
+
+function initVisibleMermaid() {
+  document.querySelectorAll('.content-section.active .mermaid').forEach((el) => {
+    
+    if (!el.classList.contains('mermaid-initialized')) {
+      el.classList.add('mermaid-initialized');
+      mermaid.init(undefined, el);
+    }
+  });
+}
+
+function showSection(id) {
+  document.querySelectorAll('.content-section').forEach(el => {
+    el.classList.remove('active');
+    el.style.opacity = 0;
+  });
+
+  const target = document.getElementById(id);
+  if (target) {
+    target.classList.add('active');
+    void target.offsetWidth;
+    target.style.opacity = 1;
+
+    initVisibleMermaid();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
 
 </script>
 
@@ -647,6 +657,30 @@ document.addEventListener("DOMContentLoaded", () => {
 <div class="drawer-menu hidden-lg">
   <nav class="drawer-menu-tree">
     
+
+    
+    <div class="row group-item">
+      <span>
+        Development
+      </span>
+    </div>
+    
+
+        
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Changelog')">
+      <span class="menu-item-content">
+        Changelog
+      </span>
+    </div>
+    
+
+      
+    
+  
 
     
     <div class="row group-item">
@@ -669,25 +703,21 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
       
-    
-  
 
-    
-    <div class="row group-item">
-      <span>
-        Almost done
+        
+    <div class="row menu-item" onclick="showSection('section-Quickstart')">
+      <span class="menu-item-content">
+        Quickstart
       </span>
     </div>
     
 
-        
-
       
 
         
-    <div class="row menu-item" onclick="showSection('section-Final section')">
+    <div class="row menu-item" onclick="showSection('section-Syntax')">
       <span class="menu-item-content">
-        Final section
+        Syntax
       </span>
     </div>
     
@@ -699,7 +729,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     <div class="row group-item">
       <span>
-        API
+        Key sections
       </span>
     </div>
     
@@ -709,9 +739,29 @@ document.addEventListener("DOMContentLoaded", () => {
       
 
         
-    <div class="row menu-item" onclick="showSection('section-Users')">
+    <div class="row menu-item" onclick="showSection('section-Root')">
       <span class="menu-item-content">
-        Users
+        Root
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Tags')">
+      <span class="menu-item-content">
+        Tags
+      </span>
+    </div>
+    
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Groups')">
+      <span class="menu-item-content">
+        Groups
       </span>
     </div>
     
@@ -721,20 +771,26 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
     
-  
-
+    <div class="row group-item">
+      <span>
+        Custom sections
+      </span>
+    </div>
     
-  
 
+        
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-Content')">
+      <span class="menu-item-content">
+        Content
+      </span>
+    </div>
     
-  
 
-    
-  
-
-    
-  
-
+      
     
   
   </nav>
@@ -761,6 +817,30 @@ document.addEventListener("DOMContentLoaded", () => {
     
     <div class="row group-item">
       <span>
+        Development
+      </span>
+    </div>
+    
+
+    
+
+      
+
+    
+    <div class="row menu-item" onclick="showSection('section-Changelog')">
+      <span class="menu-item-content">
+        Changelog
+      </span>
+    </div>
+    
+
+      
+    
+  
+
+    
+    <div class="row group-item">
+      <span>
         Getting started
       </span>
     </div>
@@ -779,25 +859,21 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
       
-    
-  
 
     
-    <div class="row group-item">
-      <span>
-        Almost done
+    <div class="row menu-item" onclick="showSection('section-Quickstart')">
+      <span class="menu-item-content">
+        Quickstart
       </span>
     </div>
-    
-
     
 
       
 
     
-    <div class="row menu-item" onclick="showSection('section-Final section')">
+    <div class="row menu-item" onclick="showSection('section-Syntax')">
       <span class="menu-item-content">
-        Final section
+        Syntax
       </span>
     </div>
     
@@ -809,7 +885,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     <div class="row group-item">
       <span>
-        API
+        Key sections
       </span>
     </div>
     
@@ -819,9 +895,29 @@ document.addEventListener("DOMContentLoaded", () => {
       
 
     
-    <div class="row menu-item" onclick="showSection('section-Users')">
+    <div class="row menu-item" onclick="showSection('section-Root')">
       <span class="menu-item-content">
-        Users
+        Root
+      </span>
+    </div>
+    
+
+      
+
+    
+    <div class="row menu-item" onclick="showSection('section-Tags')">
+      <span class="menu-item-content">
+        Tags
+      </span>
+    </div>
+    
+
+      
+
+    
+    <div class="row menu-item" onclick="showSection('section-Groups')">
+      <span class="menu-item-content">
+        Groups
       </span>
     </div>
     
@@ -831,20 +927,26 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
     
-  
+    <div class="row group-item">
+      <span>
+        Custom sections
+      </span>
+    </div>
+    
 
     
-  
+
+      
 
     
-  
-
+    <div class="row menu-item" onclick="showSection('section-Content')">
+      <span class="menu-item-content">
+        Content
+      </span>
+    </div>
     
-  
 
-    
-  
-
+      
     
   
   </div>
@@ -870,106 +972,222 @@ document.addEventListener("DOMContentLoaded", () => {
         
       
         
-<div class="content-section" id="section-About amauta">
-  <h1>Amauta</h1>
-<p>Welcome to Amauta. The right tool to write documentation. This line is excesively long just to verify how line breaks render once that they load on templates</p>
-<h2>What is Amauta?</h2>
-<p>Amauta is a non-standardized documentation tool. Improves readability and maintanibility for small and big developer teams.</p>
-<h2>List of things</h2>
+<div class="content-section" id="section-Changelog">
+  <h1>Changelog</h1>
+<pre><code class="language-mermaid">%%{init: {'theme':'neutral'}}%%
+timeline
+    section Alpha Phase
+        alpha-0.1
+            : 📅 Jul 23, 2025
+            : Initial publication
+            : Basic documentation structure
+        alpha-0.2
+            : 📅 Jul 24, 2025
+            : rawBlocks generation
+            : First official docs deployed
+        alpha-0.3
+            : 📅 Jul 30, 2025
+            : Content type sections
+            : Markdown support
+        alpha-0.4
+            : 📅 Aug 02, 2025
+            : Improved markdown detector
+            : Installer script
+</code></pre>
+<h2>2025-08-02 (<code>alpha-0.4</code>)</h2>
 <ul>
-<li>Item 1</li>
-<li>Item 2</li>
-<li>Item 3</li>
+<li>Improve markdown context detector due conflicts within code blocks</li>
+<li>Create installer script (curl based)</li>
 </ul>
-<h3>Sub topic</h3>
-<blockquote>
-<p>&quot;This is a quote&quot; ~ The quoter</p>
+<h2>2025-07-30 (<code>alpha-0.3</code>)</h2>
+<ul>
+<li>Expose <code>Content</code> type section, supporting mardown</li>
+<li>Update official documentation with available features</li>
+</ul>
+<h2>2025-07-24 (<code>alpha-0.2</code>)</h2>
+<ul>
+<li>Reinforcement of <code>rawBlocks</code> generation</li>
+<li>First version of official documentation deployed</li>
+</ul>
+<h2>2025-07-23 (<code>alpha-0.1</code>)</h2>
+<ul>
+<li>Initial publication of <strong>Amauta</strong> documentation</li>
+</ul>
+
+</div>
+
+      
+    
+  
+    
+      
+        
+      
+        
+<div class="content-section" id="section-About amauta">
+  <div align="center">
+<p><img src="https://github.com/luislve17/amauta/raw/refs/heads/main/assets/amauta-banner.svg" alt="logo"></p>
+<h1>
+  Docs for people
+</h1>
+<p><img src="https://img.shields.io/badge/version-alpha0.3-2b7573" alt="Static Badge">
+<img src="https://img.shields.io/badge/engine-go-00ADD8?logo=go" alt="Static Badge">
+<img src="https://img.shields.io/badge/ui-html-F06529?logo=html5" alt="Static Badge"></p>
+</div>
+<p><strong>Amauta</strong> focuses on fulfilling the need to create maintainable, readable and intuitive documentation. It defines a new protocol to declare documentation for RESTful APIs, marked-up content, SDKs and virtually anything that could be used in collaborative teams, open source tools or personal projects.</p>
+
+</div>
+
+      
+        
+<div class="content-section" id="section-Quickstart">
+  <h1>Installation</h1>
+<h2>1. Using install script (Linux)</h2>
+<p>Just run:</p>
+<pre><code class="language-bash">wget -qO - https://raw.githubusercontent.com/luislve17/amauta/release/install.sh | bash
+</code></pre>
+<p>You will get prompted to move the download binary to <code>/usr/local/bin</code>.</p>
+<h2>2. Using install script (Linux + other systems)</h2>
+<p>You may also find the precompiled binary in the <a href="https://github.com/luislve17/amauta/releases"><em>releases</em></a> page of the project.</p>
+<hr>
+<p>Once downloaded, it is recommended to put it in a binary folder that your <code>$PATH</code> environment variable is aware of. You should finally be able to do:</p>
+<pre><code class="language-zsh">$ amauta -v
+Amauta: version alpha-0.4
+</code></pre>
+<h1>CLI Usage</h1>
+<p><strong>Amauta</strong> generates documentation from a manifest file. Skipping the trivial (but valid for the linter &amp; renderer) example of an empty file, a minimal documentation would look something like this:</p>
+<pre><code># ./dist/manifest.amauta
+[[@groups]]
+intro: Introduction
+
+[[Hello doc@content]]
+group: intro
+summary: Hello from Amauta!
+</code></pre>
+<p>Which defines:</p>
+<ol>
+<li>A group named <code>intro</code></li>
+<li>A <code>content</code>-type section, linked to the <code>intro</code> group, and with its corresponding <code>summary</code></li>
+</ol>
+<p>Executing the command:</p>
+<pre><code class="language-zsh">amauta --render -i ./dist/manifest.amauta
+</code></pre>
+<p><strong>Amauta</strong> will generate the given doc as an <code>.html</code> file in the default relative path <code>./dist/doc.html</code>.</p>
+<p>More available options will be explored later when reviewing the CLI, but in general terms and depending on the version, one would have the following from the CLI interface:</p>
+<pre><code class="language-zsh">$ amauta --h                               
+Usage of Amauta CLI (alpha-0.4):
+-h	Show this help
+-v	Build version
+-i	Input path
+-o	Output HTML file path (defaults to './dist/doc.html')
+-lint	Lint doc manifest
+-render	Render HTML from doc manifest
+-theme	Name of the selected theme (available: 'default', 'dark')
+</code></pre>
+
+</div>
+
+      
+        
+<div class="content-section" id="section-Syntax">
+  <blockquote>
+<p><strong>Amauta</strong> focuses on achieving a simple syntax, with intuitive rules that work in separate contexts.</p>
 </blockquote>
-<p>Here is a table:</p>
+<h1>Section</h1>
+<p><em>Sections</em> are the core documentation entity. They define a finite text region that renders in a particular way depending on its type.
+e.g.: <em>Root, Tags, Groups, Content.</em></p>
+<h1>Base syntax</h1>
+<p>For <strong>Amauta</strong>, the syntax must be simple and reliable. In 99% of use cases:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:left">Item</th>
-<th style="text-align:center">In Stock</th>
-<th style="text-align:right">Price</th>
+<th>Symbol / Syntax</th>
+<th>Indicates</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">Python Hat</td>
-<td style="text-align:center">True</td>
-<td style="text-align:right">23.99</td>
+<td><code>@</code></td>
+<td>typing</td>
 </tr>
 <tr>
-<td style="text-align:left">SQL Hat</td>
-<td style="text-align:center">True</td>
-<td style="text-align:right">23.99</td>
+<td><code>?</code></td>
+<td>nullability</td>
 </tr>
 <tr>
-<td style="text-align:left">Codecademy Tee</td>
-<td style="text-align:center">False</td>
-<td style="text-align:right">19.99</td>
+<td><code>#</code></td>
+<td>tagging</td>
 </tr>
 <tr>
-<td style="text-align:left">Codecademy Hoodie</td>
-<td style="text-align:center">False</td>
-<td style="text-align:right">42.99</td>
+<td><code>[[...]]</code></td>
+<td>section block declaration</td>
+</tr>
+<tr>
+<td><code>:</code></td>
+<td>description</td>
+</tr>
+<tr>
+<td><code>---</code>, <code>&lt;-- --&gt;</code></td>
+<td>inline (<code>---</code>) and multiline (<code>&lt;-- --&gt;</code>) comments</td>
 </tr>
 </tbody>
 </table>
-
-</div>
-
-      
-    
-  
-    
-      
-        
-      
-        
-<div class="content-section" id="section-Final section">
-  <h1>Final section I guess</h1>
-<p>This is a separate content section</p>
-<div class="mermaid">
-flowchart LR
-    markdown["`This **is** _Markdown_`"]
-    newLines["`Line1
-    Line 2
-    Line 3`"]
-    markdown --> newLines
-</div>
-<div class="mermaid">
-sequenceDiagram
-    autonumber
-    Alice->>John: Hello John, how are you?
-    loop HealthCheck
-        John->>John: Fight against hypochondria
-    end
-    Note right of John: Rational thoughts!
-    John-->>Alice: Great!
-    John->>Bob: How about you?
-    Bob-->>John: Jolly good!
-</div>
-<div class="mermaid">
-gantt
-    title A Gantt Diagram
-    dateFormat YYYY-MM-DD
-    section Section
-        A task          :a1, 2014-01-01, 30d
-        Another task    :after a1, 20d
-    section Another
-        Task in Another :2014-01-12, 12d
-        another task    :24d
-</div>
-<h2>Foo</h2>
-<p>Foo indeed</p>
-<h2>List of things</h2>
+<h1>Base rules</h1>
+<p>There only exists one rule (more of a suggestion) and it comes from experience on how to avoid doing things wrong:</p>
+<blockquote>
+<p><strong>We highly encourage avoiding indentation while writing documentation</strong></p>
+</blockquote>
+<p>We will see later how to approach use cases like nested object declarations.</p>
+<p>The real challenge is adapting this to different contexts—creating a section is not the same as defining a 200-response schema. Nevertheless, the same rules apply unless the context justifies a more detailed declaration of intent.</p>
+<h1>Headers</h1>
+<p>Define the beginning of a section. All content below it, until a new header (or EOF) will be treated as content declared by the header.</p>
+<p>For example:</p>
+<pre><code>[[@groups]]
+</code></pre>
+<p>Indicates the key-type of an item (<code>@</code>) as <code>groups</code>. This is a reserved section, since it's identified by the type itself and is required by the linter/renderer to perform operations.</p>
+<pre><code>[[Products@api#public,sales]]
+</code></pre>
+<p>Declares:</p>
 <ul>
-<li>Item 1</li>
-<li>Item 2</li>
-<li>Item 3</li>
+<li>A particular name &quot;Products&quot; for this section</li>
+<li>Of type (<code>@</code>) <code>api</code></li>
+<li>And tagged (<code>#</code>) as <code>public</code> and <code>sales</code></li>
 </ul>
+<p>This is not a reserved section since the user is allowed to declare it as needed, and not creating it won't block the linter/renderer from performing its operations.</p>
+<h1>Fields</h1>
+<p>Define details on specific attributes, depending on the context where these are declared.</p>
+<p>For example:</p>
+<pre><code class="language-toml">[[Products@api#public,sales]]
+id@str: Product's id
+name@str: Product's name
+calories?float#private: Product's caloric content
+</code></pre>
+<p>Declares a product's:</p>
+<ul>
+<li><code>id</code>, which is a string (typed by <code>@</code>)</li>
+<li><code>name</code>, which also types as string</li>
+<li>And <code>calories</code>, typed as an <strong>optional</strong> (<code>?</code>) float (real number) and tagged (<code>#</code>) as <code>private</code></li>
+</ul>
+<p>All of these have their corresponding description, declared after the <code>:</code> character.</p>
+<p>An equivalent declaration of these 4 lines of doc, but for other protocols would look something like:</p>
+<pre><code class="language-yaml">Products:
+  type: object
+  properties:
+    id:
+      type: string
+      description: Product's id
+    name:
+      type: string
+      description: Product's name
+    calories:
+      type: number
+      format: float
+      description: Product's caloric content
+  required:
+    - id
+    - name
+</code></pre>
+<p>Which when scaling to a more complex manifest as a product grows, exemplifies the rule made at the beginning.</p>
 
 </div>
 
@@ -981,8 +1199,108 @@ gantt
         
       
         
-<div class="content-section" id="section-Users">
-  <p>Create a new user</p>
+<div class="content-section" id="section-Root">
+  <h1><code>Root</code></h1>
+<pre><code class="language-toml">[[@root]]
+LogoUrl: &lt;url&gt;
+</code></pre>
+<p>Specifies global setup or resources. (under development)</p>
+<table>
+<thead>
+<tr>
+<th>field</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>url</td>
+<td>URL to image resource to render in the doc header</td>
+</tr>
+</tbody>
+</table>
+<h3>Example</h3>
+<pre><code class="language-toml">[[@root]]
+LogoUrl: https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-banner.svg
+</code></pre>
+
+</div>
+
+      
+        
+<div class="content-section" id="section-Tags">
+  <h1><code>Tags</code></h1>
+<pre><code class="language-toml">[[@tags]]
+&lt;id&gt;#&lt;color&gt;:&lt;description&gt;
+</code></pre>
+<p>Specifies available tags to use.
+As of the current build version, there is no particular use yet (under development).</p>
+<table>
+<thead>
+<tr>
+<th>field</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Tag's name/id to reference from other resources</td>
+</tr>
+<tr>
+<td>color</td>
+<td>Hex-based color, for color labeling (under development)</td>
+</tr>
+<tr>
+<td>description</td>
+<td>Tag's description</td>
+</tr>
+</tbody>
+</table>
+<h3>Example</h3>
+<pre><code class="language-toml">[[@tags]]
+public#00FF00: Public API
+internal#AAAAAA: Internal use only
+deprecated#FF6F61: Will be removed soon
+under-dev#FFD966: Still under development
+beta#87CEEB: Beta feature
+admin#FF1493: Admin only
+</code></pre>
+
+</div>
+
+      
+        
+<div class="content-section" id="section-Groups">
+  <h1><code>Groups</code></h1>
+<pre><code class="language-toml">[[@groups]]
+&lt;id&gt;: &lt;description&gt;
+</code></pre>
+<p>Specifies group definitions for organizing sections.</p>
+<table>
+<thead>
+<tr>
+<th>field</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Group id to reference in other sections</td>
+</tr>
+<tr>
+<td>description</td>
+<td>Title to render per group, located on the nav menu</td>
+</tr>
+</tbody>
+</table>
+<h3>Example</h3>
+<pre><code class="language-toml">[[@groups]]
+dev: Development
+getting-started: Getting started
+key-section: Key sections
+</code></pre>
 
 </div>
 
@@ -990,15 +1308,70 @@ gantt
     
   
     
-  
-    
-  
-    
-  
-    
-  
-    
-  
+      
+        
+      
+        
+<div class="content-section" id="section-Content">
+  <h1><code>Content</code></h1>
+<pre><code class="language-toml">[[&lt;name&gt;@content#&lt;tag_ids&gt;]]
+group: &lt;group-id&gt;
+summary: &lt;summary&gt;
+</code></pre>
+<p>Declares an all-purpose doc section, with markdown support.</p>
+<table>
+<thead>
+<tr>
+<th>field</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>yes</td>
+<td>Content's name. Renders in the nav menu</td>
+</tr>
+<tr>
+<td>tag_ids</td>
+<td>no</td>
+<td>Comma-separated list of related tags</td>
+</tr>
+<tr>
+<td>group-id</td>
+<td>yes</td>
+<td>Group id used as reference for rendering in the same cluster, in the nav bar</td>
+</tr>
+<tr>
+<td>summary</td>
+<td>yes</td>
+<td>Inline or markdown-based paragraph holding any text-based content. Limited by <code>&lt;md&gt;</code> &amp; <code>&lt;/md&gt;</code> tags</td>
+</tr>
+</tbody>
+</table>
+<h3>Example</h3>
+<pre><code class="language-toml">[[Tax management@content#internal]]
+group: finances
+summary: &lt;md&gt;
+# Support for markdown!
+## Subtitle
+List:
+1. One
+2. Two
+3. Three
+
+&gt; This is a quote
+
+| tables | also | work |
+|--------|------|------|
+| tables | also | work |
+&lt;/md&gt;
+</code></pre>
+
+</div>
+
+      
     
   
 

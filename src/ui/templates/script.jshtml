@@ -1,6 +1,75 @@
 {{define "script-js"}}
 hljs.highlightAll();
 
+document.addEventListener("DOMContentLoaded", () => {
+  // Mermaid div formatter
+  document.querySelectorAll('pre > code.language-mermaid').forEach((codeEl) => {
+    const preEl = codeEl.parentElement;
+
+    const mermaidDiv = document.createElement('div');
+    mermaidDiv.className = 'mermaid';
+    mermaidDiv.textContent = codeEl.textContent;
+
+    preEl.replaceWith(mermaidDiv);
+  });
+
+  // Menu drawer selection show
+  const toggleBtn = document.querySelector(".menu-toggle-button");
+  const drawerMenu = document.querySelector(".drawer-menu");
+
+  toggleBtn?.addEventListener("click", function () {
+    drawerMenu?.classList.toggle("show");
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      drawerMenu?.classList.remove("show");
+    }
+  });
+
+  // Copy button injector on pre > code
+  document.querySelectorAll("pre > code").forEach((codeEl) => {
+    const preEl = codeEl.parentElement;
+    preEl.style.position = "relative";
+
+    const btn = document.createElement("button");
+    btn.innerHTML = '<i class="ri-file-copy-fill"></i>';
+    btn.style.position = "absolute";
+    btn.style.top = "0.5em";
+    btn.style.right = "0.5em";
+    btn.style.background = "transparent";
+    btn.style.border = "none";
+    btn.style.cursor = "pointer";
+    btn.style.fontSize = "1.45em";
+    btn.style.color = "#888";
+    btn.style.padding = "0";
+    btn.style.margin = "0";
+
+    btn.onclick = () => {
+      navigator.clipboard.writeText(codeEl.textContent.trim());
+
+      // Create floating icon
+      const floatIcon = document.createElement("i");
+      floatIcon.className = "ri-clipboard-fill copy-float";
+      preEl.appendChild(floatIcon);
+
+      // Remove after animation
+      setTimeout(() => {
+        floatIcon.remove();
+      }, 600);
+    };
+
+    preEl.appendChild(btn);
+  });
+
+  // Table scrolling
+  document.querySelectorAll(".content-section table").forEach((table) => {
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("table-scroll");
+    table.parentNode.insertBefore(wrapper, table);
+    wrapper.appendChild(table);
+  });
+});
+
 mermaid.initialize({
   startOnLoad: false,
   flowchart: {
@@ -36,62 +105,4 @@ function showSection(id) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const toggleBtn = document.querySelector(".menu-toggle-button");
-  const drawerMenu = document.querySelector(".drawer-menu");
-
-  toggleBtn?.addEventListener("click", function () {
-    drawerMenu?.classList.toggle("show");
-  });
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") {
-      drawerMenu?.classList.remove("show");
-    }
-  });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll("pre > code").forEach((codeEl) => {
-    const preEl = codeEl.parentElement;
-    preEl.style.position = "relative";
-
-    const btn = document.createElement("button");
-    btn.innerHTML = '<i class="ri-file-copy-fill"></i>';
-    btn.style.position = "absolute";
-    btn.style.top = "0.5em";
-    btn.style.right = "0.5em";
-    btn.style.background = "transparent";
-    btn.style.border = "none";
-    btn.style.cursor = "pointer";
-    btn.style.fontSize = "1.45em";
-    btn.style.color = "#888";
-    btn.style.padding = "0";
-    btn.style.margin = "0";
-
-    btn.onclick = () => {
-      navigator.clipboard.writeText(codeEl.textContent.trim());
-
-      // Create floating icon
-      const floatIcon = document.createElement("i");
-      floatIcon.className = "ri-clipboard-fill copy-float";
-      preEl.appendChild(floatIcon);
-
-      // Remove after animation
-      setTimeout(() => {
-        floatIcon.remove();
-      }, 600);
-    };
-
-    preEl.appendChild(btn);
-  });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".content-section table").forEach((table) => {
-    const wrapper = document.createElement("div");
-    wrapper.classList.add("table-scroll");
-    table.parentNode.insertBefore(wrapper, table);
-    wrapper.appendChild(table);
-  });
-});
 {{end}}

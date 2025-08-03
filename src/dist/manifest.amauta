@@ -11,6 +11,10 @@ custom-section: Custom sections
 [[Changelog@content]]
 group: dev
 summary: <md>
+## 2025-08-02 (`alpha-0.4`)
+* Improve markdown context detector due conflicts within code blocks
+* Create installer script (curl based)
+
 ## 2025-07-30 (`alpha-0.3`)
 * Expose `Content` type section, supporting mardown
 * Update official documentation with available features
@@ -69,14 +73,7 @@ Once downloaded, it is recommended to put it in a binary folder that your `$PATH
 
 ```zsh
 $ amauta -v
-Amauta: version alpha-0.3
-```
-
-Once downloaded, it is recommended to put it in a binary folder that your `$PATH` environment variable is aware of. You should finally be able to do:
-
-```zsh
-$ amauta -v
-Amauta: version alpha-0.3
+Amauta: version alpha-0.4
 ```
 
 # CLI Usage
@@ -107,7 +104,7 @@ More available options will be explored later when reviewing the CLI, but in gen
 
 ```zsh
 $ amauta --h                               
-Usage of Amauta CLI (alpha-0.3):
+Usage of Amauta CLI (alpha-0.4):
 -h	Show this help
 -v	Build version
 -i	Input path

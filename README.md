@@ -6,7 +6,7 @@
   Docs for people
 </h1>
 
-![Static Badge](https://img.shields.io/badge/version-alpha0.3-2b7573)
+![Static Badge](https://img.shields.io/badge/version-alpha0.4-2b7573)
 ![Static Badge](https://img.shields.io/badge/engine-go-00ADD8?logo=go)
 ![Static Badge](https://img.shields.io/badge/ui-html-F06529?logo=html5)
 
@@ -47,7 +47,7 @@ Once downloaded, it is recommended to put it in a binary folder that your `$PATH
 
 ```zsh
 $ amauta -v
-Amauta: version alpha-0.3
+Amauta: version alpha-0.4
 ```
 
 # Content
@@ -198,7 +198,7 @@ From a FOSS point of view, most alternatives to render a doc manifest into a pag
 
 
 <details>
-<summary>:moyai: What Amauta offers (alpha-0.3 version) </summary>
+<summary>:moyai: What Amauta offers (alpha-0.4 version) </summary>
   
 `amauta --render -i ./dist/manifest.amauta -theme default`
 
@@ -221,10 +221,10 @@ As mentioned, we expect you to just write the docs, and get your page back. A si
 
 ```
 $ amauta -v
-Amauta: version alpha-0.3
+Amauta: version alpha-0.4
 
 $amauta -h
-Usage of Amauta CLI (alpha-0.3):
+Usage of Amauta CLI (alpha-0.4):
 -h	Show this help
 -v	Build version
 -i	Input path

@@ -464,6 +464,9 @@ tbody tr:hover td {
   overflow-wrap: break-word;
   word-break: break-word;
   box-sizing: border-box;
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .content-section.active {
@@ -510,11 +513,14 @@ hljs.highlightAll();
 function showSection(id) {
   document.querySelectorAll('.content-section').forEach(el => {
     el.classList.remove('active');
+    el.style.opacity = 0;
   });
 
   const target = document.getElementById(id);
   if (target) {
     target.classList.add('active');
+    void target.offsetWidth; 
+    target.style.opacity = 1;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

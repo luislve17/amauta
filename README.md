@@ -21,6 +21,35 @@
 
 **_Amauta_** focuses on fulfilling the need to create maintainable, redable and intuitive documentation. It defines a new protocol to declare documentation for RESTful APIs, marked-up content, SDKs and virtually anything that could be used in a collaborative team, open source tools or personal projects. 
 
+1. No hosting required.
+2. Single HTML static file bundle.
+3. No npm/node/create-xyz-app shenanigans needed.
+
+# Installation
+
+## 1. Using install script (Linux)
+
+Just run:
+
+```bash
+curl -sL https://raw.githubusercontent.com/luislve17/amauta/release/install.sh | sh
+```
+
+You will get prompted to move the download binary to `/usr/local/bin`.
+
+## 2. Using install script (Linux + other systems)
+
+You may also find the precompiled binary in the [_releases_](https://github.com/luislve17/amauta/releases) page of the project.
+
+___
+
+Once downloaded, it is recommended to put it in a binary folder that your `$PATH` environment variable is aware of. You should finally be able to do:
+
+```zsh
+$ amauta -v
+Amauta: version alpha-0.3
+```
+
 # Content
 
 ## Protocol

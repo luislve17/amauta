@@ -537,10 +537,29 @@ tbody td:hover {
   
 
 document.addEventListener("DOMContentLoaded", () => {
-  
-  hljs.highlightAll();
+  initHighlightJS();
+  initMermaid();
+  formatMermaidBlocks();
+  enhanceCodeBlocks();
+  wrapTablesInScroll();
+  setupMenuDrawer();
+  resolveInitialSection();
+  setupPopstateListener();
+});
 
-  
+
+const SECTION_SELECTOR = '.content-section';
+const ACTIVE_CLASS = 'active';
+const MERMAID_CLASS = 'mermaid';
+const MERMAID_INITIALIZED_CLASS = 'mermaid-initialized';
+
+
+
+function initHighlightJS() {
+  hljs.highlightAll();
+}
+
+function initMermaid() {
   mermaid.initialize({
     startOnLoad: false,
     flowchart: {
@@ -548,83 +567,80 @@ document.addEventListener("DOMContentLoaded", () => {
       useMaxWidth: true
     }
   });
+}
 
-  
+function formatMermaidBlocks() {
   document.querySelectorAll('pre > code.language-mermaid').forEach((codeEl) => {
     const preEl = codeEl.parentElement;
-
     const mermaidDiv = document.createElement('div');
-    mermaidDiv.className = 'mermaid';
+    mermaidDiv.className = MERMAID_CLASS;
     mermaidDiv.textContent = codeEl.textContent;
-
     preEl.replaceWith(mermaidDiv);
   });
+}
 
-  
-  const toggleBtn = document.querySelector(".menu-toggle-button");
-  const drawerMenu = document.querySelector(".drawer-menu");
-
-  toggleBtn?.addEventListener("click", function () {
-    drawerMenu?.classList.toggle("show");
-  });
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") {
-      drawerMenu?.classList.remove("show");
-    }
-  });
-
-  
+function enhanceCodeBlocks() {
   document.querySelectorAll("pre > code").forEach((codeEl) => {
     const preEl = codeEl.parentElement;
     preEl.style.position = "relative";
 
     const btn = document.createElement("button");
     btn.innerHTML = '<i class="ri-file-copy-fill"></i>';
-    btn.style.position = "absolute";
-    btn.style.top = "0.5em";
-    btn.style.right = "0.5em";
-    btn.style.background = "transparent";
-    btn.style.border = "none";
-    btn.style.cursor = "pointer";
-    btn.style.fontSize = "1.45em";
-    btn.style.color = "#888";
-    btn.style.padding = "0";
-    btn.style.margin = "0";
+    Object.assign(btn.style, {
+      position: "absolute",
+      top: "0.5em",
+      right: "0.5em",
+      background: "transparent",
+      border: "none",
+      cursor: "pointer",
+      fontSize: "1.45em",
+      color: "#888",
+      padding: "0",
+      margin: "0"
+    });
 
     btn.onclick = () => {
       navigator.clipboard.writeText(codeEl.textContent.trim());
-
-      
       const floatIcon = document.createElement("i");
       floatIcon.className = "ri-clipboard-fill copy-float";
       preEl.appendChild(floatIcon);
-
-      
-      setTimeout(() => {
-        floatIcon.remove();
-      }, 600);
+      setTimeout(() => floatIcon.remove(), 600);
     };
 
     preEl.appendChild(btn);
   });
+}
 
-  
-  document.querySelectorAll(".content-section table").forEach((table) => {
+function wrapTablesInScroll() {
+  document.querySelectorAll(`${SECTION_SELECTOR} table`).forEach((table) => {
     const wrapper = document.createElement("div");
     wrapper.classList.add("table-scroll");
     table.parentNode.insertBefore(wrapper, table);
     wrapper.appendChild(table);
   });
+}
 
-  
-  resolveUrlRedirect()
-});
+function setupMenuDrawer() {
+  const toggleBtn = document.querySelector(".menu-toggle-button");
+  const drawerMenu = document.querySelector(".drawer-menu");
+
+  toggleBtn?.addEventListener("click", () => {
+    drawerMenu?.classList.toggle("show");
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      drawerMenu?.classList.remove("show");
+    }
+  });
+}
+
+
 
 function initVisibleMermaid() {
-  document.querySelectorAll('.content-section.active .mermaid').forEach((el) => {
-    
-    if (!el.classList.contains('mermaid-initialized')) {
-      el.classList.add('mermaid-initialized');
+  document.querySelectorAll(`${SECTION_SELECTOR}.${ACTIVE_CLASS} .${MERMAID_CLASS}`).forEach((el) => {
+    if (!el.classList.contains(MERMAID_INITIALIZED_CLASS)) {
+      el.classList.add(MERMAID_INITIALIZED_CLASS);
       mermaid.init(undefined, el);
     }
   });
@@ -637,54 +653,57 @@ function showSection(id) {
   }
 
   
-  document.querySelectorAll('.content-section').forEach(el => {
-    el.classList.remove('active');
-    el.style.opacity = 0;
-    el.style.transform = 'translateY(-10px)';
-    el.style.position = ''; 
-    el.style.willChange = '';
+  document.querySelectorAll(SECTION_SELECTOR).forEach((el) => {
+    el.classList.remove(ACTIVE_CLASS);
+    Object.assign(el.style, {
+      opacity: 0,
+      transform: 'translateY(-10px)',
+      position: '',
+      willChange: ''
+    });
   });
 
   
   const target = document.getElementById(id);
   if (target) {
-    target.classList.add('active');
-
-    
-    target.style.position = 'relative';
-    target.style.willChange = 'transform, opacity';
+    target.classList.add(ACTIVE_CLASS);
+    Object.assign(target.style, {
+      position: 'relative',
+      willChange: 'transform, opacity'
+    });
 
     void target.offsetWidth; 
 
-    
-    target.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-    target.style.opacity = 1;
-    target.style.transform = 'translateY(0)';
+    Object.assign(target.style, {
+      transition: 'opacity 0.3s ease, transform 0.3s ease',
+      opacity: 1,
+      transform: 'translateY(0)'
+    });
 
     initVisibleMermaid();
   }
 
-  
   requestAnimationFrame(() => {
     window.scrollTo({ top: 0 });
   });
 }
 
-function resolveUrlRedirect() {
+function resolveInitialSection() {
   const fragment = decodeURIComponent(window.location.hash);
-  if (fragment && fragment.startsWith("#section-")) {
-    const sectionId = fragment.substring(1); 
-    
+  if (fragment.startsWith("#section-")) {
+    const sectionId = fragment.slice(1);
     requestAnimationFrame(() => {
       showSection(sectionId);
       window.scrollTo({ top: 0 });
     });
   }
+}
 
+function setupPopstateListener() {
   window.addEventListener("popstate", () => {
     const newFragment = decodeURIComponent(window.location.hash);
-    if (newFragment && newFragment.startsWith("#section-")) {
-      const sectionId = newFragment.substring(1);
+    if (newFragment.startsWith("#section-")) {
+      const sectionId = newFragment.slice(1);
       showSection(sectionId);
       window.scrollTo({ top: 0 });
     }

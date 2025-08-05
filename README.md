@@ -3,61 +3,59 @@
 ![logo](https://github.com/luislve17/amauta/raw/refs/heads/main/assets/amauta-banner.svg)
 
 <h1>
-  Docs for people
+  Beautiful docs made simple
 </h1>
 
-![Static Badge](https://img.shields.io/badge/version-alpha0.5-2b7573)
+![Static Badge](https://img.shields.io/badge/version-alpha--0.5-2b7573)
 ![Static Badge](https://img.shields.io/badge/engine-go-00ADD8?logo=go)
 ![Static Badge](https://img.shields.io/badge/ui-html-F06529?logo=html5)
-
 
 </div>
 
 # Links
 
-1. Live doc: [link](https://luislve17.github.io/amauta/doc) (👷‍♂️⚠️Under development)
+1. Live doc: [link](https://luislve17.github.io/amauta/doc) (🚧 Under development)
 
 # Introduction
 
-**_Amauta_** focuses on fulfilling the need to create maintainable, redable and intuitive documentation. It defines a new protocol to declare documentation for RESTful APIs, marked-up content, SDKs and virtually anything that could be used in a collaborative team, open source tools or personal projects. 
+**Amauta** is a documentation generator that prioritizes simplicity and readability. It introduces a clean, intuitive syntax for documenting RESTful APIs, SDKs, and any collaborative project without the complexity of traditional documentation formats.
 
-1. No hosting required.
-2. Single HTML static file bundle.
-3. No npm/node/create-xyz-app shenanigans needed.
+## Key Features
+
+✨ **Zero hosting required** - Generate a single, self-contained HTML file  
+📝 **Human-readable syntax** - Write docs that are as easy to read as they are to write  
+🚀 **No build tools needed** - No npm, node, or complex setup required  
+🎨 **Beautiful out of the box** - Professional themes included by default  
+📱 **Fully responsive** - Looks great on any device  
 
 # Installation
 
-## 1. Using install script (Linux)
-
-Just run:
+## Option 1: Quick Install (Linux)
 
 ```bash
 wget -qO - https://raw.githubusercontent.com/luislve17/amauta/release/install.sh | bash
 ```
 
-You will get prompted to move the download binary to `/usr/local/bin`.
+You'll be suggested to move the binary to `/usr/local/bin` or any other `$PATH`-avaiable location.
 
-## 2. Using install script (Linux + other systems)
+## Option 2: Manual Download
 
-You may also find the precompiled binary in the [_releases_](https://github.com/luislve17/amauta/releases) page of the project.
+Download the precompiled binary from our [releases page](https://github.com/luislve17/amauta/releases) and add it to your PATH.
 
-___
-
-Once downloaded, it is recommended to put it in a binary folder that your `$PATH` environment variable is aware of. You should finally be able to do:
-
+Verify installation:
 ```zsh
 $ amauta -v
 Amauta: version alpha-0.5
 ```
 
-# Content
+# Why Amauta?
 
-## Protocol
+## Syntax Comparison
 
-**_Amauta_** defines a completely new way to declare the different pieces that exist in a documentation, covering syntax features that are expected from a regular documenation generator, but with simplicity and ease of use.
+Traditional documentation formats can be verbose and difficult to maintain. Here's how Amauta compares:
 
 <details>
-  <summary>🔴 What <strike>OpenAPI</strike> other protocols expect you to declare</summary>
+  <summary>📋 Traditional YAML approach</summary>
 
   ```yaml
 openapi: 3.1.0
@@ -141,10 +139,10 @@ components:
 </details>
 
 <details>
-  <summary>🟢 What Amauta wants you to write</summary>
+  <summary>✨ Amauta's approach</summary>
 
   ```
-  [[Users@api#public,internal]]
+[[Users@api#public,internal]]
 group: api
 summary: Endpoints related to user operations
 
@@ -152,13 +150,13 @@ summary: Endpoints related to user operations
 summary: Create a new user  
 contentType: application/json  
 
-header@object: This is the root @object description  
-header.Authorization@str#internal: Bearer token. This is only the field's description
+header@object: Authentication and request headers
+header.Authorization@str#internal: Bearer token
 
-body@object: This is the @object root description  
-body.profile@user_profile: Main user information. This field references a non-native type "@user_profile", to be searched within the linting scope.  
-body.metadata@object: Tracking info. Below, it defines each of their fields
-body.metadata.source?str#internal: Origin of signup.
+body@object: Request payload
+body.profile@user_profile: Main user information
+body.metadata@object: Tracking info
+body.metadata.source?str#internal: Origin of signup
 body.metadata.labels?str[]#internal: Internal labels  
 body.metadata.status@enum[active,inactive,archived]|null#deprecated: User status
 
@@ -167,7 +165,7 @@ example: <ref@example:create_user>
 [ref@schema:user_profile]
 name@str: User's name  
 email@str: User's email  
-timezone@custom:datetime: User's timezone. Defines a custom type, linted normally as wildcard to give the writer flexibility.
+timezone@custom:datetime: User's timezone
 
 [ref@example:create_user]
 profile.name: Jane Doe  
@@ -175,97 +173,98 @@ profile.email: jane@example.com
 profile.gender: female  
 metadata.source: newsletter  
 metadata.tags: [beta, test]
-
   ```
 </details>
 
-Focusing on simplicity and readability, **_Amauta_** avoids a nested/indented syntax. Some repetition to access inner fields might be encountered, while encouraging separate modular definitions on more complex entities.
-You may find the fully detailed protocol on our [our documentation](https://luislve17.github.io/amauta/doc) (👷‍♂️⚠️Under development).
+Amauta's syntax focuses on readability and maintainability, reducing nesting while keeping all the power you need for comprehensive documentation.
 
-## Linter/Renderer
-Documenting expects to export a final page that is both professional and easy to navigate. Being honest, there are plenty platforms that do this quiet well, [after](https://www.dreamfactory.com/) you [click](https://redocly.com/) the "[talk to sales team](https://scalar.com/)" button [of course](https://stoplight.io/).
+## Beautiful Output
 
-From a FOSS point of view, most alternatives to render a doc manifest into a page lack a lean, professional interface. And yes, the user could invest time and effort modifying the style to get an specific theme around the baseline that these tools offer, but with **_Amauta_** it is expected to get a responsive page with a simplified but elegant look.
+Generate professional documentation that looks great without additional styling:
 
 <details>
-<summary>😕 What other free alternatives offer out of the box</summary>
-
-<img width="1882" height="1092" alt="image" src="https://github.com/user-attachments/assets/c620e9af-1521-4b42-95c1-284395b264d6" />
-<img width="1851" height="980" alt="image" src="https://github.com/user-attachments/assets/bb3036c2-4afc-4e9b-b5d4-b27ba1f9f320" />
-<img width="1851" height="980" alt="image" src="https://github.com/user-attachments/assets/95c7012f-ebe4-4b0f-a4e1-b85f526126c8" />
-  
-</details>
-
-
-<details>
-<summary>:moyai: What Amauta offers (alpha-0.5 version) </summary>
+<summary>🎨 Default Theme</summary>
   
 `amauta --render -i ./dist/manifest.amauta -theme default`
 
-<img width="1689" height="1068" alt="image" src="https://github.com/user-attachments/assets/af95e9a0-2615-409c-a7f3-bd3ec3217929" />
-<img width="649" height="1043" alt="image" src="https://github.com/user-attachments/assets/49e6bbbb-9152-4c54-b751-9e96f8189051" />
+<img width="1689" height="1068" alt="Default theme desktop view" src="https://github.com/user-attachments/assets/af95e9a0-2615-409c-a7f3-bd3ec3217929" />
+<img width="649" height="1043" alt="Default theme mobile view" src="https://github.com/user-attachments/assets/49e6bbbb-9152-4c54-b751-9e96f8189051" />
 
+</details>
+
+<details>
+<summary>🌙 Dark Theme</summary>
 
 `amauta --render -i ./dist/manifest.amauta -theme dark`
 
-<img width="1689" height="1068" alt="image" src="https://github.com/user-attachments/assets/d842c3cb-1844-4e02-a98e-3eb0e296c5b2" />
-<img width="649" height="1043" alt="image" src="https://github.com/user-attachments/assets/f55fddb9-a675-45e1-9bed-9a8a7671f95e" />
+<img width="1689" height="1068" alt="Dark theme desktop view" src="https://github.com/user-attachments/assets/d842c3cb-1844-4e02-a98e-3eb0e296c5b2" />
+<img width="649" height="1043" alt="Dark theme mobile view" src="https://github.com/user-attachments/assets/f55fddb9-a675-45e1-9bed-9a8a7671f95e" />
   
 </details>
 
-Base themes support, responsive and elegant, out of the box, from a single cli run, into a single fully-embedded HTML file (with minor dependencies for fonts, for example) for you to self-host, toy around, customize with themes and include in your own pipeline. No free-trial, no credit-card reader, no "talk with sales" call to action, no hosting fee's.
+And more themes to come soon!
 
-## CLI
+# Usage
 
-As mentioned, we expect you to just write the docs, and get your page back. A single, all-in-it `.html` for you to use as you wish. Some minor dependencies are expected for loading icons, fonts and code highlight. (👷‍♂️⚠️Under development)
+The CLI is designed to be simple and straightforward:
 
-```
-$ amauta -v
-Amauta: version alpha-0.5
-
-$amauta -h
+```bash
+$ amauta -h
 Usage of Amauta CLI (alpha-0.5):
--h	Show this help
--v	Build version
--i	Input path
--o	Output HTML file path (defaults to './dist/doc.html')
--lint	Lint doc manifest
--render	Render HTML from doc manifest
--theme	Name of the selected theme (available: 'default', 'dark')
+-h      Show this help
+-v      Build version
+-i      Input path
+-o      Output HTML file path (defaults to './dist/doc.html')
+-lint   Lint doc manifest
+-render Render HTML from doc manifest
+-theme  Name of the selected theme (available: 'default', 'dark')
 ```
 
-~Enjoy! 🎶
+Generate your documentation:
+```bash
+amauta --render -i ./docs/api.amauta -theme default -o ./dist/documentation.html
+```
 
-# FAQ
+That's it! You now have a beautiful, self-contained HTML file ready to host anywhere.
 
-> 0. Why did you create this?
-1. I dislike long yaml files
-3. I dislike deep indentation
-4. I dislike clunky websites that look from the earlier 2000's, [with some exceptions of course](https://www.spacejam.com/1996/jam.htm)
-5. I haven't being hired yet
+# Documentation
 
-> 1. Who asks this questions? You don't have any real users yet...
+For the complete protocol specification and advanced features, visit our [documentation](https://luislve17.github.io/amauta/doc) (currently under development).
 
-The voices in my head.
+# Contributing
 
-> 2. Is this going to be free forever?
+Amauta is in active development. Here's how you can help:
 
-I expect this to be maintained only by myself, on my own time, while I try to figure out life in general. While I enjoy it, yes, it will be free.
+- ⭐ **Star the repository** to show your support
+- 🐛 **Report bugs** by creating an issue
+- 💡 **Request features** using our issue templates  
+- 📢 **Share with colleagues** who might find it useful
 
-> 3. How often do you plan to make releases?
+## Support Development
 
-Please refer to (2)
-
-> 4. Is there a way I can contribute
-
-You may create issues requesting features or reporting bugs, but since the development is in a really early stage for now, those are probably going to be addressed anyway and the issues section will get (optimistically speaking) floaded. PRs are also just for me for the moment.
-Ideally and for now: using the tool, starring the project, leaving your toughts in an issue using the "Input" template and sharing the repo with friends and collegues is enough.
-Thank you! 🙂
-
-> 5. I want to give you my moneh tho
-
-Here you go:
+If you find Amauta useful, consider supporting its development:
 
 <a href='https://ko-fi.com/Q5Q0P976H' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
-And thank you. Specially now, support is much appreaciated at home.
+Your support helps maintain and improve Amauta!
+
+# FAQ
+
+**Q: What makes Amauta different from other documentation tools?**  
+A: Amauta prioritizes human readability in both the source format and the generated output. You write in a clean, minimal syntax and get beautiful documentation without any additional configuration.
+
+**Q: Is Amauta free?**  
+A: Yes! Amauta is and will remain free and open source.
+
+**Q: How stable is the alpha version?**  
+A: While Amauta is in alpha, it's functional for creating documentation. The core features work well, though some advanced features are still being developed.
+
+**Q: Can I customize the themes?**  
+A: Theme customization is planned for future releases. Currently, we provide default and dark themes that work well out of the box.
+
+**Q: How can I contribute?**  
+A: The best way to contribute right now is by using Amauta, reporting any issues you find, and sharing feedback about your experience.
+
+---
+
+Made with ❤️ by a developer who believes documentation should be simple and beautiful.

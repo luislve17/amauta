@@ -6,7 +6,7 @@
   Beautiful docs made simple
 </h1>
 
-![Static Badge](https://img.shields.io/badge/version-alpha--0.5-2b7573)
+![Static Badge](https://img.shields.io/badge/version-alpha--0.6-2b7573)
 ![Static Badge](https://img.shields.io/badge/engine-go-00ADD8?logo=go)
 ![Static Badge](https://img.shields.io/badge/ui-html-F06529?logo=html5)
 
@@ -45,7 +45,7 @@ Download the precompiled binary from our [releases page](https://github.com/luis
 Verify installation:
 ```zsh
 $ amauta -v
-Amauta: version alpha-0.5
+Amauta: version alpha-0.6
 ```
 
 # Why Amauta?
@@ -210,7 +210,7 @@ The CLI is designed to be simple and straightforward:
 
 ```bash
 $ amauta -h
-Usage of Amauta CLI (alpha-0.5):
+Usage of Amauta CLI (alpha-0.6):
 -h      Show this help
 -v      Build version
 -i      Input path

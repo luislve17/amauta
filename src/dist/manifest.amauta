@@ -38,9 +38,17 @@ timeline
             : 📅 Aug 03, 2025
 			: Scrollable tables
 			: Add mermaid support
+        alpha-0.6
+            : 📅 Aug 05, 2025
+			: Add fall animation on selected section
+			: Support url routing per section
 ```
 
-## 2025-08-02 (`alpha-0.5`)
+## 2025-08-05 (`alpha-0.6`)
+* Add fall animation on selected section
+* Support section url routing (now shareable links per section)
+
+## 2025-08-03 (`alpha-0.5`)
 * Add table wrapper to scroll on smaller viewports
 * Listen to `ESC` key to close nav drawer (on smaller viewports)
 * Add animation for selected content transition
@@ -75,7 +83,7 @@ summary: <md>
   Docs for people
 </h1>
 
-![Static Badge](https://img.shields.io/badge/version-alpha0.5-2b7573)
+![Static Badge](https://img.shields.io/badge/version-alpha--0.6-2b7573)
 ![Static Badge](https://img.shields.io/badge/engine-go-00ADD8?logo=go)
 ![Static Badge](https://img.shields.io/badge/ui-html-F06529?logo=html5)
 
@@ -109,7 +117,7 @@ Once downloaded, it is recommended to put it in a binary folder that your `$PATH
 
 ```zsh
 $ amauta -v
-Amauta: version alpha-0.5
+Amauta: version alpha-0.6
 ```
 
 # CLI Usage
@@ -140,7 +148,7 @@ More available options will be explored later when reviewing the CLI, but in gen
 
 ```zsh
 $ amauta --h                               
-Usage of Amauta CLI (alpha-0.5):
+Usage of Amauta CLI (alpha-0.6):
 -h	Show this help
 -v	Build version
 -i	Input path

@@ -535,9 +535,20 @@ tbody td:hover {
 
 <script>
   
-hljs.highlightAll();
 
 document.addEventListener("DOMContentLoaded", () => {
+  
+  hljs.highlightAll();
+
+  
+  mermaid.initialize({
+    startOnLoad: false,
+    flowchart: {
+      htmlLabels: true,
+      useMaxWidth: true
+    }
+  });
+
   
   document.querySelectorAll('pre > code.language-mermaid').forEach((codeEl) => {
     const preEl = codeEl.parentElement;
@@ -606,14 +617,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-mermaid.initialize({
-  startOnLoad: false,
-  flowchart: {
-    htmlLabels: true,
-    useMaxWidth: true
-  }
-});
-
 function initVisibleMermaid() {
   document.querySelectorAll('.content-section.active .mermaid').forEach((el) => {
     
@@ -628,13 +631,18 @@ function showSection(id) {
   document.querySelectorAll('.content-section').forEach(el => {
     el.classList.remove('active');
     el.style.opacity = 0;
+    el.style.transform = 'translateY(-10px)';
   });
 
   const target = document.getElementById(id);
   if (target) {
     target.classList.add('active');
     void target.offsetWidth;
+
+    
+    target.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
     target.style.opacity = 1;
+    target.style.transform = 'translateY(0)';
 
     initVisibleMermaid();
     window.scrollTo({ top: 0, behavior: 'smooth' });

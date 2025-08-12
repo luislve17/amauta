@@ -37,15 +37,26 @@ func (str styledString) style(args ...string) string {
 }
 
 func resolveRefsInContent(rootPath string) string {
-	refLookupResult := findRefUsage(rootPath)
-	err := checkRefDeclarationUniqueness(refLookupResult["refDeclaration"])
-	if err != nil {
-		log.Fatalf("Unable to resolve ref declaration: %v", err)
+	refResolveErrorPrefix := "Unable to resolve ref declaration: %v"
+
+	refLookupResult, lookupErr := findRefUsage(rootPath)
+	if lookupErr != nil {
+		log.Fatalf(refResolveErrorPrefix, lookupErr)
+	}
+
+	refDeclarationUniquenessErr := checkRefDeclarationUniqueness(refLookupResult["refDeclaration"])
+	if refDeclarationUniquenessErr != nil {
+		log.Fatalf(refResolveErrorPrefix, refDeclarationUniquenessErr)
+	}
+
+	refUsageMissingDeclarationErr := checkMissingRefDeclarations(refLookupResult)
+	if refUsageMissingDeclarationErr != nil {
+		log.Fatalf(refResolveErrorPrefix, refUsageMissingDeclarationErr)
 	}
 	return ""
 }
 
-func findRefUsage(rootPath string) map[string][]regexLookupResult {
+func findRefUsage(rootPath string) (map[string][]regexLookupResult, error) {
 	results := map[string][]regexLookupResult{
 		"refImport":      {},
 		"refDeclaration": {},
@@ -88,10 +99,10 @@ func findRefUsage(rootPath string) map[string][]regexLookupResult {
 	})
 
 	if err != nil {
-		log.Fatalf("Traversal error: %v", err)
+		return nil, err
 	}
 
-	return results
+	return results, nil
 }
 
 func isAllowedExtension(filename string) bool {
@@ -150,5 +161,22 @@ func checkRefDeclarationUniqueness(refDeclarations []regexLookupResult) error {
 		seen[ref.Result] = ref
 	}
 
+	return nil
+}
+
+func checkMissingRefDeclarations(refLookupResults map[string][]regexLookupResult) error {
+	for _, refImport := range refLookupResults["refImport"] {
+		refId := refImport.Result
+		refFound := false
+		for _, refDeclaration := range refLookupResults["refDecalaration"] {
+			if refDeclaration.Result == refId {
+				refFound = true
+				break
+			}
+		}
+		if !refFound {
+			return fmt.Errorf("Missing ref declaration for '%s' usage at %s:%d", refId, refImport.FilePath, refImport.LineNumber)
+		}
+	}
 	return nil
 }

@@ -6,7 +6,6 @@ import (
 	"path/filepath"
 	"testing"
 
-	// "github.com/luislve17/amauta/linter"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -40,7 +39,8 @@ func TestFindsRefUsageWithinRootFolderPath(t *testing.T) {
 	assert.NoError(os.WriteFile(nestedFilePath, []byte(nestedFileContent), 0644))
 
 	// Run the method starting from root temp dir
-	results := findRefUsage(tempDir)
+	results, findErr := findRefUsage(tempDir)
+	assert.NoError(findErr)
 
 	// Assertions
 	assert.Len(results["refImport"], 2)
@@ -92,7 +92,29 @@ func TestFindsDuplicatesInRefDeclarations(t *testing.T) {
 	nestedFilePath := filepath.Join(subDir, "nested.amauta")
 	assert.NoError(os.WriteFile(nestedFilePath, []byte(nestedFileContent), 0644))
 
-	results := findRefUsage(tempDir)
+	results, findErr := findRefUsage(tempDir)
+	assert.NoError(findErr)
 	checkUniqueErr := checkRefDeclarationUniqueness(results["refDeclaration"])
 	assert.EqualError(checkUniqueErr, fmt.Sprintf("duplicate 'my-tags' ref found: first at %s:%d, again at %s:%d", nestedFilePath, 1, otherPath2, 2))
+}
+
+func TestFindsUndeclaredRefUsage(t *testing.T) {
+	assert := assert.New(t)
+
+	tempDir, err := os.MkdirTemp("", "amauta-test-*")
+	assert.NoError(err)
+	defer os.RemoveAll(tempDir) // cleans up everything inside
+
+	// Files in root dir
+	rootPath := filepath.Join(tempDir, "root.amauta")
+	assert.NoError(os.WriteFile(rootPath, []byte(rootFileContent), 0644))
+
+	otherPath := filepath.Join(tempDir, "sub.amauta")
+	assert.NoError(os.WriteFile(otherPath, []byte(nonRootFileContent), 0644))
+
+	results, findErr := findRefUsage(tempDir)
+	assert.NoError(findErr)
+
+	refUsageMissingDeclarationErr := checkMissingRefDeclarations(results)
+	assert.EqualError(refUsageMissingDeclarationErr, fmt.Sprintf("Missing ref declaration for 'my-tags' usage at %s:5", rootPath))
 }

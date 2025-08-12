@@ -8,3 +8,9 @@ type cliOptions struct {
 	render     *bool
 	theme      *string
 }
+
+type regexLookupResult struct {
+	Result     string
+	LineNumber int
+	FilePath   string
+}

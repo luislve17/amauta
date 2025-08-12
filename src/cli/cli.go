@@ -15,6 +15,7 @@ func RunCLI() {
 	verifyCliUsage(cli)
 
 	docManifestContent := loadManifestFromFile(*cli.inputPath)
+	_ = resolveRefsInContent(*cli.inputPath)
 	data, err := linter.LintFromRoot(docManifestContent, true)
 	if err != nil {
 		log.Fatalf("Linting failed: %v", err)

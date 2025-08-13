@@ -1,5 +1,7 @@
 package cli
 
+import "github.com/luislve17/amauta/linter"
+
 type cliOptions struct {
 	version    *bool
 	inputPath  *string
@@ -10,7 +12,7 @@ type cliOptions struct {
 }
 
 type regexLookupResult struct {
-	Result     string
-	LineNumber int
-	FilePath   string
+	Result    string
+	FilePath  string
+	LineRange linter.LineRange
 }

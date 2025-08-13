@@ -36,7 +36,7 @@ func LintFromRoot(content ManifestContent, createStructure bool) (LintResult, er
 }
 
 func generateGraph(manifestContent ManifestContent) (*StructureGraph, error) {
-	rawBlocks := extractRawBlocks(manifestContent)
+	rawBlocks := ExtractRawBlocks(manifestContent)
 
 	root, rootErr := initRoot(rawBlocks)
 	if rootErr != nil {
@@ -162,7 +162,7 @@ func renderMarkdown(content string) template.HTML {
 	return template.HTML(buf.String())
 }
 
-func extractRawBlocks(content ManifestContent) []RawBlock {
+func ExtractRawBlocks(content ManifestContent) []RawBlock {
 	lines := strings.Split(string(content), "\n")
 	var blocks []RawBlock
 	var current []string

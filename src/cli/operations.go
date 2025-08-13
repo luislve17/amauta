@@ -117,33 +117,34 @@ func isAllowedExtension(filename string) bool {
 
 func FindRefsWithRegexes(input string, results map[string][]regexLookupResult, reImport, reDeclaration *regexp.Regexp, filePath string) {
 	lines := strings.Split(input, "\n")
-	for i, line := range lines {
-		lineNumber := i + 1
 
-		// ref imports
+	for i, line := range lines {
 		if matches := reImport.FindAllStringSubmatch(line, -1); matches != nil {
 			for _, match := range matches {
 				if len(match) > 1 {
 					results["refImport"] = append(results["refImport"], regexLookupResult{
-						Result:     match[1],
-						LineNumber: lineNumber,
-						FilePath:   filePath,
+						Result:    match[1],
+						FilePath:  filePath,
+						LineRange: linter.LineRange{From: i + 1, To: i + 1},
 					})
 				}
 			}
 		}
+	}
 
-		// ref declarations
-		if matches := reDeclaration.FindAllStringSubmatch(line, -1); matches != nil {
-			for _, match := range matches {
-				if len(match) > 1 {
-					results["refDeclaration"] = append(results["refDeclaration"], regexLookupResult{
-						Result:     match[1],
-						LineNumber: lineNumber,
-						FilePath:   filePath,
-					})
-				}
-			}
+	blocks := linter.ExtractRawBlocks(linter.ManifestContent(input))
+	for _, block := range blocks {
+		lines := strings.Split(block.Content, "\n")
+		if len(lines) == 0 {
+			continue
+		}
+
+		if matches := reDeclaration.FindStringSubmatch(strings.TrimSpace(lines[0])); matches != nil && len(matches) > 1 {
+			results["refDeclaration"] = append(results["refDeclaration"], regexLookupResult{
+				Result:    matches[1],
+				FilePath:  filePath,
+				LineRange: block.LineRange,
+			})
 		}
 	}
 }
@@ -155,7 +156,7 @@ func checkRefDeclarationUniqueness(refDeclarations []regexLookupResult) error {
 		if first, exists := seen[ref.Result]; exists {
 			return fmt.Errorf(
 				"duplicate '%s' ref found: first at %s:%d, again at %s:%d",
-				ref.Result, first.FilePath, first.LineNumber, ref.FilePath, ref.LineNumber,
+				ref.Result, first.FilePath, first.LineRange.From, ref.FilePath, ref.LineRange.From,
 			)
 		}
 		seen[ref.Result] = ref
@@ -175,7 +176,7 @@ func checkMissingRefDeclarations(refLookupResults map[string][]regexLookupResult
 			}
 		}
 		if !refFound {
-			return fmt.Errorf("Missing ref declaration for '%s' usage at %s:%d", refId, refImport.FilePath, refImport.LineNumber)
+			return fmt.Errorf("Missing ref declaration for '%s' usage at %s:%d", refId, refImport.FilePath, refImport.LineRange.From)
 		}
 	}
 	return nil

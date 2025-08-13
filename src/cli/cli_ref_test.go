@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/luislve17/amauta/linter"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -47,25 +48,25 @@ func TestFindsRefUsageWithinRootFolderPath(t *testing.T) {
 	assert.Len(results["refDeclaration"], 2)
 
 	assert.Equal(regexLookupResult{
-		Result:     "my-tags",
-		LineNumber: 5,
-		FilePath:   rootPath,
+		Result:    "my-tags",
+		LineRange: linter.LineRange{From: 5, To: 5},
+		FilePath:  rootPath,
 	}, results["refImport"][0])
 	assert.Equal(regexLookupResult{
-		Result:     "my-groups",
-		LineNumber: 8,
-		FilePath:   rootPath,
+		Result:    "my-groups",
+		LineRange: linter.LineRange{From: 8, To: 8},
+		FilePath:  rootPath,
 	}, results["refImport"][1])
 
 	assert.Equal(regexLookupResult{
-		Result:     "my-tags",
-		LineNumber: 1,
-		FilePath:   nestedFilePath,
+		Result:    "my-tags",
+		LineRange: linter.LineRange{From: 1, To: 3},
+		FilePath:  nestedFilePath,
 	}, results["refDeclaration"][0])
 	assert.Equal(regexLookupResult{
-		Result:     "my-groups",
-		LineNumber: 2,
-		FilePath:   subPath,
+		Result:    "my-groups",
+		LineRange: linter.LineRange{From: 2, To: 4},
+		FilePath:  subPath,
 	}, results["refDeclaration"][1])
 }
 

@@ -1,0 +1,66 @@
+[[quickstart@ref]]
+group: getting-started
+summary: <md>
+# Installation
+
+## 1. Using install script (Linux)
+
+Just run:
+
+```bash
+wget -qO - https://raw.githubusercontent.com/luislve17/amauta/release/install.sh | bash
+```
+
+You will get prompted to move the download binary to `/usr/local/bin`.
+
+## 2. Using install script (Linux + other systems)
+
+You may also find the precompiled binary in the [_releases_](https://github.com/luislve17/amauta/releases) page of the project.
+
+___
+
+Once downloaded, it is recommended to put it in a binary folder that your `$PATH` environment variable is aware of. You should finally be able to do:
+
+```zsh
+$ amauta -v
+Amauta: version alpha-0.6
+```
+
+# CLI Usage
+**Amauta** generates documentation from a manifest file. Skipping the trivial (but valid for the linter & renderer) example of an empty file, a minimal documentation would look something like this:
+
+```
+# ./dist/manifest.amauta
+[[@groups]]
+intro: Introduction
+
+[[Hello doc@content]]
+group: intro
+summary: Hello from Amauta!
+```
+
+Which defines:
+1. A group named `intro`
+2. A `content`-type section, linked to the `intro` group, and with its corresponding `summary`
+
+Executing the command:
+```zsh
+amauta --render -i ./dist/manifest.amauta
+```
+
+**Amauta** will generate the given doc as an `.html` file in the default relative path `./dist/doc.html`.
+
+More available options will be explored later when reviewing the CLI, but in general terms and depending on the version, one would have the following from the CLI interface:
+
+```zsh
+$ amauta --h                               
+Usage of Amauta CLI (alpha-0.6):
+-h	Show this help
+-v	Build version
+-i	Input path
+-o	Output HTML file path (defaults to './dist/doc.html')
+-lint	Lint doc manifest
+-render	Render HTML from doc manifest
+-theme	Name of the selected theme (available: 'default', 'dark')
+```
+</md>

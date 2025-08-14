@@ -1,0 +1,24 @@
+[[groups@ref]]
+group: key-section
+summary: <md>
+# `Groups`
+```toml
+[[@groups]]
+<id>: <description>
+```
+
+Specifies group definitions for organizing sections.
+
+| field       | description                                         |
+|-------------|-----------------------------------------------------|
+| id          | Group id to reference in other sections            |
+| description | Title to render per group, located on the nav menu |
+
+### Example
+```toml
+[[@groups]]
+dev: Development
+getting-started: Getting started
+key-section: Key sections
+```
+</md>

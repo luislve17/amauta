@@ -21,3 +21,9 @@ var hidden = "\033[8m"
 var buildVersion string = "alpha-0.6"
 
 type styledString string
+
+var allowedExtensions = []string{"amauta", "txt", "md"}
+var rawRefImportRegex string = `ref\$([\w|,|-]+)`
+var rawRefDeclarationRegex string = `^\[\[([\w|,|-]+)@ref\]\]`
+var MAX_REF_LOOKUP_RECURSIVE_DEPTH = 100
+var MAX_REF_REPLACEMENT_ITERATIONS = 100

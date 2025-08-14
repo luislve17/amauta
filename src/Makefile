@@ -2,7 +2,7 @@ build:
 	go build -o amauta
 
 run:
-	go run main.go --lint --render -i ./dist/manifest.amauta -theme $(theme)
+	go run main.go --lint --render -i ./dist/docs/main.amauta -o dist/doc.html -theme $(theme)
 
 run-debug:
 	go run main.go --lint --render -i ./dist/debug.amauta

@@ -1,0 +1,29 @@
+[[tags@ref]]
+group: key-section
+summary: <md>
+# `Tags`
+```toml
+[[@tags]]
+<id>#<color>:<description>
+```
+
+Specifies available tags to use.
+As of the current build version, there is no particular use yet (under development).
+
+| field       | description                                             |
+|-------------|---------------------------------------------------------|
+| id          | Tag's name/id to reference from other resources         |
+| color       | Hex-based color, for color labeling (under development) |
+| description | Tag's description                                       |
+
+### Example
+```toml
+[[@tags]]
+public#00FF00: Public API
+internal#AAAAAA: Internal use only
+deprecated#FF6F61: Will be removed soon
+under-dev#FFD966: Still under development
+beta#87CEEB: Beta feature
+admin#FF1493: Admin only
+```
+</md>

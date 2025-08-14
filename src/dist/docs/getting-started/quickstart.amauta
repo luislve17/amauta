@@ -23,7 +23,7 @@ Once downloaded, it is recommended to put it in a binary folder that your `$PATH
 
 ```zsh
 $ amauta -v
-Amauta: version alpha-0.6
+Amauta: version alpha-1.0
 ```
 
 # CLI Usage
@@ -54,7 +54,7 @@ More available options will be explored later when reviewing the CLI, but in gen
 
 ```zsh
 $ amauta --h                               
-Usage of Amauta CLI (alpha-0.6):
+Usage of Amauta CLI (alpha-1.0):
 -h	Show this help
 -v	Build version
 -i	Input path

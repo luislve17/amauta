@@ -39,7 +39,7 @@ h2 {
 
 p {
   line-height: 1.3;
-  font-size: 0.9rem;
+  font-size: 1.0rem;
   margin-bottom: 1rem;
 }
 
@@ -188,6 +188,7 @@ td {
   box-shadow: none !important;
   border-spacing: 0 !important;
   border-collapse: collapse !important;
+  font-size: 1.0rem;
 }
 
 table {

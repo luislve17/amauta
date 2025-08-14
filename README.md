@@ -45,7 +45,7 @@ Download the precompiled binary from our [releases page](https://github.com/luis
 Verify installation:
 ```zsh
 $ amauta -v
-Amauta: version alpha-0.6
+Amauta: version alpha-1.0
 ```
 
 # Why Amauta?
@@ -210,7 +210,7 @@ The CLI is designed to be simple and straightforward:
 
 ```bash
 $ amauta -h
-Usage of Amauta CLI (alpha-0.6):
+Usage of Amauta CLI (alpha-1.0):
 -h      Show this help
 -v      Build version
 -i      Input path

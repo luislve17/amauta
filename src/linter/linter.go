@@ -179,12 +179,10 @@ func ExtractRawBlocks(content ManifestContent) []RawBlock {
 			inCodeBlock = !inCodeBlock
 		}
 
-		// Check for summary: <md>
 		if !inMD && !inCodeBlock && strings.HasPrefix(trimmed, "summary:") && strings.Contains(trimmed, "<md>") {
 			inMD = true
 		}
 
-		// Close </md>, only outside code block
 		if inMD && !inCodeBlock && strings.TrimSpace(trimmed) == "</md>" {
 			inMD = false
 		}
@@ -204,8 +202,7 @@ func ExtractRawBlocks(content ManifestContent) []RawBlock {
 			}
 		}
 
-		// Start a new block at [[...]], outside markdown
-		if strings.HasPrefix(trimmed, "[[") && !inMD {
+		if strings.HasPrefix(trimmed, "[[") && !inMD && !inCodeBlock {
 			if inBlock && len(current) > 0 {
 				blocks = append(blocks, RawBlock{
 					Content: strings.Join(current, "\n"),

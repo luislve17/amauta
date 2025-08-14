@@ -1,0 +1,44 @@
+[[Ref@ref]]
+group: custom-section
+summary: <md>
+# `Ref`
+
+```toml
+[[<name>@ref]]
+...
+
+ref$<name>
+```
+
+Declares a raw section that can be referenced throughout the entire documentation project.  
+Similar to a _C-like_ macro replacement, a `ref` is evaluated during the pre-linting phase, raising errors for any missing declarations, duplicates, or incorrect usage. After replacement, the linter phase checks whether the substituted text is valid.
+
+| field | required | description |
+|-------|----------|-------------|
+| name  | yes      | The reference name, used to reference this section in other places. |
+
+✏️ You do **not** need to specify a search path for finding each `ref`. The only requirement is that when running _**Amauta**_ (e.g., `amauta --render -i ./dist/docs/main.amauta -o dist/doc.html -theme default`), the `-i` path must include all the Amauta files you want considered. Amauta will automatically scan all files within this “root” path, filtering only the supported extensions (`.amauta`, `.txt`, `.md`).
+
+_**Amauta**_ will ignore any file that does not meet these conditions (correct location **and** supported extension). If you find otherwise, please report a bug on the [official GitHub issues page](https://github.com/luislve17/amauta/issues).
+
+You can also review how Amauta’s official documentation uses this feature by visiting the [docs folder structure on GitHub](https://github.com/luislve17/amauta/tree/main/src/dist/docs).
+
+### Example
+```toml
+-- ./main.amauta
+[[@tags]]
+ref$my-tags
+
+-- ./inner_folder/about.amauta
+[[my-tags@ref]]
+public#ffff00: Public asset.
+private#ff00ff: Private asset.
+deprecated#00ffff: Resource no longer in use.
+
+-- Internally, during pre-linting, this evaluates to:
+[[@tags]]
+public#ffff00: Public asset.
+private#ff00ff: Private asset.
+deprecated#00ffff: Resource no longer in use.
+```
+</md>

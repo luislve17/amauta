@@ -118,8 +118,36 @@ func isAllowedExtension(filename string) bool {
 
 func FindRefsWithRegexes(input string, results map[string][]regexLookupResult, reImport, reDeclaration *regexp.Regexp, filePath string) {
 	lines := strings.Split(input, "\n")
+	inMD := false
+	inCodeBlock := false
 
 	for i, line := range lines {
+		trimmed := strings.TrimSpace(line)
+
+		// Toggle code block state
+		if strings.HasPrefix(trimmed, "```") || strings.HasPrefix(trimmed, "~~~") {
+			inCodeBlock = !inCodeBlock
+			continue
+		}
+
+		// Detect entering <md>
+		if !inMD && !inCodeBlock && strings.HasPrefix(trimmed, "summary:") && strings.Contains(trimmed, "<md>") {
+			inMD = true
+			continue
+		}
+
+		// Detect leaving </md>
+		if inMD && !inCodeBlock && trimmed == "</md>" {
+			inMD = false
+			continue
+		}
+
+		// Skip scanning inside <md> or code blocks
+		if inMD || inCodeBlock {
+			continue
+		}
+
+		// Scan for imports
 		if matches := reImport.FindAllStringSubmatch(line, -1); matches != nil {
 			for _, match := range matches {
 				if len(match) > 1 {

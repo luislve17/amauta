@@ -18,7 +18,7 @@ var blink = "\033[5m"
 var reverse = "\033[7m"
 var hidden = "\033[8m"
 
-var buildVersion string = "alpha-0.6"
+var buildVersion string = "alpha-1.0"
 
 type styledString string
 

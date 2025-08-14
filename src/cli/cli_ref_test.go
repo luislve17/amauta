@@ -60,12 +60,12 @@ func TestFindsRefUsageWithinRootFolderPath(t *testing.T) {
 
 	assert.Equal(regexLookupResult{
 		Result:    "my-tags",
-		LineRange: linter.LineRange{From: 1, To: 3},
+		LineRange: linter.LineRange{From: 2, To: 2},
 		FilePath:  nestedFilePath,
 	}, results["refDeclaration"][0])
 	assert.Equal(regexLookupResult{
 		Result:    "my-groups",
-		LineRange: linter.LineRange{From: 2, To: 4},
+		LineRange: linter.LineRange{From: 3, To: 3},
 		FilePath:  subPath,
 	}, results["refDeclaration"][1])
 }

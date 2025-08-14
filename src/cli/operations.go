@@ -158,7 +158,7 @@ func checkRefDeclarationUniqueness(refDeclarations []regexLookupResult) error {
 		if first, exists := seen[ref.Result]; exists {
 			return fmt.Errorf(
 				"duplicate '%s' ref found: first at %s:%d, again at %s:%d",
-				ref.Result, first.FilePath, first.LineRange.From, ref.FilePath, ref.LineRange.From,
+				ref.Result, first.FilePath, first.LineRange.From-1, ref.FilePath, ref.LineRange.From-1,
 			)
 		}
 		seen[ref.Result] = ref

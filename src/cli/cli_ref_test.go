@@ -10,12 +10,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// Test uniqueness on refs ids
-// Lint from root file
-// If file doesnt have a explicit root, alert
-// Alert contains assumed root path
-// Root file
-
 func TestFindsRefUsageWithinRootFolderPath(t *testing.T) {
 	assert := assert.New(t)
 

@@ -113,7 +113,7 @@ function initVisibleMermaid() {
 function showSection(id) {
   const encodedId = encodeURIComponent(id);
   if (window.location.hash !== `#${encodedId}`) {
-    // window.location.hash = encodedId; // Comment while dev
+    window.location.hash = encodedId; // Comment while dev
   }
 
   // Hide all sections

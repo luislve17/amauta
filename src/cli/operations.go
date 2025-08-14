@@ -36,10 +36,11 @@ func (str styledString) style(args ...string) string {
 	return fmt.Sprintf("%s%s%s", prefix, str, reset)
 }
 
-func resolveRefsInContent(rootPath string) string {
+func resolveRefsInContent(rootPath string) linter.ManifestContent {
+	rootDir := filepath.Dir(rootPath)
 	refResolveErrorPrefix := "Unable to resolve ref declaration: %v"
 
-	refLookupResult, lookupErr := findRefUsage(rootPath)
+	refLookupResult, fileContents, lookupErr := findRefUsage(rootDir)
 	if lookupErr != nil {
 		log.Fatalf(refResolveErrorPrefix, lookupErr)
 	}
@@ -53,14 +54,22 @@ func resolveRefsInContent(rootPath string) string {
 	if refUsageMissingDeclarationErr != nil {
 		log.Fatalf(refResolveErrorPrefix, refUsageMissingDeclarationErr)
 	}
-	return ""
+
+	loadedRefFiles, loadingRefErr := replaceRefsInFileContents(refLookupResult, fileContents)
+	if loadingRefErr != nil {
+		log.Fatalf(refResolveErrorPrefix, loadingRefErr)
+	}
+
+	resolvedManifestContent := unifyFileContents(loadedRefFiles)
+	return linter.ManifestContent(resolvedManifestContent)
 }
 
-func findRefUsage(rootPath string) (map[string][]regexLookupResult, error) {
-	results := map[string][]regexLookupResult{
+func findRefUsage(rootPath string) (map[string][]regexLookupResult, map[string]string, error) {
+	refResults := map[string][]regexLookupResult{
 		"refImport":      {},
 		"refDeclaration": {},
 	}
+	fileContents := make(map[string]string)
 
 	reImport := regexp.MustCompile(rawRefImportRegex)
 	reDeclaration := regexp.MustCompile(rawRefDeclarationRegex)
@@ -72,37 +81,29 @@ func findRefUsage(rootPath string) (map[string][]regexLookupResult, error) {
 			return err
 		}
 
-		// Limit recursion depth
 		currentDepth := strings.Count(filepath.Clean(path), string(os.PathSeparator)) - rootDepth
 		if currentDepth > MAX_REF_LOOKUP_RECURSIVE_DEPTH {
 			log.Fatalf("Max recursive depth (%d) reached at: %s", MAX_REF_LOOKUP_RECURSIVE_DEPTH, path)
 		}
-
-		// Skip directories
-		if d.IsDir() {
+		if d.IsDir() || !isAllowedExtension(d.Name()) {
 			return nil
 		}
 
-		// Skip files without allowed extension
-		if !isAllowedExtension(d.Name()) {
-			return nil
-		}
-
-		// Read and process file
 		data, err := os.ReadFile(path)
 		if err != nil {
 			return err
 		}
 
-		FindRefsWithRegexes(string(data), results, reImport, reDeclaration, path)
+		fileContents[path] = string(data)
+		FindRefsWithRegexes(string(data), refResults, reImport, reDeclaration, path)
 		return nil
 	})
 
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
-	return results, nil
+	return refResults, fileContents, nil
 }
 
 func isAllowedExtension(filename string) bool {
@@ -138,12 +139,13 @@ func FindRefsWithRegexes(input string, results map[string][]regexLookupResult, r
 		if len(lines) == 0 {
 			continue
 		}
+		declarationLineRange := linter.LineRange{From: block.From + 1, To: block.To - 1}
 
 		if matches := reDeclaration.FindStringSubmatch(strings.TrimSpace(lines[0])); matches != nil && len(matches) > 1 {
 			results["refDeclaration"] = append(results["refDeclaration"], regexLookupResult{
 				Result:    matches[1],
 				FilePath:  filePath,
-				LineRange: block.LineRange,
+				LineRange: declarationLineRange,
 			})
 		}
 	}
@@ -169,7 +171,7 @@ func checkMissingRefDeclarations(refLookupResults map[string][]regexLookupResult
 	for _, refImport := range refLookupResults["refImport"] {
 		refId := refImport.Result
 		refFound := false
-		for _, refDeclaration := range refLookupResults["refDecalaration"] {
+		for _, refDeclaration := range refLookupResults["refDeclaration"] {
 			if refDeclaration.Result == refId {
 				refFound = true
 				break
@@ -180,4 +182,54 @@ func checkMissingRefDeclarations(refLookupResults map[string][]regexLookupResult
 		}
 	}
 	return nil
+}
+
+func replaceRefsInFileContents(
+	refLookupResults map[string][]regexLookupResult,
+	fileContents map[string]string,
+) (map[string]string, error) {
+	reImport := regexp.MustCompile(rawRefImportRegex)
+
+	// Build declaration bodies map directly from refLookupResults + fileContents
+	declBodies := make(map[string]string)
+	for _, decl := range refLookupResults["refDeclaration"] {
+		lines := strings.Split(fileContents[decl.FilePath], "\n")
+		body := strings.Join(lines[decl.LineRange.From-1:decl.LineRange.To], "\n")
+		declBodies[decl.Result] = body
+	}
+
+	for pass := 0; pass < MAX_REF_REPLACEMENT_ITERATIONS; pass++ {
+		changed := false
+
+		for path, content := range fileContents {
+			newContent := reImport.ReplaceAllStringFunc(content, func(m string) string {
+				match := reImport.FindStringSubmatch(m)
+				if len(match) < 2 {
+					return m
+				}
+				id := match[1]
+				if body, ok := declBodies[id]; ok {
+					changed = true
+					return body
+				}
+				return m
+			})
+			fileContents[path] = newContent
+		}
+
+		if !changed {
+			return fileContents, nil
+		}
+	}
+
+	return nil, fmt.Errorf("too many iterations, possible cyclic refs")
+}
+
+func unifyFileContents(fileContents map[string]string) string {
+	var builder strings.Builder
+	for _, content := range fileContents {
+		builder.WriteString(content)
+		builder.WriteString("\n")
+	}
+	return builder.String()
 }

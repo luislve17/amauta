@@ -26,3 +26,4 @@ var allowedExtensions = []string{"amauta", "txt", "md"}
 var rawRefImportRegex string = `ref\$([\w|,|-]+)`
 var rawRefDeclarationRegex string = `^\[\[([\w|,|-]+)@ref\]\]`
 var MAX_REF_LOOKUP_RECURSIVE_DEPTH = 100
+var MAX_REF_REPLACEMENT_ITERATIONS = 100

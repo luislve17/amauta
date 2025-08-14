@@ -1,0 +1,62 @@
+[[changelog@ref]]
+group: dev
+summary: <md>
+
+# Changelog
+
+```mermaid
+%%{init: {'theme':'neutral'}}%%
+timeline
+    section Alpha Phase
+        alpha-0.1
+            : 📅 Jul 23, 2025
+            : Initial publication
+            : Basic documentation structure
+        alpha-0.2
+            : 📅 Jul 24, 2025
+            : rawBlocks generation
+            : First official docs deployed
+        alpha-0.3
+            : 📅 Jul 30, 2025
+            : Content type sections
+            : Markdown support
+        alpha-0.4
+            : 📅 Aug 02, 2025
+            : Improved markdown detector
+            : Installer script
+        alpha-0.5
+            : 📅 Aug 03, 2025
+			: Scrollable tables
+			: Add mermaid support
+        alpha-0.6
+            : 📅 Aug 05, 2025
+			: Add fall animation on selected section
+			: Support url routing per section
+```
+
+## 2025-08-05 (`alpha-0.6`)
+* Add fall animation on selected section
+* Support section url routing (now shareable links per section)
+
+## 2025-08-03 (`alpha-0.5`)
+* Add table wrapper to scroll on smaller viewports
+* Listen to `ESC` key to close nav drawer (on smaller viewports)
+* Add animation for selected content transition
+* Add mermaid support inside `md` summary context
+* Refactor JS usage, move to use jsdeliver
+
+## 2025-08-02 (`alpha-0.4`)
+* Improve markdown context detector due conflicts within code blocks
+* Create installer script (curl based)
+
+## 2025-07-30 (`alpha-0.3`)
+* Expose `Content` type section, supporting mardown
+* Update official documentation with available features
+
+## 2025-07-24 (`alpha-0.2`)
+* Reinforcement of `rawBlocks` generation
+* First version of official documentation deployed
+
+## 2025-07-23 (`alpha-0.1`)
+* Initial publication of **Amauta** documentation
+</md>

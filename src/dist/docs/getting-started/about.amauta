@@ -1,0 +1,20 @@
+[[about@ref]]
+group: getting-started
+summary: <md>
+
+<div align="center">
+  
+![logo](https://github.com/luislve17/amauta/raw/refs/heads/main/assets/amauta-banner.svg)
+
+<h1>
+  Docs for people
+</h1>
+
+![Static Badge](https://img.shields.io/badge/version-alpha--0.6-2b7573)
+![Static Badge](https://img.shields.io/badge/engine-go-00ADD8?logo=go)
+![Static Badge](https://img.shields.io/badge/ui-html-F06529?logo=html5)
+
+</div>
+
+**Amauta** focuses on fulfilling the need to create maintainable, readable and intuitive documentation. It defines a new protocol to declare documentation for RESTful APIs, marked-up content, SDKs and virtually anything that could be used in collaborative teams, open source tools or personal projects.
+</md>

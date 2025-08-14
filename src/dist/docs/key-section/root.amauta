@@ -1,0 +1,21 @@
+[[root@ref]]
+group: key-section
+summary: <md>
+# `Root`
+```toml
+[[@root]]
+LogoUrl: <url>
+```
+
+Specifies global setup or resources. (under development)
+
+| field | description                                       |
+|-------|---------------------------------------------------|
+| url   | URL to image resource to render in the doc header |
+
+### Example
+```toml
+[[@root]]
+LogoUrl: https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-banner.svg
+```
+</md>

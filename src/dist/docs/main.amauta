@@ -1,0 +1,33 @@
+[[@root]]
+LogoUrl: https://raw.githubusercontent.com/luislve17/amauta/refs/heads/main/assets/amauta-banner.svg
+GithubUrl: https://github.com/luislve17/amauta
+
+[[@groups]]
+dev: Development
+getting-started: Getting started
+key-section: Key sections
+custom-section: Custom sections
+
+[[Changelog@content]]
+ref$changelog
+
+[[About amauta@content]]
+ref$about
+
+[[Quickstart@content]]
+ref$quickstart
+
+[[Syntax@content]]
+ref$syntax
+
+[[Root@content]]
+ref$root
+
+[[Tags@content]]
+ref$tags
+
+[[Groups@content]]
+ref$groups
+
+[[Content@content]]
+ref$content

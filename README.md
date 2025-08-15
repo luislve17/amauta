@@ -14,7 +14,7 @@
 
 # Links
 
-1. Live doc: [link](https://luislve17.github.io/amauta/doc) (🚧 Under development)
+1. Live doc: [link](https://luislve17.github.io/amauta/doc#section-About%20amauta) (🚧 Under development)
 
 # Introduction
 

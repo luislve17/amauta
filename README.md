@@ -6,7 +6,7 @@
   Beautiful docs made simple
 </h1>
 
-![Static Badge](https://img.shields.io/badge/version-alpha--0.6-2b7573)
+![Static Badge](https://img.shields.io/badge/version-alpha--1.0-2b7573)
 ![Static Badge](https://img.shields.io/badge/engine-go-00ADD8?logo=go)
 ![Static Badge](https://img.shields.io/badge/ui-html-F06529?logo=html5)
 

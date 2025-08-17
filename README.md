@@ -229,7 +229,7 @@ That's it! You now have a beautiful, self-contained HTML file ready to host anyw
 
 # Documentation
 
-For the complete protocol specification and advanced features, visit our [documentation](https://luislve17.github.io/amauta/doc) (currently under development).
+For the complete protocol specification and advanced features, visit our [documentation](https://luislve17.github.io/amauta/doc#section-About%20amauta) (currently under development).
 
 # Contributing
 

@@ -60,7 +60,7 @@ func generateGraph(manifestContent ManifestContent) (*StructureGraph, error) {
 	}
 	linkNodeOneToMany(root, tags)
 
-	modules, modulesErr := getModules(rawBlocks)
+	modules, modulesErr := getAPIs(rawBlocks)
 	if modulesErr != nil {
 		return nil, modulesErr
 	}

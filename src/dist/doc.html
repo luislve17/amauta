@@ -644,7 +644,7 @@ function initVisibleMermaid() {
 function showSection(id) {
   const encodedId = encodeURIComponent(id);
   if (window.location.hash !== `#${encodedId}`) {
-    window.location.hash = encodedId; 
+    
   }
 
   
@@ -867,6 +867,30 @@ function setupPopstateListener() {
       
     
   
+
+    
+    <div class="row group-item">
+      <span>
+        Use cases
+      </span>
+    </div>
+    
+
+        
+
+      
+
+        
+    <div class="row menu-item" onclick="showSection('section-API')">
+      <span class="menu-item-content">
+        API
+      </span>
+    </div>
+    
+
+      
+    
+  
   </nav>
 </div>
 
@@ -1026,6 +1050,30 @@ function setupPopstateListener() {
     <div class="row menu-item" onclick="showSection('section-Ref')">
       <span class="menu-item-content">
         Ref
+      </span>
+    </div>
+    
+
+      
+    
+  
+
+    
+    <div class="row group-item">
+      <span>
+        Use cases
+      </span>
+    </div>
+    
+
+    
+
+      
+
+    
+    <div class="row menu-item" onclick="showSection('section-API')">
+      <span class="menu-item-content">
+        API
       </span>
     </div>
     
@@ -1514,6 +1562,19 @@ public#ffff00: Public asset.
 private#ff00ff: Private asset.
 deprecated#00ffff: Resource no longer in use.
 </code></pre>
+
+</div>
+
+      
+    
+  
+    
+      
+        
+      
+        
+<div class="content-section" id="section-API">
+  <p>Unauthorized</p>
 
 </div>
 

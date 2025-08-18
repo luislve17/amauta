@@ -6,11 +6,11 @@ import (
 	"testing"
 )
 
-func TestRunsLinterFindingModuleSection(t *testing.T) {
+func TestRunsLinterFindingAPISection(t *testing.T) {
 	assert := assert.New(t)
 
-	var manifestWithValidModule ManifestContent = ManifestContent(manifestWithValidModule)
-	result, err := LintFromRoot(manifestWithValidModule, true)
+	var manifestWithValidAPI ManifestContent = ManifestContent(manifestWithValidAPI)
+	result, err := LintFromRoot(manifestWithValidAPI, true)
 
 	assert.Nil(err)
 	assert.Equal(LintStatusOK, result.Status)
@@ -35,8 +35,8 @@ func TestRunsLinterFindingModuleSection(t *testing.T) {
 		switch info := node.Info.(type) {
 		case *Root:
 			continue // skip root
-		case Module:
-			assert.Equal("Module", info.BlockType)
+		case API:
+			assert.Equal("API", info.BlockType)
 			foundModuleIds = append(foundModuleIds, info.Id)
 		default:
 			t.Fatalf("unexpected node type: %T", info)
@@ -46,11 +46,11 @@ func TestRunsLinterFindingModuleSection(t *testing.T) {
 	assert.ElementsMatch(expectedModuleIds, foundModuleIds)
 }
 
-func TestRunsLinterLinkingModuleToTags(t *testing.T) {
+func TestRunsLinterLinkingAPIToTags(t *testing.T) {
 	assert := assert.New(t)
 
-	var manifestWithValidTaggedModules ManifestContent = ManifestContent(manifestWithValidTaggedModules)
-	result, err := LintFromRoot(manifestWithValidTaggedModules, true)
+	var manifestWithValidTaggedAPIs ManifestContent = ManifestContent(manifestWithValidTaggedAPIs)
+	result, err := LintFromRoot(manifestWithValidTaggedAPIs, true)
 
 	assert.Nil(err)
 	assert.Equal(LintStatusOK, result.Status)
@@ -93,11 +93,11 @@ func TestRunsLinterLinkingModuleToTags(t *testing.T) {
 	}
 }
 
-func TestRunsLinterSkippingLinkingModuleToUnexistentTags(t *testing.T) {
+func TestRunsLinterSkippingLinkingAPIToUnexistentTags(t *testing.T) {
 	assert := assert.New(t)
 
-	var manifestWithUnexistentTaggedModules ManifestContent = ManifestContent(manifestWithUnexistentTaggedModules)
-	result, err := LintFromRoot(manifestWithUnexistentTaggedModules, true)
+	var manifestWithUnexistentTaggedAPIs ManifestContent = ManifestContent(manifestWithUnexistentTaggedAPIs)
+	result, err := LintFromRoot(manifestWithUnexistentTaggedAPIs, true)
 
 	assert.Nil(err)
 	assert.Equal(LintStatusOK, result.Status)

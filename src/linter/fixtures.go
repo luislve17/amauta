@@ -162,7 +162,7 @@ var manifestWithEmptyTags string = `
 
 `
 
-var manifestWithValidModule string = `
+var manifestWithValidAPI string = `
 [[@groups]]
 api: API
 
@@ -179,7 +179,7 @@ group: api
 summary: This should never be loaded due syntax error
 `
 
-var manifestWithValidTaggedModules string = `
+var manifestWithValidTaggedAPIs string = `
 [[@groups]]
 api: API
 
@@ -198,7 +198,7 @@ group: api
 summary: Endpoints related to items owned by users
 `
 
-var manifestWithUnexistentTaggedModules string = `
+var manifestWithUnexistentTaggedAPIs string = `
 [[@tags]]
 public#00FF00: Public API
 internal#AAAAAA: Internal use only
@@ -307,4 +307,37 @@ List:
 \</md\>
 ` + "\n```" + `
 </md>
+`
+
+var manifestWithApiContent string = `
+[[@tags]]
+internal#AAAAAA: Internal use only
+
+[[@groups]]
+example: Just an example
+
+[[api-endpoint@api]]
+group: example
+summary: <md>
+# API endpoint example
+</md>
+
+[request@GET:/v1/products]
+summary: Create a product
+header.Authorization@str#internal: Bearer token. This is only the field's description
+query.limit@str: Constrain for total fetched products.
+query.offset@str: Pagination offset for fetched products.
+query.created_after@str: Time filter for product's creation date.
+
+[response@GET:/v1/products]
+summary: Success
+statusCode: 200
+header.X-Inventory-Alert@str#internal: Notifies if product needs restock.
+body.total@int: Total items
+body.data@list: Items data
+
+[response@GET:/v1/products]
+summary: Unauthorized
+statusCode: 401
+body.msg@str: Error message
 `

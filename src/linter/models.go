@@ -110,9 +110,9 @@ type Tag struct {
 	Description string
 }
 
-func (Module) isNodeInfo() {}
+func (API) isNodeInfo() {}
 
-type Module struct {
+type API struct {
 	Identifiable
 	BlockType string
 	Summary   template.HTML

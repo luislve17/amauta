@@ -316,7 +316,7 @@ internal#AAAAAA: Internal use only
 [[@groups]]
 example: Just an example
 
-[[api-endpoint@api]]
+[[Endpoint@api]]
 group: example
 summary: <md>
 # API endpoint example

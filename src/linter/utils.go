@@ -41,3 +41,13 @@ func extractSummary(raw string) (string, int) {
 
 	return strings.Join(mdLines, "\n"), len(lines)
 }
+
+func lineOverlapsLineRanges[T HasLineRange](ln int, blockWithLineRange []T) bool {
+	for _, it := range blockWithLineRange {
+		r := it.GetLineRange()
+		if ln >= r.From && ln < r.To { // TEST: Verify
+			return true
+		}
+	}
+	return false
+}

@@ -43,6 +43,10 @@ type LineRange struct {
 	To   int
 }
 
+type HasLineRange interface {
+	GetLineRange() LineRange
+}
+
 // From Structure Graph
 type Identifiable struct {
 	Id string
@@ -118,3 +122,10 @@ type API struct {
 	Summary   template.HTML
 	LinkFields
 }
+
+type InnerBlock struct {
+	Content   string
+	LineRange LineRange
+}
+
+func (ib InnerBlock) GetLineRange() LineRange { return ib.LineRange }

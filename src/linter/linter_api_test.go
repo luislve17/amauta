@@ -146,7 +146,7 @@ func TestRunsLinterCollectingApiSubsectionsInGraph(t *testing.T) {
 	groupNode := result.Structure.Root.Links[0]
 	assert.Equal("Group", groupNode.Info.(Group).BlockType)
 	assert.Equal("example", groupNode.Info.(Group).Id)
-	assert.Equal(1, len(groupNode.Links)) // Root
+	assert.Equal(2, len(groupNode.Links)) // Root + API
 
 	// Tags
 	tagsNode := result.Structure.Root.Links[1]

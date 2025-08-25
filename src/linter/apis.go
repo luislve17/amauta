@@ -42,9 +42,10 @@ func getAPIs(rawBlocks []RawBlock) ([]*Node, error) {
 func getAPIData(apiSection *RawBlock) (map[string]interface{}, error) {
 	apiData := make(map[string]interface{})
 	lines := strings.Split(apiSection.Content, "\n")
+	innerBlocks := ExtractInnerBlocks(*apiSection)
 	for ln, line := range lines {
 
-		if line == "" {
+		if line == "" || lineOverlapsLineRanges(ln, innerBlocks) {
 			continue
 		}
 
@@ -70,6 +71,79 @@ func getAPIData(apiSection *RawBlock) (map[string]interface{}, error) {
 		}
 	}
 	return apiData, nil
+}
+
+func ExtractInnerBlocks(rawBlock RawBlock) []InnerBlock {
+	lines := strings.Split(rawBlock.Content, "\n")
+	var blocks []InnerBlock
+	var current []string
+	var inBlock bool
+	var inComment bool
+	var inCodeBlock bool
+	var inMD bool
+
+	startLine := rawBlock.LineRange.From
+
+	for i, line := range lines {
+		trimmed := strings.TrimSpace(line)
+
+		if strings.HasPrefix(trimmed, "```") || strings.HasPrefix(trimmed, "~~~") {
+			inCodeBlock = !inCodeBlock
+		}
+
+		if !inMD && !inCodeBlock && strings.HasPrefix(trimmed, "summary:") && strings.Contains(trimmed, "<md>") {
+			inMD = true
+		}
+
+		if inMD && !inCodeBlock && strings.TrimSpace(trimmed) == "</md>" {
+			inMD = false
+		}
+
+		// Skip comments (only outside markdown)
+		if !inMD {
+			if strings.HasPrefix(trimmed, "-->") {
+				inComment = false
+				continue
+			}
+			if inComment || strings.HasPrefix(trimmed, "--") {
+				continue
+			}
+			if strings.HasPrefix(trimmed, "<--") {
+				inComment = true
+				continue
+			}
+		}
+
+		if strings.HasPrefix(trimmed, "[") && !strings.HasPrefix(trimmed, "[[") && !inMD && !inCodeBlock {
+			if inBlock && len(current) > 0 {
+				blocks = append(blocks, InnerBlock{
+					Content: strings.Join(current, "\n"),
+					LineRange: LineRange{
+						From: startLine,
+						To:   i,
+					},
+				})
+			}
+			current = []string{line}
+			startLine = i + 1
+			inBlock = true
+		} else if inBlock {
+			current = append(current, line)
+		}
+	}
+
+	// Append last block
+	if inBlock && len(current) > 0 {
+		blocks = append(blocks, InnerBlock{
+			Content: strings.Join(current, "\n"),
+			LineRange: LineRange{
+				From: startLine,
+				To:   len(lines),
+			},
+		})
+	}
+
+	return blocks
 }
 
 func createAPINodeInfo(headerMatch []string, apiData map[string]interface{}) API {

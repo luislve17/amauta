@@ -17,6 +17,8 @@ func getAPIs(rawBlocks []RawBlock) ([]*Node, error) {
 		return nil, nil
 	}
 
+	nodesRegistry := NewNodeRegistry()
+
 	var nodes []*Node
 
 	for i, apiSection := range apiSections {
@@ -25,26 +27,27 @@ func getAPIs(rawBlocks []RawBlock) ([]*Node, error) {
 		if len(headerMatch) == 0 {
 			return nil, fmt.Errorf("Error@line:%d\n->Invalid tag format: %q", apiSection.From+i+1, rawHeader)
 		}
-		apiData, apiDataErr := getAPIData(apiSection)
+		apiData, apiDataErr := getAPIData(apiSection, nodesRegistry)
 		if apiDataErr != nil {
 			return nil, apiDataErr
 		}
-		node := &Node{
-			Info:  createAPINodeInfo(headerMatch, apiData),
-			Links: []*Node{},
+		APINode := &Node{
+			Info: createAPINodeInfo(headerMatch, apiData),
 		}
-		nodes = append(nodes, node)
+		linkNodeOneToMany(APINode, apiData["innerNodes"].([]*Node))
+		nodes = append(nodes, APINode)
 	}
 
 	return nodes, nil
 }
 
-func getAPIData(apiSection *RawBlock) (map[string]interface{}, error) {
+func getAPIData(apiSection *RawBlock, nodesRegistry *NodeRegistry) (map[string]interface{}, error) {
 	apiData := make(map[string]interface{})
 	lines := strings.Split(apiSection.Content, "\n")
 	innerBlocks := ExtractInnerBlocks(*apiSection)
-	for ln, line := range lines {
+	apiData["innerNodes"] = loadNodesFromInnerBlocks(innerBlocks, nodesRegistry)
 
+	for ln, line := range lines {
 		if line == "" || lineOverlapsLineRanges(ln, innerBlocks) {
 			continue
 		}
@@ -67,6 +70,7 @@ func getAPIData(apiSection *RawBlock) (map[string]interface{}, error) {
 			value := fieldInfo[2]
 			apiData[key] = value
 		default:
+			// TODO: Warning msg?
 			continue
 		}
 	}
@@ -158,4 +162,100 @@ func createAPINodeInfo(headerMatch []string, apiData map[string]interface{}) API
 			_groupIds: []string{apiData["group"].(string)},
 		},
 	}
+}
+
+func loadInnerBlockDataNode(innerBlock InnerBlock, nodesRegistry *NodeRegistry) *Node {
+	blockContent := strings.Split(innerBlock.Content, "\n")
+	blockHeader := blockContent[0]
+	apiRequestHeaderPattern := regexp.MustCompile(apiInnerSectionHeaderRegex)
+	if apiRequestHeaderPattern.MatchString(blockHeader) {
+		matches := apiRequestHeaderPattern.FindStringSubmatch(blockHeader)
+		path := matches[3]
+		httpVerb := matches[2]
+		payloadType := matches[1]
+
+		endpointNode := nodesRegistry.GetOrCreate(path, "Endpoint", func() *Node {
+			return &Node{
+				Info: Endpoint{
+					Identifiable: Identifiable{Id: path},
+					BlockType:    "Endpoint",
+				},
+			}
+		})
+
+		httpNode := nodesRegistry.GetOrCreate(httpVerb, "Http", func() *Node {
+			return &Node{
+				Info: HTTPVerb{
+					Identifiable: Identifiable{Id: httpVerb},
+					BlockType:    "Http",
+				},
+			}
+		})
+
+		payloadNode := &Node{
+			Info: loadPayloadInfo(blockContent[1:], payloadType),
+		}
+
+		linkNodeOneToOne(endpointNode, httpNode)
+		linkNodeOneToOne(httpNode, payloadNode)
+		return endpointNode
+	}
+	return nil
+}
+
+func loadNodesFromInnerBlocks(innerBlocks []InnerBlock, nodesRegistry *NodeRegistry) []*Node {
+	var result []*Node
+	seen := make(map[*Node]bool)
+
+	for _, block := range innerBlocks {
+		innerBlockNode := loadInnerBlockDataNode(block, nodesRegistry)
+		if innerBlockNode != nil && !seen[innerBlockNode] {
+			result = append(result, innerBlockNode)
+			seen[innerBlockNode] = true
+		}
+	}
+
+	return result
+}
+
+func loadPayloadInfo(blockContent []string, payloadType string) NodeInfo {
+	data := map[string]string{}
+	for ln, line := range blockContent {
+		if line == "" {
+			continue
+		}
+
+		rawFieldRegex := `^([-_\w]+):\s*(.*)`
+		fieldRegex := regexp.MustCompile(rawFieldRegex)
+		fieldInfo := fieldRegex.FindStringSubmatch(line)
+
+		if fieldInfo == nil {
+			continue
+		}
+		key := fieldInfo[1]
+		switch key {
+		case "summary":
+			value, nLines := extractSummary(strings.Join(blockContent[ln:], "\n"))
+			ln += nLines
+			data[key] = value
+		default:
+			data[key] = fieldInfo[2]
+		}
+	}
+	if payloadType == "request" {
+		payloadInfo := RequestPayload{
+			Summary:   getHTMLContent(data["summary"]),
+			BlockType: "RequestPayload",
+		}
+		return payloadInfo
+	}
+
+	if payloadType == "response" {
+		payloadInfo := RequestPayload{
+			Summary:   getHTMLContent(data["summary"]),
+			BlockType: "ResponsePayload",
+		}
+		return payloadInfo
+	}
+	return nil
 }

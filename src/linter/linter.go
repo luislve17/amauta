@@ -78,11 +78,6 @@ func generateGraph(manifestContent ManifestContent) (*StructureGraph, error) {
 	return &graph, nil
 }
 
-func linkNodeOneToOne(nodeA *Node, nodeB *Node) {
-	nodeA.Links = append(nodeA.Links, nodeB)
-	nodeB.Links = append(nodeB.Links, nodeA)
-}
-
 func linkNodeOneToMany(mainNode *Node, nodes []*Node) {
 	for _, n := range nodes {
 		n.Links = append(n.Links, mainNode)

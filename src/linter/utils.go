@@ -51,3 +51,23 @@ func lineOverlapsLineRanges[T HasLineRange](ln int, blockWithLineRange []T) bool
 	}
 	return false
 }
+
+func (r *NodeRegistry) GetOrCreate(id string, blockType string, newNode func() *Node) *Node {
+	key := blockType + ":" + id
+	if node, ok := r.nodes[key]; ok {
+		return node
+	}
+	node := newNode()
+	r.nodes[key] = node
+	return node
+}
+
+func linkNodeOneToOne(nodeA *Node, nodeB *Node) {
+	for _, l := range nodeA.Links {
+		if l == nodeB {
+			return
+		}
+	}
+	nodeA.Links = append(nodeA.Links, nodeB)
+	nodeB.Links = append(nodeB.Links, nodeA)
+}

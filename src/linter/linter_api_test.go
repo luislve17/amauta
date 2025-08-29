@@ -148,9 +148,20 @@ func TestRunsLinterCollectingApiSubsectionsInGraph(t *testing.T) {
 	assert.Equal("example", groupNode.Info.(Group).Id)
 	assert.Equal(2, len(groupNode.Links)) // Root + API
 
-	// Tags
-	tagsNode := result.Structure.Root.Links[1]
-	assert.Equal("Tag", tagsNode.Info.(Tag).BlockType)
-	assert.Equal("internal", tagsNode.Info.(Tag).Id)
-	assert.Equal(1, len(tagsNode.Links))
+	// API
+	APINode := groupNode.Links[1]
+	assert.Equal("API", APINode.Info.(API).BlockType)
+	assert.Equal("Endpoint", APINode.Info.(API).Id)
+	assert.Equal(2, len(APINode.Links)) // Group + Endpoint
+
+	// Endpoint
+	EndpointNode := APINode.Links[0]
+	assert.Equal("/v1/products", EndpointNode.Info.(Endpoint).Id)
+	assert.Equal("Endpoint", EndpointNode.Info.(Endpoint).BlockType)
+	assert.Equal(2, len(EndpointNode.Links)) // Htpp + API
+
+	// HTTP Verb
+	HttpVerbNode := EndpointNode.Links[0]
+	assert.Equal("GET", HttpVerbNode.Info.(HTTPVerb).Id)
+	assert.Equal("Http", HttpVerbNode.Info.(HTTPVerb).BlockType)
 }

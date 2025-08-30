@@ -152,16 +152,27 @@ func TestRunsLinterCollectingApiSubsectionsInGraph(t *testing.T) {
 	APINode := groupNode.Links[1]
 	assert.Equal("API", APINode.Info.(API).BlockType)
 	assert.Equal("Endpoint", APINode.Info.(API).Id)
-	assert.Equal(2, len(APINode.Links)) // Group + Endpoint
+	assert.Equal(3, len(APINode.Links)) // Group + Endpoint (2)
 
-	// Endpoint
-	EndpointNode := APINode.Links[0]
-	assert.Equal("/v1/products", EndpointNode.Info.(Endpoint).Id)
-	assert.Equal("Endpoint", EndpointNode.Info.(Endpoint).BlockType)
-	assert.Equal(2, len(EndpointNode.Links)) // Htpp + API
+	// Endpoint 1
+	EndpointNode1 := APINode.Links[0]
+	assert.Equal("/v1/products", EndpointNode1.Info.(Endpoint).Id)
+	assert.Equal("Endpoint", EndpointNode1.Info.(Endpoint).BlockType)
+	assert.Equal(2, len(EndpointNode1.Links)) // Htpp + API
 
-	// HTTP Verb
-	HttpVerbNode := EndpointNode.Links[0]
-	assert.Equal("GET", HttpVerbNode.Info.(HTTPVerb).Id)
-	assert.Equal("Http", HttpVerbNode.Info.(HTTPVerb).BlockType)
+	// HTTP2
+	HttpVerbNode1 := EndpointNode1.Links[0]
+	assert.Equal("POST", HttpVerbNode1.Info.(HTTPVerb).Id)
+	assert.Equal("Http", HttpVerbNode1.Info.(HTTPVerb).BlockType)
+
+	// Endpoint 2
+	EndpointNode2 := APINode.Links[1]
+	assert.Equal("/v1/items", EndpointNode2.Info.(Endpoint).Id)
+	assert.Equal("Endpoint", EndpointNode2.Info.(Endpoint).BlockType)
+	assert.Equal(2, len(EndpointNode2.Links)) // Htpp + API
+
+	// HTTP2
+	HttpVerbNode2 := EndpointNode2.Links[0]
+	assert.Equal("GET", HttpVerbNode2.Info.(HTTPVerb).Id)
+	assert.Equal("Http", HttpVerbNode2.Info.(HTTPVerb).BlockType)
 }

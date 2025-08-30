@@ -60,7 +60,7 @@ func generateGraph(manifestContent ManifestContent) (*StructureGraph, error) {
 	}
 	linkNodeOneToMany(root, tags)
 
-	modules, modulesErr := getModules(rawBlocks)
+	modules, modulesErr := getAPIs(rawBlocks)
 	if modulesErr != nil {
 		return nil, modulesErr
 	}
@@ -76,11 +76,6 @@ func generateGraph(manifestContent ManifestContent) (*StructureGraph, error) {
 	}
 
 	return &graph, nil
-}
-
-func linkNodeOneToOne(nodeA *Node, nodeB *Node) {
-	nodeA.Links = append(nodeA.Links, nodeB)
-	nodeB.Links = append(nodeB.Links, nodeA)
 }
 
 func linkNodeOneToMany(mainNode *Node, nodes []*Node) {

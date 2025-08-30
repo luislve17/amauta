@@ -7,6 +7,7 @@ dev: Development
 getting-started: Getting started
 key-section: Key sections
 custom-section: Custom sections
+example: Use cases
 
 [[Changelog@content]]
 ref$changelog
@@ -34,3 +35,6 @@ ref$content
 
 [[Ref@content]]
 ref$Ref
+
+[[API@api]]
+ref$api-endpoint

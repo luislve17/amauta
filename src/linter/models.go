@@ -43,6 +43,10 @@ type LineRange struct {
 	To   int
 }
 
+type HasLineRange interface {
+	GetLineRange() LineRange
+}
+
 // From Structure Graph
 type Identifiable struct {
 	Id string
@@ -110,11 +114,59 @@ type Tag struct {
 	Description string
 }
 
-func (Module) isNodeInfo() {}
+func (API) isNodeInfo() {}
 
-type Module struct {
+type API struct {
 	Identifiable
 	BlockType string
 	Summary   template.HTML
 	LinkFields
+}
+
+type InnerBlock struct {
+	Content   string
+	LineRange LineRange
+}
+
+func (ib InnerBlock) GetLineRange() LineRange { return ib.LineRange }
+
+type Endpoint struct {
+	Identifiable
+	BlockType string
+	LinkFields
+}
+
+func (Endpoint) isNodeInfo() {}
+
+type HTTPVerb struct {
+	Identifiable
+	BlockType string
+	LinkFields
+}
+
+func (HTTPVerb) isNodeInfo() {}
+
+type RequestPayload struct {
+	BlockType string
+	Summary   template.HTML
+	LinkFields
+}
+
+func (RequestPayload) isNodeInfo() {}
+
+type ResponsePayload struct {
+	Identifiable
+	BlockType string
+	Summary   template.HTML
+	LinkFields
+}
+
+func (ResponsePayload) isNodeInfo() {}
+
+type NodeRegistry struct {
+	nodes map[string]*Node
+}
+
+func NewNodeRegistry() *NodeRegistry {
+	return &NodeRegistry{nodes: make(map[string]*Node)}
 }

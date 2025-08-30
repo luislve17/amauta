@@ -11,7 +11,7 @@
     </div>
     {{ range .Links}}
 
-    {{ if or (eq .Info.BlockType "Module") (eq .Info.BlockType "Content") }}
+    {{ if or (eq .Info.BlockType "API") (eq .Info.BlockType "Content") }}
     <div class="row menu-item" onclick="showSection('section-{{ .Info.Id }}')">
       <span class="menu-item-content">
         {{ .Info.Id }}

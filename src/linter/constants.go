@@ -9,6 +9,7 @@ var groupRegex string = `^([-_\w]+)#?([\w|,|-]*):\s*(.*)`
 var tagSectionRegex string = `^\[\[@tags\]\]`
 var tagRegex string = `^([-_\w]+)(#[A-F|\d]{6}):\s*(.*)`
 
-var moduleSectionHeaderRegex string = `^\[\[([A-Z]+[\w| |-|_]*)@api#?([\w|,|-]*)\]\]`
+var apiSectionHeaderRegex string = `^\[\[([A-Z]+[\w| |-|_]*)@api#?([\w|,|-]*)\]\]`
+var apiInnerSectionHeaderRegex string = `^\[(request|response)\@(\w+):(.*)\]`
 
 var contentSectionHeaderRegex string = `^\[\[([A-Z]+[\w| |-|_]*)@content#?([\w|,|-]*)\]\]`
